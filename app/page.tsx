@@ -82,9 +82,9 @@ export default function Home() {
           </motion.div>
 
           {/* Main grid layout */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 xl:grid-cols-3 gap-5 md:gap-6">
             {/* Left column — projects (2/3 width) */}
-            <div className="lg:col-span-2 space-y-6">
+            <div className="xl:col-span-2 space-y-5 md:space-y-6">
               <motion.div
                 ref={projectsRef}
                 initial={{ opacity: 0, y: 20 }}
@@ -107,7 +107,7 @@ export default function Home() {
             </div>
 
             {/* Right column — sidebar (1/3 width) */}
-            <div className="space-y-6">
+            <div className="space-y-5 md:space-y-6">
               {/* Founder / identity */}
               <motion.div
                 ref={founderRef}
