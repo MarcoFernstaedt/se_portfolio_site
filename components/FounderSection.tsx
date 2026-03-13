@@ -3,10 +3,10 @@
 import { motion } from 'framer-motion';
 
 const roles = [
-  { label: 'Developer', icon: '⌨', color: '#00d4ff' },
+  { label: 'Full-Stack Developer', icon: '⌨', color: '#00d4ff' },
   { label: 'Systems Builder', icon: '◈', color: '#0080ff' },
-  { label: 'Operator', icon: '⚡', color: '#00ff88' },
-  { label: 'Founder', icon: '◆', color: '#ffaa00' },
+  { label: 'Accessibility Engineer', icon: '♿', color: '#00ff88' },
+  { label: 'AI Integrator', icon: '◆', color: '#ffaa00' },
 ];
 
 const stats = [
@@ -30,7 +30,7 @@ export default function FounderSection() {
         className="text-xs font-bold tracking-widest uppercase mb-5"
         style={{ color: '#00d4ff' }}
       >
-        ◈ Operator Profile
+        ◈ Engineer Profile
       </h2>
 
       {/* Identity block */}
@@ -42,7 +42,7 @@ export default function FounderSection() {
           Marco Fernstaedt
         </div>
         <div className="text-sm" style={{ color: '#94a3b8' }}>
-          Founder, Dominion Edge Holdings
+          Full-Stack Software Engineer
         </div>
       </div>
 
@@ -77,9 +77,9 @@ export default function FounderSection() {
         className="text-sm leading-relaxed mb-6"
         style={{ color: '#94a3b8', borderLeft: '2px solid #1e3a5f', paddingLeft: '12px' }}
       >
-        Building software systems and acquiring real-world assets. Engineering
-        solutions that create genuine leverage — for users, for operators, and for the
-        long game.
+        Building accessible, performant software from the ground up. Focused on
+        clean architecture, real-world impact, and engineering systems that work
+        for everyone — including users who rely on assistive technology.
       </p>
 
       {/* Stats */}

@@ -58,7 +58,7 @@ export const projects: Project[] = [
     status: 'In Development',
     stack: ['Next.js', 'Python', 'PostgreSQL', 'Pandas', 'Chart.js'],
     description:
-      'Data aggregation and analysis platform for real estate market intelligence, supporting acquisition decisions for Dominion Edge Holdings.',
+      'Data aggregation and analysis platform for real estate market intelligence, supporting data-driven decision making with interactive visualizations.',
     function: 'Aggregates and analyzes real estate market data for acquisition targeting',
     challenges: [
       'Multi-source data normalization',

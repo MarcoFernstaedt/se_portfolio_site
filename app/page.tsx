@@ -64,7 +64,7 @@ export default function Home() {
                 COMMAND CENTER
               </h1>
               <p className="text-xs tracking-widest" style={{ color: '#4a5568' }}>
-                MARCO FERNSTAEDT ── DEVELOPER · BUILDER · FOUNDER
+                MARCO FERNSTAEDT ── FULL-STACK ENGINEER · ACCESSIBILITY SPECIALIST
               </p>
             </div>
             <div
@@ -150,7 +150,7 @@ export default function Home() {
             style={{ borderTop: '1px solid var(--border-color)', color: '#4a5568' }}
             role="contentinfo"
           >
-            <span>© 2026 Marco Fernstaedt · Dominion Edge Holdings</span>
+            <span>© 2026 Marco Fernstaedt · Software Engineer</span>
             <span>Built with Next.js · TypeScript · Tailwind · Framer Motion</span>
           </motion.footer>
         </main>
