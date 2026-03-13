@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useMemo } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import {
   ReactFlow,
   Node,
@@ -45,18 +45,18 @@ const categoryColor: Record<Project['category'], string> = {
   infrastructure: '#0080ff',
 };
 
-function ProjectNode({ data }: { data: { label: string; status: string; category: Project['category']; onClick: () => void } }) {
+function ProjectNode({ data }: { data: { label: string; status: string; category: Project['category']; onClick: () => void; narrow: boolean } }) {
   const color = categoryColor[data.category];
   return (
     <button
       onClick={data.onClick}
-      className="px-3 py-2.5 rounded-lg text-left font-mono text-xs transition-all hover:scale-105 focus:scale-105 w-full"
+      className="px-2.5 py-2 rounded-lg text-left font-mono text-xs transition-all hover:scale-105 focus:scale-105 w-full"
       style={{
         backgroundColor: `${color}12`,
         border: `1px solid ${color}55`,
         color: '#e2e8f0',
         boxShadow: `0 0 12px ${color}15`,
-        minWidth: '160px',
+        minWidth: data.narrow ? '120px' : '160px',
         cursor: 'pointer',
       }}
       aria-label={`Open project: ${data.label}`}
@@ -74,29 +74,60 @@ function ProjectNode({ data }: { data: { label: string; status: string; category
 
 const nodeTypes = { root: RootNode, project: ProjectNode };
 
+// Layout constants
+const NODE_W = 160;
+const NODE_W_NARROW = 130;
+const COL_GAP = 200;
+const COL_GAP_NARROW = 160;
+const ROW_H = 130;
+
 export default function SystemsMap({ onProjectClick }: SystemsMapProps) {
+  const [windowWidth, setWindowWidth] = useState<number>(
+    typeof window !== 'undefined' ? window.innerWidth : 1200
+  );
+
+  useEffect(() => {
+    const handler = () => setWindowWidth(window.innerWidth);
+    window.addEventListener('resize', handler);
+    return () => window.removeEventListener('resize', handler);
+  }, []);
+
+  // On small screens use 2 columns, otherwise single row
+  const narrow = windowWidth < 640;
+  const cols = narrow ? 2 : projects.length;
+  const colGap = narrow ? COL_GAP_NARROW : COL_GAP;
+  const nodeW = narrow ? NODE_W_NARROW : NODE_W;
+  const totalRows = Math.ceil(projects.length / cols);
+  const totalGridW = Math.min(cols, projects.length) * colGap;
+
   const initialNodes: Node[] = useMemo(() => {
     const root: Node = {
       id: 'root',
       type: 'root',
-      position: { x: 250, y: 0 },
+      position: { x: totalGridW / 2 - nodeW / 2, y: 0 },
       data: { label: 'MARCO FERNSTAEDT' },
     };
 
-    const projectNodes: Node[] = projects.map((p, i) => ({
-      id: p.id,
-      type: 'project',
-      position: { x: i * 200, y: 130 },
-      data: {
-        label: p.name.split(' ').slice(0, 3).join(' '),
-        status: p.status,
-        category: p.category,
-        onClick: () => onProjectClick(p),
-      },
-    }));
+    const projectNodes: Node[] = projects.map((p, i) => {
+      const col = i % cols;
+      const row = Math.floor(i / cols);
+      return {
+        id: p.id,
+        type: 'project',
+        position: { x: col * colGap, y: ROW_H + row * (ROW_H - 10) },
+        data: {
+          label: p.name.split(' ').slice(0, 3).join(' '),
+          status: p.status,
+          category: p.category,
+          onClick: () => onProjectClick(p),
+          narrow,
+        },
+      };
+    });
 
     return [root, ...projectNodes];
-  }, [onProjectClick]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [onProjectClick, cols, colGap, nodeW, totalGridW, narrow]);
 
   const initialEdges: Edge[] = useMemo(
     () =>
@@ -110,8 +141,17 @@ export default function SystemsMap({ onProjectClick }: SystemsMapProps) {
     []
   );
 
-  const [nodes, , onNodesChange] = useNodesState(initialNodes);
+  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, , onEdgesChange] = useEdgesState(initialEdges);
+
+  // Re-sync nodes when layout changes (window resize crosses breakpoint)
+  useEffect(() => {
+    setNodes(initialNodes);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [narrow]);
+
+  // Height: base 48px header + 130px per row + padding
+  const sectionHeight = 48 + totalRows * 130 + 60;
 
   return (
     <section
@@ -120,11 +160,13 @@ export default function SystemsMap({ onProjectClick }: SystemsMapProps) {
       style={{
         backgroundColor: 'var(--bg-panel)',
         border: '1px solid var(--border-color)',
-        height: 'clamp(240px, 40vw, 340px)',
+        height: `${sectionHeight}px`,
+        minHeight: '240px',
+        maxHeight: '420px',
       }}
     >
       <div
-        className="flex items-center justify-between px-5 py-3"
+        className="flex items-center justify-between px-4 sm:px-5 py-3"
         style={{ borderBottom: '1px solid var(--border-color)' }}
       >
         <h2
@@ -135,7 +177,9 @@ export default function SystemsMap({ onProjectClick }: SystemsMapProps) {
           ◈ Systems Map
         </h2>
         <span className="text-xs" style={{ color: '#4a5568' }}>
-          Click nodes to inspect
+          <span className="hidden sm:inline">Click</span>
+          <span className="sm:hidden">Tap</span>
+          {' '}nodes to inspect
         </span>
       </div>
 
