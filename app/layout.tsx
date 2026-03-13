@@ -5,7 +5,7 @@ import { AccessibilityProvider } from '@/lib/accessibility-context';
 export const metadata: Metadata = {
   title: 'Marco Fernstaedt — Command Center',
   description:
-    'Full-stack developer, accessibility engineer, and founder of Dominion Edge Holdings. Building software systems and acquiring real-world assets.',
+    'Full-stack software engineer specializing in accessible, performant web applications. React, Next.js, TypeScript, Node.js, and AI integration.',
   keywords: [
     'full-stack developer',
     'accessibility engineer',
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Marco Fernstaedt — Command Center',
     description:
-      'Full-stack developer, accessibility engineer, and founder of Dominion Edge Holdings.',
+      'Full-stack software engineer specializing in accessible, performant web applications.',
     type: 'website',
   },
 };
