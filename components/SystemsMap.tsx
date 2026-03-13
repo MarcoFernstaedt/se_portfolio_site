@@ -120,7 +120,7 @@ export default function SystemsMap({ onProjectClick }: SystemsMapProps) {
       style={{
         backgroundColor: 'var(--bg-panel)',
         border: '1px solid var(--border-color)',
-        height: '340px',
+        height: 'clamp(240px, 40vw, 340px)',
       }}
     >
       <div

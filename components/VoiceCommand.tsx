@@ -171,7 +171,7 @@ export default function VoiceCommand({ onProjectOpen, onScrollTo }: VoiceCommand
   ];
 
   return (
-    <div className="fixed bottom-6 right-6 z-40" aria-label="Voice command interface">
+    <div className="fixed bottom-4 right-3 sm:bottom-6 sm:right-6 z-40 max-w-[calc(100vw-1.5rem)]" aria-label="Voice command interface">
       {/* Example commands panel */}
       <AnimatePresence>
         {showPanel && (
@@ -247,7 +247,7 @@ export default function VoiceCommand({ onProjectOpen, onScrollTo }: VoiceCommand
           onClick={listening ? stopListening : startListening}
           aria-pressed={listening}
           aria-label={listening ? 'Stop listening for voice commands' : 'Start voice command — Speak a command'}
-          className="flex items-center gap-2 px-4 py-2.5 rounded-lg font-mono text-xs font-bold transition-all"
+          className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 rounded-lg font-mono text-xs font-bold transition-all"
           style={{
             backgroundColor: listening ? 'rgba(0,255,136,0.15)' : 'rgba(0,212,255,0.1)',
             border: `1px solid ${listening ? '#00ff88' : '#00d4ff'}`,
@@ -259,7 +259,8 @@ export default function VoiceCommand({ onProjectOpen, onScrollTo }: VoiceCommand
           transition={listening ? { duration: 1.5, repeat: Infinity } : {}}
         >
           <span aria-hidden="true">{listening ? '◉' : '◎'}</span>
-          {listening ? 'Listening...' : 'Speak a command'}
+          <span className="hidden sm:inline">{listening ? 'Listening...' : 'Speak a command'}</span>
+          <span className="sm:hidden">{listening ? 'Listening' : 'Voice'}</span>
         </motion.button>
       </div>
     </div>

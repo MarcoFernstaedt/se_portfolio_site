@@ -44,7 +44,7 @@ export default function ProjectsPanel({ onProjectClick }: ProjectsPanelProps) {
 
       {/* Filter tabs */}
       <div
-        className="flex flex-wrap gap-2 mb-4"
+        className="flex gap-2 mb-4 overflow-x-auto pb-1 scrollbar-none"
         role="tablist"
         aria-label="Filter projects by category"
       >
@@ -54,7 +54,7 @@ export default function ProjectsPanel({ onProjectClick }: ProjectsPanelProps) {
             role="tab"
             aria-selected={activeCategory === cat.id}
             onClick={() => setActiveCategory(cat.id)}
-            className="text-xs px-3 py-1 rounded transition-all"
+            className="text-xs px-3 py-1 rounded transition-all shrink-0"
             style={{
               border: `1px solid ${activeCategory === cat.id ? '#00d4ff' : '#1e3a5f'}`,
               color: activeCategory === cat.id ? '#00d4ff' : '#4a5568',

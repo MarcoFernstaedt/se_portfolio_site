@@ -59,7 +59,7 @@ export default function BootScreen({ onComplete }: BootScreenProps) {
             aria-hidden="true"
           />
 
-          <div className="w-full max-w-2xl px-8">
+          <div className="w-full max-w-2xl px-4 sm:px-8">
             {/* Header */}
             <motion.div
               initial={{ opacity: 0, y: -20 }}
@@ -96,7 +96,7 @@ export default function BootScreen({ onComplete }: BootScreenProps) {
                 border: '1px solid #1e3a5f',
                 borderRadius: '4px',
                 padding: '20px',
-                minHeight: '220px',
+                minHeight: 'clamp(140px, 30vw, 220px)',
               }}
               aria-live="polite"
             >

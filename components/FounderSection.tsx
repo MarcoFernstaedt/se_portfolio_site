@@ -59,7 +59,7 @@ export default function FounderSection() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: i * 0.1 }}
             role="listitem"
-            className="flex items-center gap-2 text-sm px-3 py-2 rounded"
+            className="flex items-center gap-2 text-xs sm:text-sm px-2 sm:px-3 py-2 rounded"
             style={{
               backgroundColor: `${role.color}0d`,
               border: `1px solid ${role.color}30`,

@@ -53,13 +53,13 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
             role="dialog"
             aria-modal="true"
             aria-labelledby="modal-title"
-            className="fixed inset-0 z-50 flex items-center justify-center p-4"
+            className="fixed inset-0 z-50 flex items-end sm:items-center justify-center sm:p-4"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
             <motion.div
-              className="w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-lg"
+              className="w-full sm:max-w-2xl max-h-[92vh] sm:max-h-[90vh] overflow-y-auto rounded-t-lg sm:rounded-lg"
               style={{
                 backgroundColor: '#0a0e17',
                 border: '1px solid #1e3a5f',
@@ -105,7 +105,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
               </div>
 
               {/* Terminal content */}
-              <div className="p-6 font-mono text-sm space-y-5">
+              <div className="p-4 sm:p-6 font-mono text-sm space-y-4 sm:space-y-5">
                 {/* Command line */}
                 <div>
                   <span style={{ color: '#4a5568' }}>$ </span>
