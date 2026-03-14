@@ -53,6 +53,30 @@ body.accessibility-mode .decorative {
   display: none !important;
 }
 
+/* Shared component utilities */
+
+/**
+ * .section-heading — standard panel section title.
+ * Applies consistently across all panel components (ProjectsPanel, SkillsPanel,
+ * FounderSection, SystemsMap, AccessibilityPanel, VoiceCommand).
+ */
+.section-heading {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent-cyan);
+}
+
+/* Hide scrollbar utility */
+.scrollbar-none {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
 /* Scrollbar styling */
 ::-webkit-scrollbar {
   width: 6px;

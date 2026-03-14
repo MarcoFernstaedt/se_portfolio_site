@@ -4,18 +4,28 @@ import { useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Project } from '@/types';
 import StatusBadge from './StatusBadge';
+import TrafficLightDots from './TrafficLightDots';
 
 interface ProjectModalProps {
+  /** Project to display. Pass `null` to close the modal. */
   project: Project | null;
+  /** Called when the user dismisses the modal (ESC, backdrop click, or close button). */
   onClose: () => void;
 }
 
+/**
+ * Slide-up modal (bottom-sheet on mobile, centred on desktop) showing full
+ * project details: description, tech stack, engineering challenges, and links.
+ *
+ * Traps body scroll while open, restores it on close. Closes on ESC key press.
+ */
 export default function ProjectModal({ project, onClose }: ProjectModalProps) {
-  const closeRef = useRef<HTMLButtonElement>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (project) {
-      closeRef.current?.focus();
+      // Move focus into the dialog for keyboard and screen-reader users
+      dialogRef.current?.focus();
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = '';
@@ -50,19 +60,21 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
 
           {/* Modal */}
           <motion.div
+            ref={dialogRef}
             role="dialog"
             aria-modal="true"
             aria-labelledby="modal-title"
-            className="fixed inset-0 z-50 flex items-center justify-center p-4"
+            tabIndex={-1}
+            className="fixed inset-0 z-50 flex items-end sm:items-center justify-center sm:p-4 outline-none"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
             <motion.div
-              className="w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-lg"
+              className="w-full sm:max-w-2xl max-h-[92vh] sm:max-h-[90vh] overflow-y-auto rounded-t-lg sm:rounded-lg"
               style={{
-                backgroundColor: '#0a0e17',
-                border: '1px solid #1e3a5f',
+                backgroundColor: 'var(--bg-primary)',
+                border: '1px solid var(--border-color)',
                 boxShadow: '0 0 60px rgba(0,212,255,0.1)',
               }}
               initial={{ scale: 0.95, y: 20 }}
@@ -79,25 +91,15 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                 }}
               >
                 <div className="flex items-center gap-2">
-                  <div className="flex gap-1.5" aria-hidden="true">
-                    <button
-                      onClick={onClose}
-                      className="w-3 h-3 rounded-full transition-opacity hover:opacity-80"
-                      style={{ backgroundColor: '#ff5f57' }}
-                      aria-label="Close project details"
-                      ref={closeRef}
-                    />
-                    <span className="w-3 h-3 rounded-full" style={{ backgroundColor: '#febc2e' }} />
-                    <span className="w-3 h-3 rounded-full" style={{ backgroundColor: '#28c840' }} />
-                  </div>
-                  <span className="text-xs font-mono ml-2" style={{ color: '#4a5568' }}>
+                  <TrafficLightDots onClose={onClose} />
+                  <span className="text-xs font-mono ml-2" style={{ color: 'var(--text-dim)' }}>
                     system_inspector.sh
                   </span>
                 </div>
                 <button
                   onClick={onClose}
                   className="text-xs px-2 py-1 rounded transition-colors"
-                  style={{ color: '#94a3b8', border: '1px solid #1e3a5f' }}
+                  style={{ color: 'var(--text-secondary)', border: '1px solid var(--border-color)' }}
                   aria-label="Close"
                 >
                   ESC
@@ -105,14 +107,14 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
               </div>
 
               {/* Terminal content */}
-              <div className="p-6 font-mono text-sm space-y-5">
+              <div className="p-4 sm:p-6 font-mono text-sm space-y-4 sm:space-y-5">
                 {/* Command line */}
                 <div>
-                  <span style={{ color: '#4a5568' }}>$ </span>
-                  <span style={{ color: '#00d4ff' }}>OPEN PROJECT: </span>
+                  <span style={{ color: 'var(--text-dim)' }}>$</span>
+                  <span style={{ color: 'var(--accent-cyan)' }}>OPEN PROJECT:</span>
                   <span
                     id="modal-title"
-                    style={{ color: '#00ff88' }}
+                    style={{ color: 'var(--accent-green)' }}
                     className="font-bold uppercase tracking-wide"
                   >
                     {project.id.replace(/-/g, '_').toUpperCase()}
@@ -121,7 +123,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
 
                 {/* Name + Status */}
                 <div className="flex flex-wrap items-center gap-3">
-                  <h2 className="text-base font-bold" style={{ color: '#e2e8f0' }}>
+                  <h2 className="text-base font-bold" style={{ color: 'var(--text-primary)' }}>
                     {project.name}
                   </h2>
                   <StatusBadge status={project.status} />
@@ -132,11 +134,11 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                   <div
                     id="purpose-heading"
                     className="text-xs uppercase tracking-widest mb-2"
-                    style={{ color: '#00d4ff' }}
+                    style={{ color: 'var(--accent-cyan)' }}
                   >
                     Purpose:
                   </div>
-                  <p style={{ color: '#94a3b8' }} className="leading-relaxed">
+                  <p style={{ color: 'var(--text-secondary)' }} className="leading-relaxed">
                     {project.description}
                   </p>
                 </section>
@@ -146,15 +148,15 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                   <div
                     id="stack-heading"
                     className="text-xs uppercase tracking-widest mb-2"
-                    style={{ color: '#00d4ff' }}
+                    style={{ color: 'var(--accent-cyan)' }}
                   >
                     Stack:
                   </div>
                   <ul className="space-y-1" aria-label="Technologies used">
                     {project.stack.map((tech) => (
                       <li key={tech} className="flex items-center gap-2">
-                        <span style={{ color: '#4a5568' }}>├─</span>
-                        <span style={{ color: '#e2e8f0' }}>{tech}</span>
+                        <span style={{ color: 'var(--text-dim)' }}>├─</span>
+                        <span style={{ color: 'var(--text-primary)' }}>{tech}</span>
                       </li>
                     ))}
                   </ul>
@@ -165,17 +167,17 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                   <div
                     id="challenges-heading"
                     className="text-xs uppercase tracking-widest mb-2"
-                    style={{ color: '#00d4ff' }}
+                    style={{ color: 'var(--accent-cyan)' }}
                   >
                     Key Engineering Challenges:
                   </div>
                   <ul className="space-y-1.5" aria-label="Engineering challenges">
                     {project.challenges.map((c, i) => (
                       <li key={i} className="flex items-start gap-2">
-                        <span style={{ color: '#ffaa00' }} aria-hidden="true">
+                        <span style={{ color: 'var(--accent-amber)' }} aria-hidden="true">
                           •
                         </span>
-                        <span style={{ color: '#94a3b8' }}>{c}</span>
+                        <span style={{ color: 'var(--text-secondary)' }}>{c}</span>
                       </li>
                     ))}
                   </ul>
@@ -183,11 +185,11 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
 
                 {/* Links */}
                 {(project.github || project.demo) && (
-                  <section aria-labelledby="links-heading" className="pt-2 border-t" style={{ borderColor: '#1e3a5f' }}>
+                  <section aria-labelledby="links-heading" className="pt-2 border-t" style={{ borderColor: 'var(--border-color)' }}>
                     <div
                       id="links-heading"
                       className="text-xs uppercase tracking-widest mb-3"
-                      style={{ color: '#00d4ff' }}
+                      style={{ color: 'var(--accent-cyan)' }}
                     >
                       Links:
                     </div>
@@ -199,8 +201,8 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                           rel="noopener noreferrer"
                           className="text-xs px-4 py-2 rounded transition-all hover:opacity-80"
                           style={{
-                            border: '1px solid #1e3a5f',
-                            color: '#94a3b8',
+                            border: '1px solid var(--border-color)',
+                            color: 'var(--text-secondary)',
                             backgroundColor: 'rgba(30,58,95,0.3)',
                           }}
                         >

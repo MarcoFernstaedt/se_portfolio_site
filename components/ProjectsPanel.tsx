@@ -9,6 +9,7 @@ interface ProjectsPanelProps {
   onProjectClick: (project: Project) => void;
 }
 
+/** Available category filters for the project grid. */
 const categories = [
   { id: 'all', label: 'All Systems' },
   { id: 'accessibility', label: 'Accessibility' },
@@ -19,6 +20,10 @@ const categories = [
 
 type CategoryId = (typeof categories)[number]['id'];
 
+/**
+ * Main projects section with a scrollable category filter row and a responsive
+ * card grid. Clicking a card fires `onProjectClick` to open the detail modal.
+ */
 export default function ProjectsPanel({ onProjectClick }: ProjectsPanelProps) {
   const [activeCategory, setActiveCategory] = useState<CategoryId>('all');
 
@@ -32,19 +37,18 @@ export default function ProjectsPanel({ onProjectClick }: ProjectsPanelProps) {
       <div className="flex items-center justify-between mb-4">
         <h2
           id="projects-heading"
-          className="text-xs font-bold tracking-widest uppercase"
-          style={{ color: '#00d4ff' }}
+          className="section-heading"
         >
           ◈ Project Systems
         </h2>
-        <span className="text-xs" style={{ color: '#4a5568' }}>
+        <span className="text-xs" style={{ color: 'var(--text-dim)' }}>
           {filtered.length} / {projects.length} systems
         </span>
       </div>
 
       {/* Filter tabs */}
       <div
-        className="flex flex-wrap gap-2 mb-4"
+        className="flex gap-2 mb-4 overflow-x-auto pb-1 scrollbar-none"
         role="tablist"
         aria-label="Filter projects by category"
       >
@@ -54,10 +58,10 @@ export default function ProjectsPanel({ onProjectClick }: ProjectsPanelProps) {
             role="tab"
             aria-selected={activeCategory === cat.id}
             onClick={() => setActiveCategory(cat.id)}
-            className="text-xs px-3 py-1 rounded transition-all"
+            className="text-xs px-3 py-1 rounded transition-all shrink-0"
             style={{
-              border: `1px solid ${activeCategory === cat.id ? '#00d4ff' : '#1e3a5f'}`,
-              color: activeCategory === cat.id ? '#00d4ff' : '#4a5568',
+              border: `1px solid ${activeCategory === cat.id ? 'var(--accent-cyan)' : 'var(--border-color)'}`,
+              color: activeCategory === cat.id ? 'var(--accent-cyan)' : 'var(--text-dim)',
               backgroundColor:
                 activeCategory === cat.id ? 'rgba(0,212,255,0.1)' : 'transparent',
               cursor: 'pointer',

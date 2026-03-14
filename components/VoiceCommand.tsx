@@ -4,6 +4,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { projects } from '@/lib/data';
 import { Project } from '@/types';
+import { FEEDBACK_DISPLAY_DURATION } from '@/lib/constants';
 
 // Web Speech API type declarations
 declare global {
@@ -56,18 +57,47 @@ type CommandResult =
   | { type: 'navigate'; section: string }
   | { type: 'unknown'; transcript: string };
 
+/**
+ * Example voice commands shown in the help panel.
+ * Defined outside the component to avoid re-creating the array on every render.
+ */
+const EXAMPLE_COMMANDS = [
+  '"Show projects"',
+  '"Open accessibility system"',
+  '"Open messaging platform"',
+  '"Show skills"',
+  '"Navigate to systems"',
+  '"Contact"',
+];
+
+/**
+ * Maps voice keyword groups to project IDs (looked up at runtime).
+ * Using IDs rather than array indices keeps this stable if project order changes.
+ */
+const PROJECT_KEYWORD_MAP: [string[], string][] = [
+  [['image', 'audio', 'accessibility', 'vision'], 'ai-image-audio'],
+  [['messaging', 'chat', 'real time', 'socket'], 'realtime-messaging'],
+  [['interview', 'coding', 'code'], 'interview-platform'],
+  [['real estate', 'property', 'data'], 'real-estate-data'],
+];
+
+/**
+ * Parses a raw voice transcript into an executable command.
+ *
+ * Checks against project keywords first (open a project modal), then
+ * navigation sections (scroll to an area), and falls back to "unknown".
+ *
+ * @param transcript - Raw text returned by the Speech Recognition API.
+ */
 function parseCommand(transcript: string): CommandResult {
   const t = transcript.toLowerCase().trim();
 
-  // Project open commands
-  const projectMap: [string[], Project][] = [
-    [['image', 'audio', 'accessibility', 'vision'], projects[0]],
-    [['messaging', 'chat', 'real time', 'socket'], projects[1]],
-    [['interview', 'coding', 'code'], projects[2]],
-    [['real estate', 'property', 'data'], projects[3]],
-  ];
+  // Project open commands — matched by keyword group, resolved by project ID
+  const projectMap: [string[], Project | undefined][] = PROJECT_KEYWORD_MAP.map(
+    ([keywords, id]) => [keywords, projects.find((p) => p.id === id)]
+  );
   for (const [keywords, project] of projectMap) {
-    if (keywords.some((k) => t.includes(k))) {
+    if (project && keywords.some((k) => t.includes(k))) {
       return { type: 'project', project };
     }
   }
@@ -89,6 +119,13 @@ function parseCommand(transcript: string): CommandResult {
   return { type: 'unknown', transcript: t };
 }
 
+/**
+ * Floating voice-command interface using the Web Speech API.
+ *
+ * Renders only in browsers that support `SpeechRecognition`. Users can speak
+ * commands to open project modals or scroll to sections. Shows a collapsible
+ * help panel listing available commands and a live transcript/feedback area.
+ */
 export default function VoiceCommand({ onProjectOpen, onScrollTo }: VoiceCommandProps) {
   const [supported, setSupported] = useState(false);
   const [listening, setListening] = useState(false);
@@ -117,7 +154,7 @@ export default function VoiceCommand({ onProjectOpen, onScrollTo }: VoiceCommand
       } else {
         setFeedback(`Command not recognized: "${t}"`);
       }
-      setTimeout(() => setFeedback(''), 3000);
+      setTimeout(() => setFeedback(''), FEEDBACK_DISPLAY_DURATION);
     },
     [onProjectOpen, onScrollTo]
   );
@@ -141,7 +178,7 @@ export default function VoiceCommand({ onProjectOpen, onScrollTo }: VoiceCommand
     recognition.onerror = () => {
       setFeedback('Microphone error. Check permissions.');
       setListening(false);
-      setTimeout(() => setFeedback(''), 3000);
+      setTimeout(() => setFeedback(''), FEEDBACK_DISPLAY_DURATION);
     };
 
     recognition.onend = () => {
@@ -161,17 +198,8 @@ export default function VoiceCommand({ onProjectOpen, onScrollTo }: VoiceCommand
 
   if (!supported) return null;
 
-  const exampleCommands = [
-    '"Show projects"',
-    '"Open accessibility system"',
-    '"Open messaging platform"',
-    '"Show skills"',
-    '"Navigate to systems"',
-    '"Contact"',
-  ];
-
   return (
-    <div className="fixed bottom-6 right-6 z-40" aria-label="Voice command interface">
+    <div className="fixed bottom-4 right-3 sm:bottom-6 sm:right-6 z-40 max-w-[calc(100vw-1.5rem)]" aria-label="Voice command interface">
       {/* Example commands panel */}
       <AnimatePresence>
         {showPanel && (
@@ -182,7 +210,7 @@ export default function VoiceCommand({ onProjectOpen, onScrollTo }: VoiceCommand
             className="mb-3 rounded-lg p-4 w-64"
             style={{
               backgroundColor: '#0f1520',
-              border: '1px solid #1e3a5f',
+              border: '1px solid var(--border-color)',
               boxShadow: '0 0 30px rgba(0,0,0,0.5)',
             }}
             role="tooltip"
@@ -190,14 +218,14 @@ export default function VoiceCommand({ onProjectOpen, onScrollTo }: VoiceCommand
           >
             <div
               className="text-xs font-bold tracking-widest uppercase mb-3"
-              style={{ color: '#00d4ff' }}
+              style={{ color: 'var(--accent-cyan)' }}
             >
               Voice Commands
             </div>
             <ul className="space-y-1.5">
-              {exampleCommands.map((cmd) => (
-                <li key={cmd} className="text-xs" style={{ color: '#94a3b8' }}>
-                  <span style={{ color: '#4a5568' }}>›</span> {cmd}
+              {EXAMPLE_COMMANDS.map((cmd) => (
+                <li key={cmd} className="text-xs" style={{ color: 'var(--text-secondary)' }}>
+                  <span style={{ color: 'var(--text-dim)' }}>›</span> {cmd}
                 </li>
               ))}
             </ul>
@@ -206,7 +234,7 @@ export default function VoiceCommand({ onProjectOpen, onScrollTo }: VoiceCommand
             {transcript && (
               <div
                 className="mt-3 pt-3 text-xs"
-                style={{ borderTop: '1px solid #1e3a5f', color: '#00ff88' }}
+                style={{ borderTop: '1px solid var(--border-color)', color: 'var(--accent-green)' }}
                 aria-live="polite"
                 aria-atomic="true"
               >
@@ -216,7 +244,7 @@ export default function VoiceCommand({ onProjectOpen, onScrollTo }: VoiceCommand
             {feedback && (
               <div
                 className="mt-2 text-xs"
-                style={{ color: feedback.includes('not recognized') ? '#ff4444' : '#00ff88' }}
+                style={{ color: feedback.includes('not recognized') ? 'var(--accent-red)' : 'var(--accent-green)' }}
                 aria-live="polite"
                 aria-atomic="true"
               >
@@ -233,8 +261,8 @@ export default function VoiceCommand({ onProjectOpen, onScrollTo }: VoiceCommand
           onClick={() => setShowPanel((p) => !p)}
           className="text-xs px-3 py-2 rounded transition-all"
           style={{
-            border: '1px solid #1e3a5f',
-            color: '#94a3b8',
+            border: '1px solid var(--border-color)',
+            color: 'var(--text-secondary)',
             backgroundColor: 'rgba(15,21,32,0.9)',
           }}
           aria-expanded={showPanel}
@@ -247,11 +275,11 @@ export default function VoiceCommand({ onProjectOpen, onScrollTo }: VoiceCommand
           onClick={listening ? stopListening : startListening}
           aria-pressed={listening}
           aria-label={listening ? 'Stop listening for voice commands' : 'Start voice command — Speak a command'}
-          className="flex items-center gap-2 px-4 py-2.5 rounded-lg font-mono text-xs font-bold transition-all"
+          className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 rounded-lg font-mono text-xs font-bold transition-all"
           style={{
             backgroundColor: listening ? 'rgba(0,255,136,0.15)' : 'rgba(0,212,255,0.1)',
-            border: `1px solid ${listening ? '#00ff88' : '#00d4ff'}`,
-            color: listening ? '#00ff88' : '#00d4ff',
+            border: `1px solid ${listening ? 'var(--accent-green)' : 'var(--accent-cyan)'}`,
+            color: listening ? 'var(--accent-green)' : 'var(--accent-cyan)',
             boxShadow: listening ? '0 0 20px rgba(0,255,136,0.2)' : 'none',
           }}
           whileTap={{ scale: 0.96 }}
@@ -259,7 +287,8 @@ export default function VoiceCommand({ onProjectOpen, onScrollTo }: VoiceCommand
           transition={listening ? { duration: 1.5, repeat: Infinity } : {}}
         >
           <span aria-hidden="true">{listening ? '◉' : '◎'}</span>
-          {listening ? 'Listening...' : 'Speak a command'}
+          <span className="hidden sm:inline">{listening ? 'Listening...' : 'Speak a command'}</span>
+          <span className="sm:hidden">{listening ? 'Listening' : 'Voice'}</span>
         </motion.button>
       </div>
     </div>

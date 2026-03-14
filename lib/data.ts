@@ -1,3 +1,10 @@
+/**
+ * Static data for the portfolio: projects, skills, and boot-sequence messages.
+ *
+ * All arrays are read-only at runtime. Add new projects or skills here to have
+ * them automatically appear in the Projects panel, Systems Map, and Skills panel.
+ */
+
 import { Project, Skill } from '@/types';
 
 export const projects: Project[] = [

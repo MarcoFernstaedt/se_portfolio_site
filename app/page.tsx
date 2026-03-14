@@ -44,13 +44,13 @@ export default function Home() {
       >
         <TopBar />
 
-        <main id="main-content" className="max-w-screen-xl mx-auto px-4 md:px-6 py-6 pb-32">
+        <main id="main-content" className="max-w-screen-xl mx-auto px-3 sm:px-4 md:px-6 py-4 sm:py-6 pb-24 sm:pb-32">
           {/* Hero strip */}
           <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={booted ? { opacity: 1, y: 0 } : {}}
             transition={{ delay: 0.2, duration: 0.5 }}
-            className="mb-8 py-4 px-5 rounded-lg flex flex-wrap items-center justify-between gap-4"
+            className="mb-6 sm:mb-8 py-3 sm:py-4 px-4 sm:px-5 rounded-lg flex flex-wrap items-center justify-between gap-3 sm:gap-4"
             style={{
               backgroundColor: 'rgba(0,212,255,0.04)',
               border: '1px solid rgba(0,212,255,0.12)',
@@ -58,18 +58,18 @@ export default function Home() {
           >
             <div>
               <h1
-                className="text-2xl md:text-3xl font-bold tracking-wide mb-1"
-                style={{ color: '#00d4ff', textShadow: '0 0 20px rgba(0,212,255,0.3)' }}
+                className="text-xl sm:text-2xl md:text-3xl font-bold tracking-wide mb-1"
+                style={{ color: 'var(--accent-cyan)', textShadow: '0 0 20px rgba(0,212,255,0.3)' }}
               >
                 COMMAND CENTER
               </h1>
-              <p className="text-xs tracking-widest" style={{ color: '#4a5568' }}>
-                MARCO FERNSTAEDT ── FULL-STACK ENGINEER · ACCESSIBILITY SPECIALIST
+              <p className="text-xs tracking-widest truncate max-w-[280px] sm:max-w-none" style={{ color: 'var(--text-dim)' }}>
+                MARCO FERNSTAEDT ── MERN · PYTHON · AI APIs
               </p>
             </div>
             <div
               className="flex items-center gap-2 text-xs font-mono"
-              style={{ color: '#00ff88' }}
+              style={{ color: 'var(--accent-green)' }}
               aria-label="System status: all systems online"
             >
               <span
@@ -82,9 +82,9 @@ export default function Home() {
           </motion.div>
 
           {/* Main grid layout */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 xl:grid-cols-3 gap-5 md:gap-6">
             {/* Left column — projects (2/3 width) */}
-            <div className="lg:col-span-2 space-y-6">
+            <div className="xl:col-span-2 space-y-5 md:space-y-6">
               <motion.div
                 ref={projectsRef}
                 initial={{ opacity: 0, y: 20 }}
@@ -107,7 +107,7 @@ export default function Home() {
             </div>
 
             {/* Right column — sidebar (1/3 width) */}
-            <div className="space-y-6">
+            <div className="space-y-5 md:space-y-6">
               {/* Founder / identity */}
               <motion.div
                 ref={founderRef}

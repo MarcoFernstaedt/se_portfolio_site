@@ -1,5 +1,9 @@
 import { Project } from '@/types';
 
+/**
+ * Visual configuration for each project status value.
+ * Defines the colour, background, whether the dot pulses, and display label.
+ */
 const statusConfig: Record<
   Project['status'],
   { color: string; bg: string; pulse: boolean; label: string }
@@ -30,6 +34,10 @@ const statusConfig: Record<
   },
 };
 
+/**
+ * Pill badge showing a project's current status with a colour-coded dot.
+ * Active and In-Development statuses render a pulsing dot animation.
+ */
 export default function StatusBadge({ status }: { status: Project['status'] }) {
   const cfg = statusConfig[status];
   return (
