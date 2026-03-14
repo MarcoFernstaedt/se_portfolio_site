@@ -10,6 +10,7 @@ interface ProjectCardProps {
   index: number;
 }
 
+/** Icon symbols mapped to project categories for visual identification in card headers. */
 const categoryIcon: Record<Project['category'], string> = {
   accessibility: '♿',
   platform: '⚡',
@@ -17,6 +18,13 @@ const categoryIcon: Record<Project['category'], string> = {
   infrastructure: '◈',
 };
 
+/**
+ * Animated project card shown in the Projects panel grid.
+ *
+ * Clicking or pressing Enter opens the project detail modal via `onClick`.
+ * Displays the project category icon, name, one-line function description,
+ * up to four tech-stack tags, and an on-hover "OPEN SYSTEM" prompt.
+ */
 export default function ProjectCard({ project, onClick, index }: ProjectCardProps) {
   return (
     <motion.article
@@ -69,14 +77,14 @@ export default function ProjectCard({ project, onClick, index }: ProjectCardProp
             style={{
               backgroundColor: 'rgba(0,128,255,0.1)',
               border: '1px solid rgba(0,128,255,0.2)',
-              color: '#94a3b8',
+              color: 'var(--text-secondary)',
             }}
           >
             {tech}
           </span>
         ))}
         {project.stack.length > 4 && (
-          <span className="text-xs" style={{ color: '#4a5568' }}>
+          <span className="text-xs" style={{ color: 'var(--text-dim)' }}>
             +{project.stack.length - 4} more
           </span>
         )}
@@ -85,7 +93,7 @@ export default function ProjectCard({ project, onClick, index }: ProjectCardProp
       {/* Open prompt */}
       <div
         className="text-xs flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity"
-        style={{ color: '#00d4ff' }}
+        style={{ color: 'var(--accent-cyan)' }}
         aria-hidden="true"
       >
         <span>›</span>

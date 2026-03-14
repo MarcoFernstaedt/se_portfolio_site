@@ -2,7 +2,15 @@
 
 import { useState, useEffect } from 'react';
 import { useAccessibility } from '@/lib/accessibility-context';
+import TrafficLightDots from './TrafficLightDots';
 
+/**
+ * Sticky top navigation bar.
+ *
+ * Shows the site identity (name + traffic-light dots), a real-time clock and
+ * "ALL SYSTEMS ONLINE" status indicator on desktop, and an accessibility-mode
+ * toggle button. Updates the clock every second.
+ */
 export default function TopBar() {
   const [time, setTime] = useState('');
   const { accessibilityMode, toggleAccessibilityMode } = useAccessibility();
@@ -37,41 +45,37 @@ export default function TopBar() {
       <div className="max-w-screen-xl mx-auto flex items-center justify-between">
         {/* Left — identity */}
         <div className="flex items-center gap-3">
-          <div className="flex gap-1.5" aria-hidden="true">
-            <span className="w-3 h-3 rounded-full" style={{ backgroundColor: '#ff5f57' }} />
-            <span className="w-3 h-3 rounded-full" style={{ backgroundColor: '#febc2e' }} />
-            <span className="w-3 h-3 rounded-full" style={{ backgroundColor: '#28c840' }} />
-          </div>
+          <TrafficLightDots />
           <span
             className="text-sm font-bold tracking-widest hidden md:block"
-            style={{ color: '#00d4ff' }}
+            style={{ color: 'var(--accent-cyan)' }}
           >
             MARCO FERNSTAEDT
           </span>
           <span
             className="text-xs hidden md:block"
-            style={{ color: '#4a5568' }}
+            style={{ color: 'var(--text-dim)' }}
             aria-hidden="true"
           >
             ── COMMAND CENTER
           </span>
         </div>
 
-        {/* Center — status */}
+        {/* Center — status (desktop only, decorative) */}
         <div
           className="hidden md:flex items-center gap-4 text-xs"
-          style={{ color: '#4a5568' }}
+          style={{ color: 'var(--text-dim)' }}
           aria-hidden="true"
         >
           <span className="flex items-center gap-1.5">
             <span
               className="w-2 h-2 rounded-full pulse-dot"
-              style={{ backgroundColor: '#00ff88' }}
+              style={{ backgroundColor: 'var(--accent-green)' }}
             />
             ALL SYSTEMS ONLINE
           </span>
           <span>|</span>
-          <span style={{ color: '#94a3b8' }}>{time}</span>
+          <span style={{ color: 'var(--text-secondary)' }}>{time}</span>
         </div>
 
         {/* Right — accessibility toggle */}
@@ -86,9 +90,9 @@ export default function TopBar() {
             }
             className="flex items-center gap-2 text-xs px-3 py-1.5 rounded transition-all"
             style={{
-              border: `1px solid ${accessibilityMode ? '#00ff88' : '#1e3a5f'}`,
+              border: `1px solid ${accessibilityMode ? 'var(--accent-green)' : 'var(--border-color)'}`,
               backgroundColor: accessibilityMode ? 'rgba(0,255,136,0.1)' : 'transparent',
-              color: accessibilityMode ? '#00ff88' : '#94a3b8',
+              color: accessibilityMode ? 'var(--accent-green)' : 'var(--text-secondary)',
               cursor: 'pointer',
             }}
           >

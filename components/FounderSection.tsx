@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 
+/** Professional role tags displayed in the engineer profile card. */
 const roles = [
   { label: 'Full-Stack Developer', icon: '⌨', color: '#00d4ff' },
   { label: 'Systems Builder', icon: '◈', color: '#0080ff' },
@@ -9,12 +10,19 @@ const roles = [
   { label: 'AI Integrator', icon: '◆', color: '#ffaa00' },
 ];
 
+/** Key statistics shown in the profile card footer. */
 const stats = [
   { value: '4+', label: 'Systems Built' },
   { value: '100%', label: 'A11Y Score' },
   { value: '∞', label: 'Drive' },
 ];
 
+/**
+ * Sidebar profile card for the engineer.
+ *
+ * Displays name, title, animated role tags, mission statement, key stats,
+ * and links to GitHub and email contact.
+ */
 export default function FounderSection() {
   return (
     <section
@@ -27,8 +35,7 @@ export default function FounderSection() {
     >
       <h2
         id="founder-heading"
-        className="text-xs font-bold tracking-widest uppercase mb-5"
-        style={{ color: '#00d4ff' }}
+        className="section-heading mb-5"
       >
         ◈ Engineer Profile
       </h2>
@@ -37,11 +44,11 @@ export default function FounderSection() {
       <div className="mb-6">
         <div
           className="text-2xl font-bold mb-1 tracking-wide"
-          style={{ color: '#e2e8f0' }}
+          style={{ color: 'var(--text-primary)' }}
         >
           Marco Fernstaedt
         </div>
-        <div className="text-sm" style={{ color: '#94a3b8' }}>
+        <div className="text-sm" style={{ color: 'var(--text-secondary)' }}>
           Full-Stack Software Engineer
         </div>
       </div>
@@ -93,12 +100,12 @@ export default function FounderSection() {
           <div key={stat.label} className="text-center" role="listitem">
             <div
               className="text-xl font-bold font-mono"
-              style={{ color: '#00d4ff' }}
+              style={{ color: 'var(--accent-cyan)' }}
               aria-label={`${stat.value} ${stat.label}`}
             >
               {stat.value}
             </div>
-            <div className="text-xs mt-0.5" style={{ color: '#4a5568' }}>
+            <div className="text-xs mt-0.5" style={{ color: 'var(--text-dim)' }}>
               {stat.label}
             </div>
           </div>

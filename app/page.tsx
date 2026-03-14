@@ -59,17 +59,17 @@ export default function Home() {
             <div>
               <h1
                 className="text-xl sm:text-2xl md:text-3xl font-bold tracking-wide mb-1"
-                style={{ color: '#00d4ff', textShadow: '0 0 20px rgba(0,212,255,0.3)' }}
+                style={{ color: 'var(--accent-cyan)', textShadow: '0 0 20px rgba(0,212,255,0.3)' }}
               >
                 COMMAND CENTER
               </h1>
-              <p className="text-xs tracking-widest truncate max-w-[280px] sm:max-w-none" style={{ color: '#4a5568' }}>
+              <p className="text-xs tracking-widest truncate max-w-[280px] sm:max-w-none" style={{ color: 'var(--text-dim)' }}>
                 MARCO FERNSTAEDT ── FULL-STACK ENGINEER · ACCESSIBILITY SPECIALIST
               </p>
             </div>
             <div
               className="flex items-center gap-2 text-xs font-mono"
-              style={{ color: '#00ff88' }}
+              style={{ color: 'var(--accent-green)' }}
               aria-label="System status: all systems online"
             >
               <span

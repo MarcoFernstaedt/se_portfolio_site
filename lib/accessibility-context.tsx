@@ -2,6 +2,14 @@
 
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 
+/**
+ * Context value shared by AccessibilityProvider.
+ *
+ * @property accessibilityMode - True when screen-reader optimised mode is active
+ *   (high contrast, reduced motion, linearised layout).
+ * @property toggleAccessibilityMode - Toggles accessibility mode, persists the
+ *   preference to localStorage, and updates the `accessibility-mode` body class.
+ */
 interface AccessibilityContextType {
   accessibilityMode: boolean;
   toggleAccessibilityMode: () => void;
@@ -41,4 +49,9 @@ export function AccessibilityProvider({ children }: { children: ReactNode }) {
   );
 }
 
+/**
+ * Hook to read and toggle accessibility mode from any client component.
+ *
+ * Must be used inside an `<AccessibilityProvider>`.
+ */
 export const useAccessibility = () => useContext(AccessibilityContext);

@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { skills } from '@/lib/data';
 import { Skill } from '@/types';
 
+/** Accent colour per skill category — used for category badge backgrounds and bar fills. */
 const categoryColors: Record<Skill['category'], string> = {
   frontend: '#00d4ff',
   backend: '#0080ff',
@@ -11,6 +12,7 @@ const categoryColors: Record<Skill['category'], string> = {
   infrastructure: '#ffaa00',
 };
 
+/** Human-readable labels for skill categories shown in the category badge. */
 const categoryLabels: Record<Skill['category'], string> = {
   frontend: 'Frontend',
   backend: 'Backend',
@@ -18,6 +20,10 @@ const categoryLabels: Record<Skill['category'], string> = {
   infrastructure: 'Infrastructure',
 };
 
+/**
+ * Sidebar panel listing technical skills with animated block-bar proficiency
+ * indicators and colour-coded category badges.
+ */
 export default function SkillsPanel() {
   return (
     <section
@@ -32,12 +38,11 @@ export default function SkillsPanel() {
       <div className="flex items-center justify-between mb-5">
         <h2
           id="skills-heading"
-          className="text-xs font-bold tracking-widest uppercase"
-          style={{ color: '#00d4ff' }}
+          className="section-heading"
         >
           ◈ Engineering Skills
         </h2>
-        <span className="text-xs" style={{ color: '#4a5568' }}>
+        <span className="text-xs" style={{ color: 'var(--text-dim)' }}>
           {skills.length} modules
         </span>
       </div>
@@ -59,7 +64,7 @@ export default function SkillsPanel() {
               role="listitem"
             >
               <div className="flex items-center justify-between mb-1">
-                <span className="text-xs font-mono" style={{ color: '#e2e8f0' }}>
+                <span className="text-xs font-mono" style={{ color: 'var(--text-primary)' }}>
                   {skill.name}
                 </span>
                 <span
@@ -99,7 +104,7 @@ export default function SkillsPanel() {
                 </div>
                 <span
                   className="text-xs w-8 text-right font-mono"
-                  style={{ color: '#4a5568' }}
+                  style={{ color: 'var(--text-dim)' }}
                   aria-hidden="true"
                 >
                   {percentage}%

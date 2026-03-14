@@ -25,8 +25,8 @@ function RootNode({ data }: { data: { label: string } }) {
       className="px-4 py-3 rounded-lg text-center font-mono font-bold text-sm"
       style={{
         backgroundColor: 'rgba(0,212,255,0.15)',
-        border: '2px solid #00d4ff',
-        color: '#00d4ff',
+        border: '2px solid var(--accent-cyan)',
+        color: 'var(--accent-cyan)',
         textShadow: '0 0 10px rgba(0,212,255,0.5)',
         boxShadow: '0 0 20px rgba(0,212,255,0.2)',
         minWidth: '160px',
@@ -45,7 +45,17 @@ const categoryColor: Record<Project['category'], string> = {
   infrastructure: '#0080ff',
 };
 
-function ProjectNode({ data }: { data: { label: string; status: string; category: Project['category']; onClick: () => void; narrow: boolean } }) {
+/** Shape of data passed to each project node by the layout builder. */
+interface ProjectNodeData {
+  label: string;
+  status: string;
+  category: Project['category'];
+  onClick: () => void;
+  /** Whether the map is currently in narrow (2-column) layout mode. */
+  narrow: boolean;
+}
+
+function ProjectNode({ data }: { data: ProjectNodeData }) {
   const color = categoryColor[data.category];
   return (
     <button
@@ -54,7 +64,7 @@ function ProjectNode({ data }: { data: { label: string; status: string; category
       style={{
         backgroundColor: `${color}12`,
         border: `1px solid ${color}55`,
-        color: '#e2e8f0',
+        color: 'var(--text-primary)',
         boxShadow: `0 0 12px ${color}15`,
         minWidth: data.narrow ? '120px' : '160px',
         cursor: 'pointer',
@@ -65,7 +75,7 @@ function ProjectNode({ data }: { data: { label: string; status: string; category
       <div className="font-bold mb-1" style={{ color }}>
         {data.label}
       </div>
-      <div className="text-xs" style={{ color: '#4a5568' }}>
+      <div className="text-xs" style={{ color: 'var(--text-dim)' }}>
         {data.status}
       </div>
     </button>
@@ -81,15 +91,34 @@ const COL_GAP = 200;
 const COL_GAP_NARROW = 160;
 const ROW_H = 130;
 
+/**
+ * Interactive React Flow graph showing project relationships.
+ *
+ * A central root node ("MARCO FERNSTAEDT") connects via edges to each project
+ * node. Clicking a project node opens the detail modal. Edges animate for
+ * active / in-development projects.
+ *
+ * Layout adapts based on viewport width: single row on desktop, 2-column grid
+ * on mobile (<640 px). A debounced resize listener recomputes the layout when
+ * the viewport crosses the 640 px breakpoint.
+ */
 export default function SystemsMap({ onProjectClick }: SystemsMapProps) {
   const [windowWidth, setWindowWidth] = useState<number>(
     typeof window !== 'undefined' ? window.innerWidth : 1200
   );
 
   useEffect(() => {
-    const handler = () => setWindowWidth(window.innerWidth);
+    // Debounce to avoid re-rendering on every pixel during a drag-resize
+    let timer: ReturnType<typeof setTimeout>;
+    const handler = () => {
+      clearTimeout(timer);
+      timer = setTimeout(() => setWindowWidth(window.innerWidth), 150);
+    };
     window.addEventListener('resize', handler);
-    return () => window.removeEventListener('resize', handler);
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('resize', handler);
+    };
   }, []);
 
   // On small screens use 2 columns, otherwise single row
@@ -135,7 +164,7 @@ export default function SystemsMap({ onProjectClick }: SystemsMapProps) {
         id: `root-${p.id}`,
         source: 'root',
         target: p.id,
-        style: { stroke: '#1e3a5f', strokeWidth: 1.5 },
+        style: { stroke: 'var(--border-color)', strokeWidth: 1.5 },
         animated: p.status === 'Active' || p.status === 'In Development',
       })),
     []
@@ -171,12 +200,11 @@ export default function SystemsMap({ onProjectClick }: SystemsMapProps) {
       >
         <h2
           id="systems-map-heading"
-          className="text-xs font-bold tracking-widest uppercase"
-          style={{ color: '#00d4ff' }}
+          className="section-heading"
         >
           ◈ Systems Map
         </h2>
-        <span className="text-xs" style={{ color: '#4a5568' }}>
+        <span className="text-xs" style={{ color: 'var(--text-dim)' }}>
           <span className="hidden sm:inline">Click</span>
           <span className="sm:hidden">Tap</span>
           {' '}nodes to inspect
@@ -201,7 +229,7 @@ export default function SystemsMap({ onProjectClick }: SystemsMapProps) {
           aria-label="Systems map showing project relationships"
         >
           <Background
-            color="#1e3a5f"
+            color="var(--border-color)"
             gap={24}
             size={1}
             style={{ opacity: 0.4 }}

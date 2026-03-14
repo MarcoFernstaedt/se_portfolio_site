@@ -3,6 +3,11 @@
 import { motion } from 'framer-motion';
 import { useAccessibility } from '@/lib/accessibility-context';
 
+/**
+ * Sidebar panel that surfaces the site's accessibility features and lets the
+ * user toggle screen-reader optimised mode (high contrast, no animations,
+ * linearised layout). Preference is persisted via `AccessibilityContext`.
+ */
 export default function AccessibilityPanel() {
   const { accessibilityMode, toggleAccessibilityMode } = useAccessibility();
 
@@ -21,7 +26,7 @@ export default function AccessibilityPanel() {
       className="rounded-lg p-5"
       style={{
         backgroundColor: 'var(--bg-panel)',
-        border: `1px solid ${accessibilityMode ? '#00ff8855' : 'var(--border-color)'}`,
+        border: `1px solid ${accessibilityMode ? 'rgba(0,255,136,0.33)' : 'var(--border-color)'}`,
         boxShadow: accessibilityMode ? '0 0 20px rgba(0,255,136,0.08)' : 'none',
         transition: 'border-color 0.3s, box-shadow 0.3s',
       }}
@@ -30,16 +35,16 @@ export default function AccessibilityPanel() {
         <h2
           id="a11y-heading"
           className="text-xs font-bold tracking-widest uppercase"
-          style={{ color: accessibilityMode ? '#00ff88' : '#00d4ff' }}
+          style={{ color: accessibilityMode ? 'var(--accent-green)' : 'var(--accent-cyan)' }}
         >
           ◈ Accessibility Engine
         </h2>
         <span
           className="text-xs px-2 py-0.5 rounded"
           style={{
-            color: accessibilityMode ? '#00ff88' : '#94a3b8',
+            color: accessibilityMode ? 'var(--accent-green)' : 'var(--text-secondary)',
             backgroundColor: accessibilityMode ? 'rgba(0,255,136,0.1)' : 'transparent',
-            border: `1px solid ${accessibilityMode ? '#00ff8844' : '#1e3a5f'}`,
+            border: `1px solid ${accessibilityMode ? 'rgba(0,255,136,0.27)' : 'var(--border-color)'}`,
           }}
           aria-live="polite"
           aria-atomic="true"
@@ -54,7 +59,7 @@ export default function AccessibilityPanel() {
         style={{
           backgroundColor: 'rgba(0,128,255,0.05)',
           border: '1px solid rgba(0,128,255,0.15)',
-          color: '#94a3b8',
+          color: 'var(--text-secondary)',
         }}
       >
         Built by a blind developer. Accessibility is not an afterthought here — it is the
@@ -67,14 +72,14 @@ export default function AccessibilityPanel() {
           <li key={feat.id} className="flex items-center gap-2 text-xs">
             <span
               style={{
-                color: feat.active ? '#00ff88' : '#4a5568',
+                color: feat.active ? 'var(--accent-green)' : 'var(--text-dim)',
                 fontSize: '10px',
               }}
               aria-hidden="true"
             >
               {feat.active ? '✓' : '○'}
             </span>
-            <span style={{ color: feat.active ? '#e2e8f0' : '#4a5568' }}>
+            <span style={{ color: feat.active ? 'var(--text-primary)' : 'var(--text-dim)' }}>
               {feat.label}
             </span>
             <span className="sr-only">{feat.active ? '(enabled)' : '(disabled)'}</span>
@@ -93,8 +98,8 @@ export default function AccessibilityPanel() {
         }
         className="w-full py-2.5 rounded text-xs font-bold tracking-widest uppercase transition-all"
         style={{
-          border: `1px solid ${accessibilityMode ? '#00ff88' : '#00d4ff'}`,
-          color: accessibilityMode ? '#00ff88' : '#00d4ff',
+          border: `1px solid ${accessibilityMode ? 'var(--accent-green)' : 'var(--accent-cyan)'}`,
+          color: accessibilityMode ? 'var(--accent-green)' : 'var(--accent-cyan)',
           backgroundColor: accessibilityMode ? 'rgba(0,255,136,0.1)' : 'rgba(0,212,255,0.05)',
           cursor: 'pointer',
         }}
