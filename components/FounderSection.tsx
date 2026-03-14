@@ -4,10 +4,10 @@ import { motion } from 'framer-motion';
 
 /** Professional role tags displayed in the engineer profile card. */
 const roles = [
-  { label: 'Full-Stack Developer', icon: '⌨', color: '#00d4ff' },
-  { label: 'Systems Builder', icon: '◈', color: '#0080ff' },
-  { label: 'Oracle DB Engineer', icon: '🗄', color: '#00ff88' },
-  { label: 'AI Integrator', icon: '◆', color: '#ffaa00' },
+  { label: 'MERN Stack Developer', icon: '⌨', color: '#00d4ff' },
+  { label: 'Python Engineer', icon: '🐍', color: '#0080ff' },
+  { label: 'AI API Integrator', icon: '◆', color: '#ffaa00' },
+  { label: 'Systems Builder', icon: '◈', color: '#00ff88' },
 ];
 
 /** Key statistics shown in the profile card footer. */
