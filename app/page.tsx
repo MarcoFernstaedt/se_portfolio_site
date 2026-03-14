@@ -64,7 +64,7 @@ export default function Home() {
                 COMMAND CENTER
               </h1>
               <p className="text-xs tracking-widest truncate max-w-[280px] sm:max-w-none" style={{ color: 'var(--text-dim)' }}>
-                MARCO FERNSTAEDT ── FULL-STACK ENGINEER · ACCESSIBILITY SPECIALIST
+                MARCO FERNSTAEDT ── FULL-STACK ENGINEER · ORACLE DB ENGINEER
               </p>
             </div>
             <div

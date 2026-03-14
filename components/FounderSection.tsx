@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 const roles = [
   { label: 'Full-Stack Developer', icon: '⌨', color: '#00d4ff' },
   { label: 'Systems Builder', icon: '◈', color: '#0080ff' },
-  { label: 'Accessibility Engineer', icon: '♿', color: '#00ff88' },
+  { label: 'Oracle DB Engineer', icon: '🗄', color: '#00ff88' },
   { label: 'AI Integrator', icon: '◆', color: '#ffaa00' },
 ];
 
