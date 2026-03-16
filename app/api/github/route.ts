@@ -12,6 +12,7 @@ export interface GitHubCommit {
   message: string;
   author: string;
   date: string;
+  repoName?: string;
 }
 
 export interface GitHubRepo {
@@ -26,17 +27,43 @@ export interface GitHubRepo {
   openIssues: number;
   pushedAt: string;
   updatedAt: string;
+  createdAt: string;
+  size: number; // KB
   topics: string[];
   defaultBranch: string;
   commits: GitHubCommit[];
 }
 
+export interface GitHubProfile {
+  login: string;
+  name: string | null;
+  bio: string | null;
+  avatar: string;
+  profileUrl: string;
+  followers: number;
+  following: number;
+  publicRepos: number;
+  createdAt: string;
+  company: string | null;
+  location: string | null;
+  blog: string | null;
+}
+
+export interface GitHubPayload {
+  profile: GitHubProfile;
+  repos: GitHubRepo[];
+}
+
 export async function GET() {
   try {
-    const reposRes = await fetch(
-      'https://api.github.com/users/MarcoFernstaedt/repos?sort=pushed&per_page=12&type=public',
-      { headers: GH_HEADERS }
-    );
+    // Fetch profile + all repos in parallel
+    const [profileRes, reposRes] = await Promise.all([
+      fetch('https://api.github.com/users/MarcoFernstaedt', { headers: GH_HEADERS }),
+      fetch(
+        'https://api.github.com/users/MarcoFernstaedt/repos?sort=pushed&per_page=30&type=public',
+        { headers: GH_HEADERS }
+      ),
+    ]);
 
     if (!reposRes.ok) {
       return NextResponse.json(
@@ -46,9 +73,26 @@ export async function GET() {
     }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const rawProfile: any = profileRes.ok ? await profileRes.json() : {};
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const rawRepos: any[] = await reposRes.json();
 
-    // Fetch commits for each repo in parallel (top 10 only to stay within rate limits)
+    const profile: GitHubProfile = {
+      login: rawProfile.login ?? 'MarcoFernstaedt',
+      name: rawProfile.name ?? null,
+      bio: rawProfile.bio ?? null,
+      avatar: rawProfile.avatar_url ?? '',
+      profileUrl: rawProfile.html_url ?? 'https://github.com/MarcoFernstaedt',
+      followers: rawProfile.followers ?? 0,
+      following: rawProfile.following ?? 0,
+      publicRepos: rawProfile.public_repos ?? rawRepos.length,
+      createdAt: rawProfile.created_at ?? '',
+      company: rawProfile.company ?? null,
+      location: rawProfile.location ?? null,
+      blog: rawProfile.blog ?? null,
+    };
+
+    // Fetch commits for top 10 repos in parallel
     const repos: GitHubRepo[] = await Promise.all(
       rawRepos.slice(0, 10).map(async (repo) => {
         let commits: GitHubCommit[] = [];
@@ -66,6 +110,7 @@ export async function GET() {
                   message: (c.commit?.message as string)?.split('\n')[0] ?? '',
                   author: (c.commit?.author?.name as string) ?? '',
                   date: (c.commit?.author?.date as string) ?? '',
+                  repoName: repo.name as string,
                 }))
               : [];
           }
@@ -85,6 +130,8 @@ export async function GET() {
           openIssues: (repo.open_issues_count as number) ?? 0,
           pushedAt: repo.pushed_at as string,
           updatedAt: repo.updated_at as string,
+          createdAt: repo.created_at as string,
+          size: (repo.size as number) ?? 0,
           topics: (repo.topics as string[]) ?? [],
           defaultBranch: (repo.default_branch as string) ?? 'main',
           commits,
@@ -92,7 +139,8 @@ export async function GET() {
       })
     );
 
-    return NextResponse.json(repos);
+    const payload: GitHubPayload = { profile, repos };
+    return NextResponse.json(payload);
   } catch (err) {
     console.error('GitHub API route error:', err);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
