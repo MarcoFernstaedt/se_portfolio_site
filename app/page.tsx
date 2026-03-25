@@ -10,6 +10,7 @@ import SkillsPanel from '@/components/SkillsPanel';
 import SystemsMap from '@/components/SystemsMap';
 import AccessibilityPanel from '@/components/AccessibilityPanel';
 import FounderSection from '@/components/FounderSection';
+import BlogPreviewPanel from '@/components/BlogPreviewPanel';
 import VoiceCommand from '@/components/VoiceCommand';
 import { Project } from '@/types';
 
@@ -21,6 +22,7 @@ export default function Home() {
   const skillsRef = useRef<HTMLDivElement>(null);
   const systemsRef = useRef<HTMLDivElement>(null);
   const founderRef = useRef<HTMLDivElement>(null);
+  const writingRef = useRef<HTMLDivElement>(null);
 
   const handleScrollTo = useCallback((section: string) => {
     const refs: Record<string, React.RefObject<HTMLDivElement | null>> = {
@@ -28,6 +30,7 @@ export default function Home() {
       skills: skillsRef,
       systems: systemsRef,
       founder: founderRef,
+      writing: writingRef,
     };
     refs[section]?.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }, []);
@@ -103,6 +106,16 @@ export default function Home() {
                 id="systems"
               >
                 <SystemsMap onProjectClick={setSelectedProject} />
+              </motion.div>
+
+              <motion.div
+                ref={writingRef}
+                initial={{ opacity: 0, y: 20 }}
+                animate={booted ? { opacity: 1, y: 0 } : {}}
+                transition={{ delay: 0.6 }}
+                id="writing"
+              >
+                <BlogPreviewPanel />
               </motion.div>
             </div>
 

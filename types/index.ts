@@ -34,3 +34,22 @@ export interface SystemNode {
   description?: string;
   projectId?: string;
 }
+
+export interface BlogSection {
+  heading: string;
+  content?: string[];
+  bullets?: string[];
+}
+
+export interface BlogPost {
+  slug: string;
+  title: string;
+  excerpt: string;
+  publishedAt: string;
+  readTime: string;
+  category: string;
+  featured: boolean;
+  recruiterSignal: string[];
+  summary: string;
+  sections: BlogSection[];
+}
