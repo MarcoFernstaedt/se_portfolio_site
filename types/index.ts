@@ -41,15 +41,23 @@ export interface BlogSection {
   bullets?: string[];
 }
 
+export type BlogWorkflowStatus = 'draft' | 'approved' | 'published';
+
 export interface BlogPost {
   slug: string;
   title: string;
   excerpt: string;
-  publishedAt: string;
+  publishAt: string;
   readTime: string;
   category: string;
   featured: boolean;
   recruiterSignal: string[];
   summary: string;
   sections: BlogSection[];
+}
+
+export interface BlogPostRecord extends BlogPost {
+  status: BlogWorkflowStatus;
+  approvedAt?: string;
+  approvalNotes?: string;
 }

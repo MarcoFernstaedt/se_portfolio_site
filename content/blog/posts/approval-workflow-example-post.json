@@ -1,0 +1,33 @@
+{
+  "slug": "approval-workflow-example-post",
+  "title": "Draft example: shipping with an approval-first writing workflow",
+  "excerpt": "A draft placeholder showing how future posts can be written early, approved deliberately, and published later without exposing unfinished work.",
+  "publishAt": "2026-04-15T14:00:00.000Z",
+  "readTime": "4 min read",
+  "category": "Workflow",
+  "featured": false,
+  "status": "draft",
+  "approvalNotes": "Waiting for final review. Tighten the intro and confirm the publish date before approval.",
+  "recruiterSignal": [
+    "Operates with clear review gates",
+    "Thinks about process, not just code",
+    "Keeps public output clean and intentional"
+  ],
+  "summary": "This draft is intentionally hidden from the public site until Marco explicitly approves it and its scheduled publish time arrives.",
+  "sections": [
+    {
+      "heading": "Why this exists",
+      "content": [
+        "This file is a working example of the blog workflow. Drafts live in the repo, but they do not appear on the public portfolio until they are approved."
+      ]
+    },
+    {
+      "heading": "Before approval",
+      "bullets": [
+        "Polish the title and opening summary",
+        "Confirm the final publish date",
+        "Set status to approved when ready"
+      ]
+    }
+  ]
+}

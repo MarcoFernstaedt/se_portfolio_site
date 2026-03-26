@@ -1,9 +1,9 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { blogPosts, getBlogPost } from '@/lib/blog-data';
+import { formatPublishDate, getBlogPost, getPublicBlogPosts } from '@/lib/blog-data';
 
 export function generateStaticParams() {
-  return blogPosts.map((post) => ({ slug: post.slug }));
+  return getPublicBlogPosts().map((post) => ({ slug: post.slug }));
 }
 
 export function generateMetadata({ params }: { params: { slug: string } }) {
@@ -35,7 +35,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
 
         <header className="mt-6 mb-8">
           <div className="flex flex-wrap items-center gap-3 text-xs mb-4" style={{ color: 'var(--text-dim)' }}>
-            <span>{post.publishedAt}</span>
+            <span>{formatPublishDate(post.publishAt)}</span>
             <span>•</span>
             <span>{post.category}</span>
             <span>•</span>

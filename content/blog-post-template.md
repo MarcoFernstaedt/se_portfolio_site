@@ -2,17 +2,52 @@
 
 Use this format for future posts so recruiters and hiring managers can skim quickly.
 
-## Frontmatter-style fields to copy into `lib/blog-data.ts`
+## File location
 
-- `slug`: short URL-safe id
-- `title`: specific project or lesson title
-- `excerpt`: one-sentence teaser
-- `publishedAt`: YYYY-MM-DD
-- `readTime`: short estimate like `4 min read`
-- `category`: example `Accessibility + AI`, `Systems Design`, `Frontend`, `Backend`
-- `featured`: `true` if it should appear on the homepage
-- `recruiterSignal`: 2-4 bullets describing what the post proves about you
-- `summary`: 1-2 sentence overview
+Create a new JSON file in `content/blog/posts/<slug>.json`.
+
+## Fields to copy
+
+```json
+{
+  "slug": "my-new-post",
+  "title": "Specific project or lesson title",
+  "excerpt": "One-sentence teaser",
+  "publishAt": "2026-04-15T14:00:00.000Z",
+  "readTime": "4 min read",
+  "category": "Accessibility + AI",
+  "featured": false,
+  "status": "draft",
+  "approvalNotes": "Optional review notes before approval.",
+  "recruiterSignal": [
+    "What this proves about how Marco works",
+    "Another recruiter-friendly proof point"
+  ],
+  "summary": "1-2 sentence overview",
+  "sections": [
+    {
+      "heading": "Problem",
+      "content": [
+        "What needed to be solved?",
+        "Why did it matter?"
+      ]
+    },
+    {
+      "heading": "What I built / changed",
+      "content": [
+        "Stack, architecture, scope"
+      ]
+    },
+    {
+      "heading": "Engineering decisions",
+      "bullets": [
+        "Tradeoff one",
+        "Tradeoff two"
+      ]
+    }
+  ]
+}
+```
 
 ## Recommended section outline
 
@@ -29,6 +64,13 @@ Use this format for future posts so recruiters and hiring managers can skim quic
    - Shows growth and judgment
 6. **Recruiter takeaway**
    - What this says about how you work
+
+## Approval-first rules
+
+- Start every new post as `"status": "draft"`
+- Do not make it `approved` until Marco has reviewed it
+- Set `publishAt` to the actual target publish time in UTC
+- Approved posts stay hidden until `publishAt` arrives
 
 ## Writing rules
 

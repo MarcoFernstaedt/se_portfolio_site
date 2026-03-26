@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "blog:list": "node scripts/blog-workflow.mjs list",
+    "blog:approve": "node scripts/blog-workflow.mjs approve",
+    "blog:unapprove": "node scripts/blog-workflow.mjs unapprove"
   },
   "dependencies": {
     "@xyflow/react": "^12.10.1",

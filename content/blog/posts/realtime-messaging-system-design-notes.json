@@ -1,0 +1,40 @@
+{
+  "slug": "realtime-messaging-system-design-notes",
+  "title": "What building a real-time messaging platform taught me",
+  "excerpt": "Presence, optimistic updates, image handling, and reconnect logic were the parts that turned a chat app from a tutorial project into real engineering work.",
+  "publishAt": "2026-02-19T09:00:00.000Z",
+  "readTime": "6 min read",
+  "category": "Systems Design",
+  "featured": true,
+  "status": "published",
+  "approvedAt": "2026-02-17T18:00:00.000Z",
+  "recruiterSignal": [
+    "Works across frontend and backend boundaries",
+    "Understands real-time state synchronization",
+    "Builds practical auth and media flows"
+  ],
+  "summary": "This post focuses on the parts of chat systems that actually get difficult: keeping state believable, handling reconnects, and making media and auth feel stable.",
+  "sections": [
+    {
+      "heading": "The easy version vs the real version",
+      "content": [
+        "A basic chat demo is straightforward. A usable messaging product is not. The hard part is handling the moments when reality is messy: stale presence, dropped sockets, duplicate events, and uploads that lag behind UI state."
+      ]
+    },
+    {
+      "heading": "Core lessons",
+      "bullets": [
+        "Optimistic UI makes the product feel fast, but only if rollback paths are clear",
+        "Reconnect behavior is part of the product, not just infrastructure",
+        "Presence indicators become noisy quickly without careful event rules",
+        "Image upload flows need security and UX considered together"
+      ]
+    },
+    {
+      "heading": "What I would highlight to a team",
+      "content": [
+        "I am comfortable moving between UI polish and backend event handling. This project forced me to think about both at the same time instead of treating them as separate worlds."
+      ]
+    }
+  ]
+}

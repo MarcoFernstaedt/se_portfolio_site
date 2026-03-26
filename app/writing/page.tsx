@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { blogPosts } from '@/lib/blog-data';
+import { formatPublishDate, getPublicBlogPosts } from '@/lib/blog-data';
 
 export const metadata = {
   title: 'Engineering Notes | Marco Fernstaedt',
@@ -8,6 +8,8 @@ export const metadata = {
 };
 
 export default function WritingPage() {
+  const posts = getPublicBlogPosts();
+
   return (
     <main className="min-h-screen grid-bg scanlines px-4 sm:px-6 py-8" style={{ backgroundColor: 'var(--bg-primary)' }}>
       <div className="max-w-4xl mx-auto">
@@ -25,7 +27,7 @@ export default function WritingPage() {
         </div>
 
         <div className="space-y-4">
-          {blogPosts.map((post) => (
+          {posts.map((post) => (
             <article
               key={post.slug}
               className="rounded-lg p-5"
@@ -35,7 +37,7 @@ export default function WritingPage() {
               }}
             >
               <div className="flex flex-wrap items-center gap-3 text-xs mb-3" style={{ color: 'var(--text-dim)' }}>
-                <span>{post.publishedAt}</span>
+                <span>{formatPublishDate(post.publishAt)}</span>
                 <span>•</span>
                 <span>{post.category}</span>
                 <span>•</span>

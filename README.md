@@ -1,36 +1,40 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# se_portfolio_site
 
-## Getting Started
+Marco's recruiter-facing portfolio site built with Next.js.
 
-First, run the development server:
+## Local development
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Blog workflow
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+The blog is file-based and approval-first.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Posts live in `content/blog/posts/*.json`
+- Drafts stay private by default
+- A post becomes public only when it is approved and its `publishAt` time has passed
 
-## Learn More
+Useful commands:
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm run blog:list
+npm run blog:approve -- <slug> [publishAt]
+npm run blog:unapprove -- <slug>
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Full workflow notes:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- `content/blog/WORKFLOW.md`
+- `content/blog-post-template.md`
 
-## Deploy on Vercel
+## Deploy
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+npm run build
+npm run start
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+To make scheduled posts appear on time, configure your host to rebuild/redeploy on a schedule. The repo already handles approval gating and time-based visibility; the host just needs to refresh the site after the publish time passes.

@@ -1,0 +1,48 @@
+{
+  "slug": "building-accessible-ai-image-audio-workflows",
+  "title": "Building an accessible AI image-to-audio workflow",
+  "excerpt": "How I approached image understanding, speech generation, and UX tradeoffs when building an accessibility-first tool for blind and low-vision users.",
+  "publishAt": "2026-03-10T09:00:00.000Z",
+  "readTime": "5 min read",
+  "category": "Accessibility + AI",
+  "featured": true,
+  "status": "published",
+  "approvedAt": "2026-03-08T18:00:00.000Z",
+  "recruiterSignal": [
+    "Ships accessibility-focused product work",
+    "Integrates external AI APIs into production UX",
+    "Thinks in user outcomes, not demos"
+  ],
+  "summary": "This post breaks down the engineering decisions behind an accessibility tool that converts images into spoken descriptions. It focuses on system flow, latency constraints, and product decisions that matter in real use.",
+  "sections": [
+    {
+      "heading": "Problem",
+      "content": [
+        "A generic image caption is rarely enough for a blind user. The output needs to prioritize context, spatial relationships, and what is actually useful to act on.",
+        "That changed the engineering goal from ‘describe an image’ to ‘deliver actionable context quickly and reliably.’"
+      ]
+    },
+    {
+      "heading": "What I built",
+      "content": [
+        "A pipeline that accepts an image, sends it through a vision model, transforms the response into narration-friendly output, and streams generated speech back to the browser.",
+        "The frontend was designed to keep the interaction simple, keyboard-friendly, and usable with assistive tech from the start rather than as a retrofit."
+      ]
+    },
+    {
+      "heading": "Engineering decisions",
+      "bullets": [
+        "Optimized prompts for useful detail instead of generic captions",
+        "Handled binary audio responses end-to-end",
+        "Reduced friction in the UI for repeat use",
+        "Designed for graceful failure when model or network calls slow down"
+      ]
+    },
+    {
+      "heading": "Why it matters",
+      "content": [
+        "The interesting part of this project was not just calling an AI API. It was translating model output into an experience that works for real users with specific access needs."
+      ]
+    }
+  ]
+}

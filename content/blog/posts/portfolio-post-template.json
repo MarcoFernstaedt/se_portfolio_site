@@ -1,0 +1,37 @@
+{
+  "slug": "portfolio-post-template",
+  "title": "Post template: learned, built, impact",
+  "excerpt": "A reusable structure for writing high-signal engineering posts that recruiters can skim in under a minute.",
+  "publishAt": "2026-03-25T09:00:00.000Z",
+  "readTime": "3 min read",
+  "category": "Writing System",
+  "featured": false,
+  "status": "published",
+  "approvedAt": "2026-03-24T18:00:00.000Z",
+  "recruiterSignal": [
+    "Communicates clearly about engineering work",
+    "Frames technical work in business terms",
+    "Makes projects easy to evaluate quickly"
+  ],
+  "summary": "This template sets a clear structure for future posts so each one shows scope, technical depth, and outcome without turning into a diary entry.",
+  "sections": [
+    {
+      "heading": "Recommended structure",
+      "bullets": [
+        "What I built or worked on",
+        "Why the problem mattered",
+        "Key technical decisions",
+        "What was difficult",
+        "What I learned or would improve next",
+        "Recruiter takeaway: what this says about how I work"
+      ]
+    },
+    {
+      "heading": "Keep it high signal",
+      "content": [
+        "The best posts are specific. Name the stack, the tradeoffs, the constraints, and the outcome. Avoid generic motivational writing.",
+        "A recruiter or hiring manager should be able to skim the post and understand the scope, ownership, and engineering judgment involved."
+      ]
+    }
+  ]
+}
