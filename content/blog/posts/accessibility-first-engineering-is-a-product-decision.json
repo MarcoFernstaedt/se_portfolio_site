@@ -1,0 +1,58 @@
+{
+  "slug": "accessibility-first-engineering-is-a-product-decision",
+  "title": "Accessibility-first engineering is not a checklist. It changes the whole product.",
+  "excerpt": "Working on accessibility tools changed how I think about latency, interface friction, and what ‘done’ should mean in software.",
+  "publishAt": "2026-04-21T15:15:00.000Z",
+  "readTime": "5 min read",
+  "category": "Accessibility + Engineering Judgment",
+  "featured": false,
+  "status": "draft",
+  "approvalNotes": "Natural and strong. Could become featured if Marco wants accessibility to stay central to the portfolio narrative.",
+  "recruiterSignal": [
+    "Builds with real user constraints in mind",
+    "Understands accessibility as an engineering requirement",
+    "Brings product empathy without losing technical rigor"
+  ],
+  "summary": "Accessibility work has changed the way I build software in general. Once you are designing for users who depend on keyboard support, screen readers, low-friction flows, and clear feedback, you stop treating accessibility as a final pass and start treating it as part of the system design from the beginning.",
+  "sections": [
+    {
+      "heading": "What changed for me",
+      "content": [
+        "Before I worked deeply on accessibility-focused projects, it was easy to think about accessibility as a quality bar you verify near the end. In practice, that mindset breaks down fast.",
+        "If a user depends on spoken feedback or keyboard navigation, then latency, layout order, focus management, and error messaging are not polish. They are the product."
+      ]
+    },
+    {
+      "heading": "The engineering impact",
+      "bullets": [
+        "You think harder about interaction flow because extra steps carry real cost",
+        "You notice ambiguous UI language faster because it blocks comprehension",
+        "You care more about failure states because users cannot be abandoned in them",
+        "You design for consistency because surprises are expensive"
+      ]
+    },
+    {
+      "heading": "Why recruiters and teams should care",
+      "content": [
+        "Accessibility work is a forcing function for better engineering judgment. It makes you confront the difference between software that merely functions and software that can actually be used with confidence.",
+        "Teams benefit from that thinking well beyond accessibility-specific products. Cleaner interaction models, clearer state transitions, and better feedback loops improve the experience for everyone."
+      ]
+    },
+    {
+      "heading": "How this shows up in my work",
+      "bullets": [
+        "I default to keyboard-friendly, lower-friction interaction patterns",
+        "I think about response time and clarity together",
+        "I care about whether an interface is understandable under imperfect conditions",
+        "I treat usability constraints as architecture inputs, not afterthoughts"
+      ]
+    },
+    {
+      "heading": "Bottom line",
+      "content": [
+        "Accessibility has made me a sharper engineer because it removes the illusion that surface-level success is enough. The software either helps the user accomplish something clearly and reliably, or it does not.",
+        "That standard is useful on every team, whether the product is explicitly accessibility-focused or not."
+      ]
+    }
+  ]
+}

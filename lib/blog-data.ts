@@ -2,6 +2,9 @@ import accessibleWorkflow from '@/content/blog/posts/building-accessible-ai-imag
 import messagingNotes from '@/content/blog/posts/realtime-messaging-system-design-notes.json';
 import postTemplate from '@/content/blog/posts/portfolio-post-template.json';
 import approvalWorkflowExample from '@/content/blog/posts/approval-workflow-example-post.json';
+import codeInterviewPlatform from '@/content/blog/posts/collaborative-code-interview-platform-sandbox-and-sync.json';
+import realEstateDataPipeline from '@/content/blog/posts/real-estate-data-pipeline-for-acquisition-targeting.json';
+import accessibilityFirstEngineering from '@/content/blog/posts/accessibility-first-engineering-is-a-product-decision.json';
 import { BlogPostRecord, BlogWorkflowStatus } from '@/types';
 
 const blogPosts: BlogPostRecord[] = [
@@ -9,6 +12,9 @@ const blogPosts: BlogPostRecord[] = [
   messagingNotes,
   postTemplate,
   approvalWorkflowExample,
+  codeInterviewPlatform,
+  realEstateDataPipeline,
+  accessibilityFirstEngineering,
 ] as BlogPostRecord[];
 
 function sortNewestFirst(posts: BlogPostRecord[]) {

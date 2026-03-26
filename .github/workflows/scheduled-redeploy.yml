@@ -1,0 +1,22 @@
+name: Scheduled portfolio redeploy
+
+on:
+  schedule:
+    - cron: '20 15 * * 2,4'
+    - cron: '50 18 * * 3'
+  workflow_dispatch:
+
+jobs:
+  redeploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger deploy hook
+        env:
+          DEPLOY_HOOK_URL: ${{ secrets.DEPLOY_HOOK_URL }}
+        run: |
+          if [ -z "$DEPLOY_HOOK_URL" ]; then
+            echo "DEPLOY_HOOK_URL is not set. Add it as a GitHub Actions secret before enabling this workflow."
+            exit 1
+          fi
+
+          curl -fsS -X POST "$DEPLOY_HOOK_URL"

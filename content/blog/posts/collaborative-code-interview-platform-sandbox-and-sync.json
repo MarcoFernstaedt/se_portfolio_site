@@ -1,0 +1,58 @@
+{
+  "slug": "collaborative-code-interview-platform-sandbox-and-sync",
+  "title": "Building a collaborative code interview platform without faking the hard parts",
+  "excerpt": "The interesting work was not rendering an editor. It was syncing state, streaming execution, and keeping a live interview usable under pressure.",
+  "publishAt": "2026-04-07T15:15:00.000Z",
+  "readTime": "6 min read",
+  "category": "Tooling + Systems Design",
+  "featured": false,
+  "status": "draft",
+  "approvalNotes": "Strong recruiter-facing draft. Before approval, decide whether to mention Docker by name in the title or leave it broader.",
+  "recruiterSignal": [
+    "Builds real-time product experiences, not just static CRUD apps",
+    "Can reason about sandboxing, collaboration, and UX together",
+    "Communicates engineering tradeoffs clearly"
+  ],
+  "summary": "I built a live coding interview platform because I wanted to work on a product where frontend responsiveness, backend coordination, and execution safety all matter at the same time. The project forced me to think beyond a demo and into what a real interviewer and candidate would actually experience.",
+  "sections": [
+    {
+      "heading": "What I was actually building",
+      "content": [
+        "On paper, this sounds like an online editor with code execution. In practice, it is three systems that all have to feel coherent: a collaborative editor, a runtime execution layer, and an interview flow that stays understandable while multiple things are happening at once.",
+        "That distinction mattered. I was not trying to impress people with Monaco in a browser tab. I was trying to make the experience feel stable enough that two people could focus on solving a problem instead of fighting the tool."
+      ]
+    },
+    {
+      "heading": "The two hardest problems",
+      "bullets": [
+        "Keeping editor state synchronized without making the session feel laggy or fragile",
+        "Executing user code safely enough that the platform did not become its own security problem",
+        "Streaming output fast enough that the feedback loop still felt live",
+        "Avoiding UI confusion when edits, runs, and participant actions overlapped"
+      ]
+    },
+    {
+      "heading": "Why these problems are interesting",
+      "content": [
+        "Real-time collaboration punishes sloppy thinking. If your event model is vague, users feel it immediately through duplicate updates, stale state, or the sense that the editor is fighting them.",
+        "Execution is the same story. It is easy to say ‘run code in Docker.’ It is harder to treat runtime isolation, resource limits, and error handling as product requirements instead of infrastructure footnotes."
+      ]
+    },
+    {
+      "heading": "How I approached it",
+      "bullets": [
+        "Separated collaborative editing concerns from execution concerns so failures in one layer did not poison the other",
+        "Focused on low-latency feedback because interview tools live or die on responsiveness",
+        "Treated output streaming and state visibility as part of the UX, not just backend plumbing",
+        "Designed the system around believable session behavior instead of perfect theoretical consistency"
+      ]
+    },
+    {
+      "heading": "What this says about how I work",
+      "content": [
+        "I like projects where product quality depends on system design decisions. This one required me to think across frontend, backend, and operational boundaries at the same time.",
+        "It also reinforced something I care about in teams: the real job is not shipping a flashy feature. The real job is making a difficult workflow feel calm and reliable for the person using it."
+      ]
+    }
+  ]
+}

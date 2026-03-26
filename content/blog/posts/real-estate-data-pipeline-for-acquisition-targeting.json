@@ -1,0 +1,58 @@
+{
+  "slug": "real-estate-data-pipeline-for-acquisition-targeting",
+  "title": "What building real estate data tooling taught me about messy inputs and decision systems",
+  "excerpt": "The real challenge was not charts. It was turning inconsistent market data into something trustworthy enough to support acquisition decisions.",
+  "publishAt": "2026-04-16T15:15:00.000Z",
+  "readTime": "5 min read",
+  "category": "Data + Product Thinking",
+  "featured": false,
+  "status": "draft",
+  "approvalNotes": "Good recruiter-facing angle. Add one concrete example of conflicting source data before approval if Marco wants more specificity.",
+  "recruiterSignal": [
+    "Thinks in systems and business outcomes",
+    "Understands data normalization and scoring workflows",
+    "Can connect engineering work to decision quality"
+  ],
+  "summary": "One of the most useful projects I have worked on is a set of real estate intelligence tools aimed at helping with acquisition targeting. It pushed me into a very practical kind of engineering: taking unreliable inputs, structuring them, and turning them into something a human can actually trust enough to act on.",
+  "sections": [
+    {
+      "heading": "Why this kind of project matters",
+      "content": [
+        "A lot of software work is about convenience. This kind of tooling is about judgment. If the data pipeline is weak, the user does not just get a worse experience. They make worse decisions.",
+        "That changes how you build. You start caring less about surface polish in isolation and more about whether the underlying model of the world is clean enough to be useful."
+      ]
+    },
+    {
+      "heading": "Where the difficulty actually was",
+      "bullets": [
+        "Normalizing data from multiple sources that describe the same asset differently",
+        "Handling missing, stale, or contradictory values without pretending the data was cleaner than it was",
+        "Designing score logic that was explainable instead of magical",
+        "Turning analysis into interfaces that support comparison and action"
+      ]
+    },
+    {
+      "heading": "What I learned building it",
+      "content": [
+        "The word ‘pipeline’ can hide a lot of risk. It sounds orderly, but upstream data is often anything but orderly. The work is really about defining rules for ambiguity and deciding what the system should do when the world does not fit your schema neatly.",
+        "That was the part I enjoyed. I like engineering work that requires structure, judgment, and business context at the same time."
+      ]
+    },
+    {
+      "heading": "How I think about product value here",
+      "bullets": [
+        "The output has to be interpretable by a human who is making a real call",
+        "A score is only useful if the user can understand what drove it",
+        "Visualizations should clarify tradeoffs, not decorate the screen",
+        "The system should make uncertainty visible instead of hiding it"
+      ]
+    },
+    {
+      "heading": "Recruiter takeaway",
+      "content": [
+        "This project reflects the kind of work I want more of: software that sits close to real decisions, where architecture and data quality directly affect business value.",
+        "It also shows that I am comfortable working on problems that are not clean tutorial problems. Messy inputs, fuzzy constraints, and imperfect data are normal. I know how to build through that."
+      ]
+    }
+  ]
+}
