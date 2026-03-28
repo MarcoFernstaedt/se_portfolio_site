@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { projects } from '@/lib/data';
 import { Project } from '@/types';
@@ -127,20 +127,15 @@ function parseCommand(transcript: string): CommandResult {
  * help panel listing available commands and a live transcript/feedback area.
  */
 export default function VoiceCommand({ onProjectOpen, onScrollTo }: VoiceCommandProps) {
-  const [supported, setSupported] = useState(false);
+  const [supported] = useState(() => {
+    if (typeof window === 'undefined') return false;
+    return Boolean(window.SpeechRecognition || window.webkitSpeechRecognition);
+  });
   const [listening, setListening] = useState(false);
   const [transcript, setTranscript] = useState('');
   const [feedback, setFeedback] = useState('');
   const [showPanel, setShowPanel] = useState(false);
   const recognitionRef = useRef<SpeechRecognition | null>(null);
-
-  useEffect(() => {
-    const SpeechRecognitionAPI =
-      window.SpeechRecognition || window.webkitSpeechRecognition;
-    if (SpeechRecognitionAPI) {
-      setSupported(true);
-    }
-  }, []);
 
   const handleResult = useCallback(
     (t: string) => {

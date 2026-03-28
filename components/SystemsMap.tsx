@@ -155,7 +155,6 @@ export default function SystemsMap({ onProjectClick }: SystemsMapProps) {
     });
 
     return [root, ...projectNodes];
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [onProjectClick, cols, colGap, nodeW, totalGridW, narrow]);
 
   const initialEdges: Edge[] = useMemo(
@@ -176,8 +175,7 @@ export default function SystemsMap({ onProjectClick }: SystemsMapProps) {
   // Re-sync nodes when layout changes (window resize crosses breakpoint)
   useEffect(() => {
     setNodes(initialNodes);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [narrow]);
+  }, [initialNodes, setNodes]);
 
   // Height: base 48px header + 130px per row + padding
   const sectionHeight = 48 + totalRows * 130 + 60;

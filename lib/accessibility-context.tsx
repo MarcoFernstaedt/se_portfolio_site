@@ -21,17 +21,20 @@ const AccessibilityContext = createContext<AccessibilityContextType>({
 });
 
 export function AccessibilityProvider({ children }: { children: ReactNode }) {
-  const [accessibilityMode, setAccessibilityMode] = useState(false);
+  const [accessibilityMode, setAccessibilityMode] = useState(() => {
+    if (typeof window === 'undefined') return false;
 
-  useEffect(() => {
     const saved = localStorage.getItem('accessibility-mode');
     const prefersReducedMotion = window.matchMedia(
       '(prefers-reduced-motion: reduce)'
     ).matches;
-    const initial = saved === 'true' || prefersReducedMotion;
-    setAccessibilityMode(initial);
-    document.body.classList.toggle('accessibility-mode', initial);
-  }, []);
+
+    return saved === 'true' || prefersReducedMotion;
+  });
+
+  useEffect(() => {
+    document.body.classList.toggle('accessibility-mode', accessibilityMode);
+  }, [accessibilityMode]);
 
   const toggleAccessibilityMode = () => {
     setAccessibilityMode((prev) => {

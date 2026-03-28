@@ -52,7 +52,6 @@ export default function SkillsPanel() {
         {skills.map((skill, i) => {
           const color = categoryColors[skill.category];
           const filledBlocks = skill.level;
-          const emptyBlocks = 10 - skill.level;
           const percentage = skill.level * 10;
 
           return (
