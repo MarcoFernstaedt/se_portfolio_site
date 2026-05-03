@@ -8,10 +8,10 @@ export const metadata: Metadata = {
     'Full-stack software engineer specializing in accessible, performant web applications. React, Next.js, TypeScript, Node.js, and AI integration.',
   keywords: [
     'full-stack developer',
-    'accessibility engineer',
+    'software engineer',
     'Next.js',
     'TypeScript',
-    'blind developer',
+    'AI integration',
     'WCAG',
     'systems builder',
   ],

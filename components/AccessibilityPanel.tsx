@@ -53,19 +53,6 @@ export default function AccessibilityPanel() {
         </span>
       </div>
 
-      {/* Signature feature callout */}
-      <div
-        className="rounded p-3 mb-4 text-xs leading-relaxed"
-        style={{
-          backgroundColor: 'rgba(0,128,255,0.05)',
-          border: '1px solid rgba(0,128,255,0.15)',
-          color: 'var(--text-secondary)',
-        }}
-      >
-        Built by a blind developer. Accessibility is not an afterthought here — it is the
-        foundation of every system in this portfolio.
-      </div>
-
       {/* Feature list */}
       <ul className="space-y-2 mb-5" aria-label="Accessibility features">
         {features.map((feat) => (
