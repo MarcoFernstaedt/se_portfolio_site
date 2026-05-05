@@ -35,6 +35,7 @@ export default function ProjectCard({ project, onClick, index }: ProjectCardProp
       onKeyDown={(e) => e.key === 'Enter' && onClick(project)}
       role="button"
       tabIndex={0}
+      data-project-id={project.id}
       aria-label={`Open project: ${project.name}. Status: ${project.status}`}
       className="cursor-pointer group rounded-lg p-4 transition-all duration-300"
       style={{

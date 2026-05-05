@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Project } from '@/types';
 import StatusBadge from './StatusBadge';
 import TrafficLightDots from './TrafficLightDots';
+import GitHubStatsRow from './GitHubStatsRow';
 
 interface ProjectModalProps {
   /** Project to display. Pass `null` to close the modal. */
@@ -108,6 +109,8 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
 
               {/* Terminal content */}
               <div className="p-4 sm:p-6 font-mono text-sm space-y-4 sm:space-y-5">
+                {project.repoPath && <GitHubStatsRow repoPath={project.repoPath} />}
+
                 {/* Command line */}
                 <div>
                   <span style={{ color: 'var(--text-dim)' }}>$</span>

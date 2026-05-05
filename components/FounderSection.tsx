@@ -85,8 +85,8 @@ export default function FounderSection() {
         style={{ color: '#94a3b8', borderLeft: '2px solid #1e3a5f', paddingLeft: '12px' }}
       >
         Building accessible, performant software from the ground up. Focused on
-        clean architecture, real-world impact, and engineering systems that work
-        for everyone — including users who rely on assistive technology.
+        clean architecture, systems that scale, and engineering solutions that
+        deliver measurable real-world impact.
       </p>
 
       {/* Stats */}

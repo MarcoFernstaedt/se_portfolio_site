@@ -12,6 +12,7 @@ import AccessibilityPanel from '@/components/AccessibilityPanel';
 import FounderSection from '@/components/FounderSection';
 import BlogPreviewPanel from '@/components/BlogPreviewPanel';
 import VoiceCommand from '@/components/VoiceCommand';
+import HermesTour from '@/components/HermesTour';
 import { Project } from '@/types';
 
 export default function Home() {
@@ -85,11 +86,12 @@ export default function Home() {
           </motion.div>
 
           {/* Main grid layout */}
-          <div className="grid grid-cols-1 xl:grid-cols-3 gap-5 md:gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] xl:grid-cols-3 gap-5 md:gap-6">
             {/* Left column — projects (2/3 width) */}
             <div className="xl:col-span-2 space-y-5 md:space-y-6">
               <motion.div
                 ref={projectsRef}
+                data-section-id="projects"
                 initial={{ opacity: 0, y: 20 }}
                 animate={booted ? { opacity: 1, y: 0 } : {}}
                 transition={{ delay: 0.3 }}
@@ -100,6 +102,7 @@ export default function Home() {
               {/* Systems map */}
               <motion.div
                 ref={systemsRef}
+                data-section-id="systems"
                 initial={{ opacity: 0, y: 20 }}
                 animate={booted ? { opacity: 1, y: 0 } : {}}
                 transition={{ delay: 0.5 }}
@@ -110,6 +113,7 @@ export default function Home() {
 
               <motion.div
                 ref={writingRef}
+                data-section-id="writing"
                 initial={{ opacity: 0, y: 20 }}
                 animate={booted ? { opacity: 1, y: 0 } : {}}
                 transition={{ delay: 0.6 }}
@@ -124,6 +128,7 @@ export default function Home() {
               {/* Founder / identity */}
               <motion.div
                 ref={founderRef}
+                data-section-id="founder"
                 initial={{ opacity: 0, x: 20 }}
                 animate={booted ? { opacity: 1, x: 0 } : {}}
                 transition={{ delay: 0.35 }}
@@ -135,6 +140,7 @@ export default function Home() {
               {/* Skills */}
               <motion.div
                 ref={skillsRef}
+                data-section-id="skills"
                 initial={{ opacity: 0, x: 20 }}
                 animate={booted ? { opacity: 1, x: 0 } : {}}
                 transition={{ delay: 0.45 }}
@@ -175,6 +181,13 @@ export default function Home() {
             onScrollTo={handleScrollTo}
           />
         )}
+
+        {/* Hermes AI tour guide */}
+        <HermesTour
+          onProjectOpen={setSelectedProject}
+          onScrollTo={handleScrollTo}
+          booted={booted}
+        />
       </div>
 
       {/* Project modal */}

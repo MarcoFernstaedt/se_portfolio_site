@@ -48,6 +48,12 @@ export default function TopBar() {
         <div className="flex items-center gap-3">
           <TrafficLightDots />
           <span
+            className="text-sm font-bold tracking-widest md:hidden"
+            style={{ color: 'var(--accent-cyan)' }}
+          >
+            M.F.
+          </span>
+          <span
             className="text-sm font-bold tracking-widest hidden md:block"
             style={{ color: 'var(--accent-cyan)' }}
           >
@@ -100,7 +106,8 @@ export default function TopBar() {
                 ? 'Disable accessibility mode'
                 : 'Enable screen reader optimized mode'
             }
-            className="flex items-center gap-2 text-xs px-3 py-1.5 rounded transition-all"
+            title={accessibilityMode ? 'A11Y: ON — click to disable' : 'Enable screen reader optimized mode'}
+            className="flex items-center text-xs px-2 py-1.5 rounded transition-all"
             style={{
               border: `1px solid ${accessibilityMode ? 'var(--accent-green)' : 'var(--border-color)'}`,
               backgroundColor: accessibilityMode ? 'rgba(0,255,136,0.1)' : 'transparent',
@@ -109,9 +116,6 @@ export default function TopBar() {
             }}
           >
             <span aria-hidden="true">{accessibilityMode ? '◉' : '○'}</span>
-            <span className="hidden sm:inline">
-              {accessibilityMode ? 'A11Y: ON' : 'A11Y MODE'}
-            </span>
           </button>
         </nav>
       </div>

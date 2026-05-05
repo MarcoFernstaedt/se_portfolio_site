@@ -17,6 +17,14 @@ export interface Project {
   github?: string;
   demo?: string;
   category: 'accessibility' | 'platform' | 'tooling' | 'infrastructure';
+  repoPath?: string;
+}
+
+export interface GitHubStats {
+  language: string | null;
+  stars: number;
+  forks: number;
+  updatedAt: string;
 }
 
 /** A technical skill shown in the Skills panel with a 0-10 proficiency level. */

@@ -14,7 +14,7 @@ export const projects: Project[] = [
     status: 'Active',
     stack: ['Next.js', 'TypeScript', 'OpenAI Vision', 'OpenAI TTS', 'Node.js'],
     description:
-      'A vision accessibility tool that converts images into rich spoken descriptions for blind and low-vision users, enabling full visual context through audio.',
+      'A multimodal AI pipeline that uses GPT-4 Vision to generate rich semantic image descriptions and pipes them through OpenAI TTS — demonstrating real-time binary audio streaming, latency optimization, and accessibility-first interface design.',
     function: 'Converts images into spoken descriptions using GPT-4 Vision and OpenAI TTS',
     challenges: [
       'Binary audio streaming from API to browser',
@@ -24,6 +24,7 @@ export const projects: Project[] = [
     ],
     github: 'https://github.com/MarcoFernstaedt',
     category: 'accessibility',
+    repoPath: 'MarcoFernstaedt/ai-image-to-audio',
   },
   {
     id: 'realtime-messaging',
@@ -41,6 +42,7 @@ export const projects: Project[] = [
     ],
     github: 'https://github.com/MarcoFernstaedt',
     category: 'platform',
+    repoPath: 'MarcoFernstaedt/realtime-messaging',
   },
   {
     id: 'code-interview',
@@ -58,6 +60,7 @@ export const projects: Project[] = [
     ],
     github: 'https://github.com/MarcoFernstaedt',
     category: 'tooling',
+    repoPath: 'MarcoFernstaedt/code-interview-platform',
   },
   {
     id: 'real-estate-tools',
@@ -75,6 +78,7 @@ export const projects: Project[] = [
     ],
     github: 'https://github.com/MarcoFernstaedt',
     category: 'infrastructure',
+    repoPath: 'MarcoFernstaedt/real-estate-tools',
   },
 ];
 
