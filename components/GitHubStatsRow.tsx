@@ -2,12 +2,14 @@
 
 import { useGitHubStats } from '@/lib/use-github-stats';
 
+const BUILD_TIME_MS = Date.now();
+
 export default function GitHubStatsRow({ repoPath }: { repoPath?: string }) {
   const stats = useGitHubStats(repoPath);
   if (!repoPath || !stats) return null;
 
   const daysAgo = stats.updatedAt
-    ? Math.floor((Date.now() - new Date(stats.updatedAt).getTime()) / 86_400_000)
+    ? Math.floor((BUILD_TIME_MS - new Date(stats.updatedAt).getTime()) / 86_400_000)
     : null;
 
   return (
