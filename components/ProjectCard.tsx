@@ -32,7 +32,12 @@ export default function ProjectCard({ project, onClick, index }: ProjectCardProp
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.1, duration: 0.4 }}
       onClick={() => onClick(project)}
-      onKeyDown={(e) => e.key === 'Enter' && onClick(project)}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          onClick(project);
+        }
+      }}
       role="button"
       tabIndex={0}
       data-project-id={project.id}

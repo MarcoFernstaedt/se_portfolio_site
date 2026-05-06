@@ -22,27 +22,64 @@ interface ProjectModalProps {
  */
 export default function ProjectModal({ project, onClose }: ProjectModalProps) {
   const dialogRef = useRef<HTMLDivElement>(null);
+  const previousFocusRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
-    if (project) {
-      // Move focus into the dialog for keyboard users
-      dialogRef.current?.focus();
-      document.body.style.overflow = 'hidden';
-    } else {
+    if (!project) {
       document.body.style.overflow = '';
+      previousFocusRef.current?.focus();
+      previousFocusRef.current = null;
+      return;
     }
+
+    previousFocusRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    document.body.style.overflow = 'hidden';
+    dialogRef.current?.focus();
+
     return () => {
       document.body.style.overflow = '';
     };
   }, [project]);
 
   useEffect(() => {
+    if (!project) return;
+
     const handler = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
+      if (e.key === 'Escape') {
+        onClose();
+        return;
+      }
+
+      if (e.key !== 'Tab' || !dialogRef.current) return;
+
+      const focusable = Array.from(
+        dialogRef.current.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])'
+        )
+      ).filter((element) => !element.hasAttribute('disabled') && element.offsetParent !== null);
+
+      if (focusable.length === 0) {
+        e.preventDefault();
+        dialogRef.current.focus();
+        return;
+      }
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      const active = document.activeElement;
+
+      if (e.shiftKey && active === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && active === last) {
+        e.preventDefault();
+        first.focus();
+      }
     };
+
     window.addEventListener('keydown', handler);
     return () => window.removeEventListener('keydown', handler);
-  }, [onClose]);
+  }, [project, onClose]);
 
   return (
     <AnimatePresence>
@@ -64,7 +101,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
             ref={dialogRef}
             role="dialog"
             aria-modal="true"
-            aria-labelledby="modal-title"
+            aria-labelledby="project-modal-title"
             tabIndex={-1}
             className="fixed inset-0 z-50 flex items-end sm:items-center justify-center sm:p-4 outline-none pt-[env(safe-area-inset-top)]"
             initial={{ opacity: 0 }}
@@ -92,7 +129,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                 }}
               >
                 <div className="flex items-center gap-2">
-                  <TrafficLightDots onClose={onClose} />
+                  <TrafficLightDots />
                   <span className="text-xs font-mono ml-2" style={{ color: 'var(--text-dim)' }}>
                     system_inspector.sh
                   </span>
@@ -126,7 +163,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
 
                 {/* Name + Status */}
                 <div className="flex flex-wrap items-center gap-3">
-                  <h2 className="text-base font-bold" style={{ color: 'var(--text-primary)' }}>
+                  <h2 id="project-modal-title" className="text-base font-bold" style={{ color: 'var(--text-primary)' }}>
                     {project.name}
                   </h2>
                   <StatusBadge status={project.status} />

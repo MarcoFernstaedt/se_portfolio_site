@@ -39,10 +39,11 @@ export default function Home() {
       {!booted && <BootScreen onComplete={() => setBooted(true)} />}
 
       {/* Main app */}
-      <div
-        className={`min-h-screen grid-bg scanlines transition-opacity duration-700 ${booted ? 'opacity-100' : 'opacity-0'}`}
-        style={{ backgroundColor: 'var(--bg-primary)' }}
-      >
+      {booted && (
+        <div
+          className="min-h-screen grid-bg scanlines transition-opacity duration-700 opacity-100"
+          style={{ backgroundColor: 'var(--bg-primary)' }}
+        >
         <TopBar />
 
         <main id="main-content" className="max-w-screen-xl mx-auto px-3 sm:px-4 md:px-6 py-4 sm:py-6 pb-24 sm:pb-32">
@@ -173,7 +174,8 @@ export default function Home() {
           onScrollTo={handleScrollTo}
           booted={booted}
         />
-      </div>
+        </div>
+      )}
 
       {/* Project modal */}
       <ProjectModal

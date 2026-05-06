@@ -10,6 +10,33 @@ interface SentinelResponse {
   openProjectId?: string;
 }
 
+const ALLOWED_SECTIONS = new Set(['projects', 'skills', 'systems', 'founder', 'writing']);
+const ALLOWED_PROJECT_IDS = new Set(featuredProjects.map((project) => project.id));
+const MAX_MESSAGE_LENGTH = 500;
+
+function cleanString(value: unknown, maxLength: number): string | null {
+  if (typeof value !== 'string') return null;
+  return value.slice(0, maxLength).trim();
+}
+
+function sanitizeSentinelResponse(value: unknown): SentinelResponse | null {
+  if (!value || typeof value !== 'object') return null;
+  const candidate = value as Record<string, unknown>;
+  const message = cleanString(candidate.message, 500);
+  if (!message) return null;
+
+  const scrollToSection = cleanString(candidate.scrollToSection, 40);
+  const highlightId = cleanString(candidate.highlightId, 40);
+  const openProjectId = cleanString(candidate.openProjectId, 80);
+
+  return {
+    message,
+    ...(scrollToSection && ALLOWED_SECTIONS.has(scrollToSection) ? { scrollToSection } : {}),
+    ...(highlightId && ALLOWED_SECTIONS.has(highlightId) ? { highlightId } : {}),
+    ...(openProjectId && ALLOWED_PROJECT_IDS.has(openProjectId) ? { openProjectId } : {}),
+  };
+}
+
 const FALLBACK_TOUR: SentinelResponse[] = [
   {
     message:
@@ -274,28 +301,35 @@ function answerFromPortfolio(message: string | null): SentinelResponse {
 }
 
 export async function POST(request: NextRequest) {
-  const body = await request.json().catch(() => null);
-  if (!body) return NextResponse.json({ error: 'Invalid body' }, { status: 400 });
+  const body = await request.json().catch(() => null) as Record<string, unknown> | null;
+  if (!body || typeof body !== 'object') {
+    return NextResponse.json({ error: 'Invalid body' }, { status: 400 });
+  }
 
-  const { message, event, context } = body as {
-    message: string | null;
-    event: 'tour_start' | 'tour_step' | 'user_message';
-    context: { currentSection: string; step: number };
-  };
+  const event = body.event;
+  if (event !== 'tour_start' && event !== 'tour_step' && event !== 'user_message') {
+    return NextResponse.json({ error: 'Invalid event' }, { status: 400 });
+  }
+
+  const rawContext = body.context && typeof body.context === 'object' ? body.context as Record<string, unknown> : {};
+  const rawSection = cleanString(rawContext.currentSection, 40);
+  const currentSection = rawSection && ALLOWED_SECTIONS.has(rawSection) ? rawSection : 'projects';
+  const rawStep = typeof rawContext.step === 'number' && Number.isFinite(rawContext.step) ? rawContext.step : 0;
+  const step = Math.min(Math.max(Math.trunc(rawStep), 0), FALLBACK_TOUR.length - 1);
+  const message = event === 'user_message' ? cleanString(body.message, MAX_MESSAGE_LENGTH) : null;
 
   const hermesUrl = process.env.HERMES_API_URL;
   const hermesKey = process.env.HERMES_API_KEY;
 
-  if (!hermesUrl) {
+  if (!hermesUrl || !hermesKey) {
     if (event === 'tour_start' || event === 'tour_step') {
-      const step = context?.step ?? 0;
-      return NextResponse.json(FALLBACK_TOUR[Math.min(step, FALLBACK_TOUR.length - 1)]);
+      return NextResponse.json(FALLBACK_TOUR[step]);
     }
     return NextResponse.json(answerFromPortfolio(message));
   }
 
   try {
-    const userContent = buildUserMessage(event, message, context?.step ?? 0, context?.currentSection ?? 'projects');
+    const userContent = buildUserMessage(event, message, step, currentSection);
 
     const res = await fetch(`${hermesUrl}/v1/chat/completions`, {
       method: 'POST',
@@ -316,18 +350,20 @@ export async function POST(request: NextRequest) {
     });
 
     if (!res.ok) {
-      const step = context?.step ?? 0;
-      return NextResponse.json(FALLBACK_TOUR[Math.min(step, FALLBACK_TOUR.length - 1)]);
+      if (event === 'tour_start' || event === 'tour_step') {
+        return NextResponse.json(FALLBACK_TOUR[step]);
+      }
+      return NextResponse.json(answerFromPortfolio(message));
     }
 
     const data = await res.json();
     const rawContent: string = data?.choices?.[0]?.message?.content ?? '';
 
     try {
-      const parsed: SentinelResponse = JSON.parse(rawContent);
-      return NextResponse.json(parsed);
+      const parsed = sanitizeSentinelResponse(JSON.parse(rawContent));
+      return NextResponse.json(parsed ?? answerFromPortfolio(message));
     } catch {
-      return NextResponse.json({ message: rawContent.slice(0, 300) });
+      return NextResponse.json({ message: rawContent.slice(0, 300) || answerFromPortfolio(message).message });
     }
   } catch {
     return NextResponse.json({

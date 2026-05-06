@@ -53,14 +53,12 @@ export default function ProjectsPanel({ onProjectClick }: ProjectsPanelProps) {
       {/* Filter tabs */}
       <div
         className="flex gap-2 mb-4 overflow-x-auto pb-1 scrollbar-none"
-        role="tablist"
         aria-label="Filter projects by category"
       >
         {categories.map((cat) => (
           <button
             key={cat.id}
-            role="tab"
-            aria-selected={activeCategory === cat.id}
+            aria-pressed={activeCategory === cat.id}
             onClick={() => setActiveCategory(cat.id)}
             className="text-xs px-3 py-1 rounded transition-all shrink-0"
             style={{
@@ -79,7 +77,6 @@ export default function ProjectsPanel({ onProjectClick }: ProjectsPanelProps) {
       {/* Project grid */}
       <div
         className="grid grid-cols-1 sm:grid-cols-2 gap-3"
-        role="tabpanel"
         aria-label={`Projects: ${activeCategory}`}
       >
         {filtered.map((project, i) => (

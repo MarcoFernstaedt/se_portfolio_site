@@ -76,9 +76,9 @@ const EXAMPLE_COMMANDS = [
  */
 const PROJECT_KEYWORD_MAP: [string[], string][] = [
   [['image', 'audio', 'accessibility', 'vision'], 'ai-image-audio'],
+  [['saguaro', 'cynthia', 'client', 'tutoring', 'resend'], 'saguaro-blossoms-client-site'],
   [['messaging', 'chat', 'real time', 'socket'], 'realtime-messaging'],
-  [['interview', 'coding', 'code'], 'interview-platform'],
-  [['real estate', 'property', 'data'], 'real-estate-data'],
+  [['interview', 'coding', 'code', 'monaco', 'piston'], 'code-interview'],
 ];
 
 /**
