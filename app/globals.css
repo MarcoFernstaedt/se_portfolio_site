@@ -26,7 +26,7 @@ html {
 body {
   background-color: var(--bg-primary);
   color: var(--text-primary);
-  font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+  font-family: var(--font-jetbrains-mono), 'Fira Code', 'Cascadia Code', monospace;
   overflow-x: hidden;
 }
 
@@ -208,4 +208,14 @@ body.accessibility-mode .scanlines::after {
 /* React Flow overrides */
 .react-flow__renderer {
   background: transparent !important;
+}
+
+/* Respect OS-level reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

@@ -21,7 +21,10 @@ const stats = [
  * Sidebar profile card for the engineer.
  *
  * Displays name, title, animated role tags, mission statement, key stats,
- * and links to GitHub and email contact.
+ * and contact/social links including a resume download button.
+ *
+ * RESUME: Place your PDF at public/Marco-Fernstaedt-Resume-2025.pdf
+ * The download button below links to that path automatically.
  */
 export default function FounderSection() {
   return (
@@ -48,8 +51,19 @@ export default function FounderSection() {
         >
           Marco Fernstaedt
         </div>
-        <div className="text-sm" style={{ color: 'var(--text-secondary)' }}>
+        <div className="text-sm mb-2" style={{ color: 'var(--text-secondary)' }}>
           Full Stack Software Engineer
+        </div>
+        {/* Availability badge */}
+        <div className="flex items-center gap-1.5">
+          <span
+            className="w-1.5 h-1.5 rounded-full pulse-dot"
+            style={{ backgroundColor: 'var(--accent-green)' }}
+            aria-hidden="true"
+          />
+          <span className="text-xs font-mono font-bold" style={{ color: 'var(--accent-green)' }}>
+            OPEN TO WORK
+          </span>
         </div>
       </div>
 
@@ -112,17 +126,17 @@ export default function FounderSection() {
         ))}
       </div>
 
-      {/* Contact links */}
+      {/* Contact + social links */}
       <div
-        className="flex gap-3 mt-4 pt-4"
+        className="grid grid-cols-2 gap-2 mt-4 pt-4"
         style={{ borderTop: '1px solid var(--border-color)' }}
-        aria-label="Contact links"
+        aria-label="Contact and social links"
       >
         <a
           href="https://github.com/MarcoFernstaedt"
           target="_blank"
           rel="noopener noreferrer"
-          className="flex-1 text-center py-2 rounded text-xs transition-all hover:opacity-80"
+          className="text-center py-2 rounded text-xs transition-all hover:opacity-80"
           style={{
             border: '1px solid #1e3a5f',
             color: '#94a3b8',
@@ -131,9 +145,23 @@ export default function FounderSection() {
         >
           ↗ GitHub
         </a>
+        {/* Update with your actual LinkedIn profile URL */}
+        <a
+          href="https://linkedin.com/in/marcofernstaedt"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-center py-2 rounded text-xs transition-all hover:opacity-80"
+          style={{
+            border: '1px solid #1e3a5f',
+            color: '#94a3b8',
+            backgroundColor: 'rgba(30,58,95,0.2)',
+          }}
+        >
+          ↗ LinkedIn
+        </a>
         <a
           href="mailto:contact@marcofernstaedt.com"
-          className="flex-1 text-center py-2 rounded text-xs transition-all hover:opacity-80"
+          className="text-center py-2 rounded text-xs transition-all hover:opacity-80"
           style={{
             border: '1px solid rgba(0,212,255,0.3)',
             color: '#00d4ff',
@@ -141,6 +169,20 @@ export default function FounderSection() {
           }}
         >
           ✉ Contact
+        </a>
+        {/* Resume: place file at public/Marco-Fernstaedt-Resume-2025.pdf */}
+        <a
+          href="/Marco-Fernstaedt-Resume-2025.pdf"
+          download="Marco-Fernstaedt-Resume-2025.pdf"
+          className="text-center py-2 rounded text-xs font-bold transition-all hover:opacity-90"
+          style={{
+            border: '1px solid rgba(0,255,136,0.4)',
+            color: '#00ff88',
+            backgroundColor: 'rgba(0,255,136,0.07)',
+          }}
+          aria-label="Download resume PDF"
+        >
+          ↓ Resume
         </a>
       </div>
     </section>
