@@ -194,7 +194,7 @@ export default function VoiceCommand({ onProjectOpen, onScrollTo }: VoiceCommand
   if (!supported) return null;
 
   return (
-    <div className="fixed bottom-4 right-3 sm:bottom-6 sm:right-6 z-40 max-w-[calc(100vw-1.5rem)]" aria-label="Voice command interface">
+    <div className="fixed bottom-4 right-3 sm:bottom-6 sm:right-6 z-[45] max-w-[calc(100vw-1.5rem)]" aria-label="Voice command interface">
       {/* Example commands panel */}
       <AnimatePresence>
         {showPanel && (

@@ -1,6 +1,5 @@
 'use client';
 
-import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { useAccessibility } from '@/lib/accessibility-context';
 import TrafficLightDots from './TrafficLightDots';
@@ -8,8 +7,8 @@ import TrafficLightDots from './TrafficLightDots';
 /**
  * Sticky top navigation bar.
  *
- * Shows the site identity, a live clock, status, and a compact audio mode
- * toggle button. Updates the clock every second.
+ * Shows the site identity, a live clock, status indicator, and accessibility
+ * mode toggle. Updates the clock every second.
  */
 export default function TopBar() {
   const [time, setTime] = useState('');
@@ -67,7 +66,7 @@ export default function TopBar() {
           </span>
         </div>
 
-        {/* Center status and quick nav */}
+        {/* Center status and clock */}
         <div className="hidden md:flex items-center gap-4 text-xs" style={{ color: 'var(--text-dim)' }}>
           <span className="flex items-center gap-1.5" aria-hidden="true">
             <span
@@ -77,26 +76,11 @@ export default function TopBar() {
             ALL SYSTEMS ONLINE
           </span>
           <span aria-hidden="true">|</span>
-          <Link href="/writing" style={{ color: 'var(--accent-cyan)' }}>
-            Engineering Notes
-          </Link>
-          <span aria-hidden="true">|</span>
           <span style={{ color: 'var(--text-secondary)' }}>{time}</span>
         </div>
 
         {/* Right controls */}
         <nav aria-label="Site controls" className="flex items-center gap-2">
-          <Link
-            href="/writing"
-            className="md:hidden text-xs px-3 py-1.5 rounded"
-            style={{
-              border: '1px solid rgba(0,212,255,0.25)',
-              color: 'var(--accent-cyan)',
-              backgroundColor: 'rgba(0,212,255,0.05)',
-            }}
-          >
-            Notes
-          </Link>
           <button
             onClick={toggleAccessibilityMode}
             aria-pressed={accessibilityMode}

@@ -2,6 +2,7 @@
 
 import { useState, useCallback, useRef } from 'react';
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 import BootScreen from '@/components/BootScreen';
 import TopBar from '@/components/TopBar';
 import ProjectsPanel from '@/components/ProjectsPanel';
@@ -9,7 +10,6 @@ import ProjectModal from '@/components/ProjectModal';
 import SkillsPanel from '@/components/SkillsPanel';
 import SystemsMap from '@/components/SystemsMap';
 import FounderSection from '@/components/FounderSection';
-import BlogPreviewPanel from '@/components/BlogPreviewPanel';
 import VoiceCommand from '@/components/VoiceCommand';
 import SentinelGuide from '@/components/SentinelGuide';
 import { Project } from '@/types';
@@ -22,7 +22,6 @@ export default function Home() {
   const skillsRef = useRef<HTMLDivElement>(null);
   const systemsRef = useRef<HTMLDivElement>(null);
   const founderRef = useRef<HTMLDivElement>(null);
-  const writingRef = useRef<HTMLDivElement>(null);
 
   const handleScrollTo = useCallback((section: string) => {
     const refs: Record<string, React.RefObject<HTMLDivElement | null>> = {
@@ -30,7 +29,6 @@ export default function Home() {
       skills: skillsRef,
       systems: systemsRef,
       founder: founderRef,
-      writing: writingRef,
     };
     refs[section]?.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }, []);
@@ -86,7 +84,7 @@ export default function Home() {
 
           {/* Main grid layout */}
           <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] xl:grid-cols-3 gap-5 md:gap-6">
-            {/* Left column projects */}
+            {/* Left column */}
             <div className="xl:col-span-2 space-y-5 md:space-y-6">
               <motion.div
                 ref={projectsRef}
@@ -108,17 +106,6 @@ export default function Home() {
                 id="systems"
               >
                 <SystemsMap onProjectClick={setSelectedProject} />
-              </motion.div>
-
-              <motion.div
-                ref={writingRef}
-                data-section-id="writing"
-                initial={{ opacity: 0, y: 20 }}
-                animate={booted ? { opacity: 1, y: 0 } : {}}
-                transition={{ delay: 0.6 }}
-                id="writing"
-              >
-                <BlogPreviewPanel />
               </motion.div>
             </div>
 
@@ -147,7 +134,6 @@ export default function Home() {
               >
                 <SkillsPanel />
               </motion.div>
-
             </div>
           </div>
 
@@ -161,7 +147,16 @@ export default function Home() {
             role="contentinfo"
           >
             <span>© 2026 Marco Fernstaedt · Software Engineer</span>
-            <span>Built with Next.js · TypeScript · Tailwind · Framer Motion</span>
+            <div className="flex items-center gap-4">
+              <Link
+                href="/writing"
+                className="transition-colors hover:opacity-80"
+                style={{ color: 'var(--text-dim)' }}
+              >
+                Engineering Notes
+              </Link>
+              <span>Built with Next.js · TypeScript · Tailwind · Framer Motion</span>
+            </div>
           </motion.footer>
         </main>
 
