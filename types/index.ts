@@ -14,7 +14,7 @@ export interface Project {
   description: string;
   function: string;
   challenges: string[];
-  recruiterSignal?: string;
+  engineeringSignal?: string;
   github?: string;
   demo?: string;
   category: 'accessibility' | 'platform' | 'tooling' | 'infrastructure';

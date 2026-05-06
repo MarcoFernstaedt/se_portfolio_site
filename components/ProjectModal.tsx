@@ -146,10 +146,10 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                   </p>
                 </section>
 
-                {/* Recruiter Signal */}
-                {project.recruiterSignal && (
+                {/* Engineering Signal */}
+                {project.engineeringSignal && (
                   <section
-                    aria-labelledby="recruiter-signal-heading"
+                    aria-labelledby="engineering-signal-heading"
                     className="rounded p-3"
                     style={{
                       border: '1px solid rgba(0,255,136,0.24)',
@@ -157,14 +157,14 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                     }}
                   >
                     <div
-                      id="recruiter-signal-heading"
+                      id="engineering-signal-heading"
                       className="text-xs uppercase tracking-widest mb-2"
                       style={{ color: 'var(--accent-green)' }}
                     >
-                      Recruiter Signal:
+                      Engineering Signal:
                     </div>
                     <p style={{ color: 'var(--text-secondary)' }} className="leading-relaxed">
-                      {project.recruiterSignal}
+                      {project.engineeringSignal}
                     </p>
                   </section>
                 )}

@@ -12,7 +12,7 @@ import AccessibilityPanel from '@/components/AccessibilityPanel';
 import FounderSection from '@/components/FounderSection';
 import BlogPreviewPanel from '@/components/BlogPreviewPanel';
 import VoiceCommand from '@/components/VoiceCommand';
-import HermesTour from '@/components/HermesTour';
+import SentinelGuide from '@/components/SentinelGuide';
 import { Project } from '@/types';
 
 export default function Home() {
@@ -182,8 +182,8 @@ export default function Home() {
           />
         )}
 
-        {/* Hermes AI tour guide */}
-        <HermesTour
+        {/* Sentinel project guide */}
+        <SentinelGuide
           onProjectOpen={setSelectedProject}
           onScrollTo={handleScrollTo}
           booted={booted}

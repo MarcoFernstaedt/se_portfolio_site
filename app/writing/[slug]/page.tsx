@@ -58,7 +58,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
             }}
           >
             <div className="text-[11px] uppercase tracking-[0.2em] mb-2" style={{ color: 'var(--accent-green)' }}>
-              recruiter takeaway
+              engineering takeaway
             </div>
             <ul className="space-y-1 text-sm" style={{ color: 'var(--text-secondary)' }}>
               {post.recruiterSignal.map((signal) => (

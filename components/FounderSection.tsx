@@ -86,7 +86,7 @@ export default function FounderSection() {
       >
         Building accessible, performant software from the ground up. This portfolio
         highlights the strongest systems from a broader GitHub body of work, with
-        live demos and source links where they strengthen the recruiter signal.
+        live demos and source links where they strengthen the engineering signal.
       </p>
 
       {/* Stats */}

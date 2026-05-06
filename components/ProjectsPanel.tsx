@@ -47,7 +47,7 @@ export default function ProjectsPanel({ onProjectClick }: ProjectsPanelProps) {
       </div>
 
       <p className="text-xs mb-4 leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
-        Four recruiter-facing systems selected from 83 public GitHub repositories. Use the filters to inspect accessibility, platform, tooling, and infrastructure proof.
+        Four best systems selected from 83 public GitHub repositories, ordered from strongest proof to next-best work. Use the filters to inspect accessibility, platform, tooling, and infrastructure depth.
       </p>
 
       {/* Filter tabs */}

@@ -12,7 +12,7 @@ import {
   Position,
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
-import { projects } from '@/lib/data';
+import { featuredProjects } from '@/lib/data';
 import { Project } from '@/types';
 
 interface SystemsMapProps {
@@ -123,11 +123,11 @@ export default function SystemsMap({ onProjectClick }: SystemsMapProps) {
 
   // On small screens use 2 columns, otherwise single row
   const narrow = windowWidth < 640;
-  const cols = narrow ? 2 : projects.length;
+  const cols = narrow ? 2 : featuredProjects.length;
   const colGap = narrow ? COL_GAP_NARROW : COL_GAP;
   const nodeW = narrow ? NODE_W_NARROW : NODE_W;
-  const totalRows = Math.ceil(projects.length / cols);
-  const totalGridW = Math.min(cols, projects.length) * colGap;
+  const totalRows = Math.ceil(featuredProjects.length / cols);
+  const totalGridW = Math.min(cols, featuredProjects.length) * colGap;
 
   const initialNodes: Node[] = useMemo(() => {
     const root: Node = {
@@ -137,7 +137,7 @@ export default function SystemsMap({ onProjectClick }: SystemsMapProps) {
       data: { label: 'MARCO FERNSTAEDT' },
     };
 
-    const projectNodes: Node[] = projects.map((p, i) => {
+    const projectNodes: Node[] = featuredProjects.map((p, i) => {
       const col = i % cols;
       const row = Math.floor(i / cols);
       return {
@@ -159,7 +159,7 @@ export default function SystemsMap({ onProjectClick }: SystemsMapProps) {
 
   const initialEdges: Edge[] = useMemo(
     () =>
-      projects.map((p) => ({
+      featuredProjects.map((p) => ({
         id: `root-${p.id}`,
         source: 'root',
         target: p.id,

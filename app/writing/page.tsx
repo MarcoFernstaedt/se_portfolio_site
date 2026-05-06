@@ -54,7 +54,7 @@ export default function WritingPage() {
 
               <div className="mb-4">
                 <div className="text-[11px] uppercase tracking-[0.2em] mb-2" style={{ color: 'var(--accent-green)' }}>
-                  recruiter signal
+                  engineering signal
                 </div>
                 <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs" style={{ color: 'var(--text-secondary)' }}>
                   {post.recruiterSignal.map((signal) => (

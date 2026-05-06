@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Project } from '@/types';
 import { featuredProjects } from '@/lib/data';
 
-type TourState = 'idle' | 'intro' | 'touring' | 'chatting';
+type GuideState = 'idle' | 'intro' | 'chatting';
 
 interface SentinelResponse {
   message: string;
@@ -14,15 +14,14 @@ interface SentinelResponse {
   openProjectId?: string;
 }
 
-interface HermesTourProps {
+interface SentinelGuideProps {
   onProjectOpen: (project: Project) => void;
   onScrollTo: (section: string) => void;
   booted: boolean;
 }
 
-export default function HermesTour({ onProjectOpen, onScrollTo, booted }: HermesTourProps) {
-  const [state, setState] = useState<TourState>('idle');
-  const [tourStep, setTourStep] = useState(0);
+export default function SentinelGuide({ onProjectOpen, onScrollTo, booted }: SentinelGuideProps) {
+  const [state, setState] = useState<GuideState>('idle');
   const [currentSection, setCurrentSection] = useState('projects');
   const [displayedText, setDisplayedText] = useState('');
   const [isTyping, setIsTyping] = useState(false);
@@ -39,7 +38,6 @@ export default function HermesTour({ onProjectOpen, onScrollTo, booted }: Hermes
     };
   }, []);
 
-  // Auto-show intro after boot animation completes
   useEffect(() => {
     if (!booted) return;
     const t = setTimeout(() => setState('intro'), 3500);
@@ -98,11 +96,7 @@ export default function HermesTour({ onProjectOpen, onScrollTo, booted }: Hermes
   }, []);
 
   const callSentinel = useCallback(
-    async (
-      event: 'tour_start' | 'tour_step' | 'user_message',
-      message: string | null = null,
-      step: number = tourStep
-    ) => {
+    async (event: 'project_overview' | 'user_message', message: string | null = null) => {
       setIsLoading(true);
       try {
         const res = await fetch('/api/hermes', {
@@ -112,34 +106,25 @@ export default function HermesTour({ onProjectOpen, onScrollTo, booted }: Hermes
             message,
             event,
             sessionId: sessionId.current,
-            context: { currentSection, tourStep: step },
+            context: { currentSection, step: 0 },
           }),
         });
         const data: SentinelResponse = await res.json();
         applyResponse(data);
-        logEvent(event, { step, message });
+        logEvent(event, { message });
       } catch {
-        typeMessage('Sentinel could not reach the live guide. Try again, or open a project card for verified details.');
+        typeMessage('Sentinel could not reach the project guide. Open a project card for verified details.');
       } finally {
         setIsLoading(false);
       }
     },
-    [tourStep, currentSection, applyResponse, typeMessage, logEvent]
+    [currentSection, applyResponse, typeMessage, logEvent]
   );
 
-  const handleStartTour = async () => {
-    setState('touring');
-    setTourStep(0);
+  const handleBestProjects = async () => {
+    setState('chatting');
     setDisplayedText('');
-    logEvent('tour_start', {});
-    await callSentinel('tour_start', null, 0);
-  };
-
-  const handleNextStep = async () => {
-    const nextStep = tourStep + 1;
-    setTourStep(nextStep);
-    setDisplayedText('');
-    await callSentinel('tour_step', null, nextStep);
+    await callSentinel('project_overview');
   };
 
   const handleAskQuestion = async () => {
@@ -190,14 +175,14 @@ export default function HermesTour({ onProjectOpen, onScrollTo, booted }: Hermes
               boxShadow: '0 0 20px rgba(0,212,255,0.1)',
               cursor: 'pointer',
             }}
-            aria-label="Open Sentinel portfolio guide"
+            aria-label="Open Sentinel project guide"
           >
             <span aria-hidden="true">◈</span>
             <span>SENTINEL</span>
           </motion.button>
         )}
 
-        {(state === 'intro' || state === 'touring' || state === 'chatting') && (
+        {(state === 'intro' || state === 'chatting') && (
           <motion.div
             key="panel"
             initial={{ opacity: 0, y: 20, scale: 0.97 }}
@@ -208,9 +193,8 @@ export default function HermesTour({ onProjectOpen, onScrollTo, booted }: Hermes
             style={{ ...panelStyle, width: 'min(520px, calc(100vw - 2rem))' }}
             role="complementary"
             aria-live="polite"
-            aria-label="Sentinel portfolio guide panel"
+            aria-label="Sentinel project guide panel"
           >
-            {/* Terminal title bar */}
             <div
               className="flex items-center justify-between px-4 py-2"
               style={{
@@ -222,7 +206,7 @@ export default function HermesTour({ onProjectOpen, onScrollTo, booted }: Hermes
                 className="text-xs font-mono font-bold"
                 style={{ color: 'var(--accent-cyan)' }}
               >
-                ◈ SENTINEL — PORTFOLIO GUIDE
+                ◈ SENTINEL — PROJECT GUIDE
               </span>
               <button
                 onClick={handleClose}
@@ -238,16 +222,13 @@ export default function HermesTour({ onProjectOpen, onScrollTo, booted }: Hermes
               </button>
             </div>
 
-            {/* Body */}
             <div className="p-4 space-y-4">
-              {/* Intro prompt (no message yet) */}
               {state === 'intro' && !displayedText && !isLoading && (
                 <p className="text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
-                  I can walk you through Marco&apos;s four strongest engineering systems or answer recruiter questions about skills, experience, projects, demos, GitHub repos, stack, or fit.
+                  I can open Marco&apos;s best project first or answer questions about skills, experience, demos, source code, client work, accessibility, AI, backend, frontend, and deployment.
                 </p>
               )}
 
-              {/* Message display */}
               {displayedText && (
                 <div
                   className="text-sm leading-relaxed font-mono min-h-[3rem]"
@@ -266,18 +247,16 @@ export default function HermesTour({ onProjectOpen, onScrollTo, booted }: Hermes
                 </div>
               )}
 
-              {/* Loading */}
               {isLoading && !displayedText && (
                 <div className="text-xs font-mono" style={{ color: 'var(--text-dim)' }}>
-                  <span className="cursor-blink">▋</span> Sentinel is scanning the project record...
+                  <span className="cursor-blink">▋</span> Sentinel is checking the project record...
                 </div>
               )}
 
-              {/* Intro CTAs */}
               {state === 'intro' && !isLoading && (
                 <div className="flex gap-2 flex-wrap">
                   <button
-                    onClick={handleStartTour}
+                    onClick={handleBestProjects}
                     className="flex items-center gap-1.5 text-xs px-4 py-2 rounded font-mono font-bold transition-all hover:opacity-90"
                     style={{
                       backgroundColor: 'rgba(0,212,255,0.1)',
@@ -286,7 +265,7 @@ export default function HermesTour({ onProjectOpen, onScrollTo, booted }: Hermes
                       cursor: 'pointer',
                     }}
                   >
-                    ▶ START GUIDED TOUR
+                    ▶ SHOW BEST PROJECT
                   </button>
                   <button
                     onClick={() => setState('chatting')}
@@ -302,23 +281,7 @@ export default function HermesTour({ onProjectOpen, onScrollTo, booted }: Hermes
                 </div>
               )}
 
-              {/* Next step — touring */}
-              {state === 'touring' && !isLoading && !isTyping && displayedText && (
-                <button
-                  onClick={handleNextStep}
-                  className="text-xs px-3 py-1.5 rounded font-mono transition-all hover:opacity-90"
-                  style={{
-                    border: '1px solid rgba(0,255,136,0.3)',
-                    color: 'var(--accent-green)',
-                    cursor: 'pointer',
-                  }}
-                >
-                  → Continue
-                </button>
-              )}
-
-              {/* Input — chatting or touring */}
-              {(state === 'chatting' || state === 'touring') && (
+              {state === 'chatting' && (
                 <div className="flex gap-2">
                   <input
                     type="text"

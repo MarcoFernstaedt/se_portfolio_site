@@ -13,7 +13,7 @@ export default function BlogPreviewPanel() {
             ◈ Engineering Notes
           </h2>
           <p className="text-xs" style={{ color: 'var(--text-dim)' }}>
-            Recruiter-friendly posts on what Marco built, learned, and shipped.
+            Engineering notes on what Marco built, learned, and shipped.
           </p>
         </div>
         <Link
@@ -53,7 +53,7 @@ export default function BlogPreviewPanel() {
 
             <div className="mb-4">
               <div className="text-[11px] uppercase tracking-[0.2em] mb-2" style={{ color: 'var(--accent-green)' }}>
-                recruiter signal
+                engineering signal
               </div>
               <ul className="space-y-1 text-xs" style={{ color: 'var(--text-secondary)' }}>
                 {post.recruiterSignal.slice(0, 2).map((signal) => (
