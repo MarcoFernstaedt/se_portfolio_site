@@ -20,7 +20,7 @@ export async function GET(request: NextRequest) {
       next: { revalidate: 300 },
     });
 
-    if (!res.ok) return NextResponse.json(null);
+    if (!res.ok) return NextResponse.json(null, { status: 502 });
 
     const data = await res.json();
     return NextResponse.json({

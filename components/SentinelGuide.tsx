@@ -171,7 +171,7 @@ export default function SentinelGuide({ onScrollTo, booted }: SentinelGuideProps
 
   return (
     <div
-      className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40"
+      className="fixed bottom-4 left-4 sm:bottom-6 sm:left-1/2 sm:-translate-x-1/2 z-40"
       style={{ maxWidth: 'calc(100vw - 2rem)' }}
     >
       <AnimatePresence mode="wait">
