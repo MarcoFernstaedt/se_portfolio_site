@@ -7,7 +7,7 @@ import { projects } from '@/lib/data';
 
 type TourState = 'idle' | 'intro' | 'touring' | 'chatting';
 
-interface HermesResponse {
+interface SentinelResponse {
   message: string;
   highlightId?: string;
   scrollToSection?: string;
@@ -62,7 +62,7 @@ export default function HermesTour({ onProjectOpen, onScrollTo, booted }: Hermes
   }, []);
 
   const applyResponse = useCallback(
-    (response: HermesResponse) => {
+    (response: SentinelResponse) => {
       typeMessage(response.message);
       if (response.scrollToSection) {
         setCurrentSection(response.scrollToSection);
@@ -97,7 +97,7 @@ export default function HermesTour({ onProjectOpen, onScrollTo, booted }: Hermes
     }).catch(() => {});
   }, []);
 
-  const callHermes = useCallback(
+  const callSentinel = useCallback(
     async (
       event: 'tour_start' | 'tour_step' | 'user_message',
       message: string | null = null,
@@ -115,11 +115,11 @@ export default function HermesTour({ onProjectOpen, onScrollTo, booted }: Hermes
             context: { currentSection, tourStep: step },
           }),
         });
-        const data: HermesResponse = await res.json();
+        const data: SentinelResponse = await res.json();
         applyResponse(data);
         logEvent(event, { step, message });
       } catch {
-        typeMessage('I seem to be having trouble connecting. Please try again in a moment.');
+        typeMessage('Sentinel could not reach the live guide. Try again, or open a project card for verified details.');
       } finally {
         setIsLoading(false);
       }
@@ -132,14 +132,14 @@ export default function HermesTour({ onProjectOpen, onScrollTo, booted }: Hermes
     setTourStep(0);
     setDisplayedText('');
     logEvent('tour_start', {});
-    await callHermes('tour_start', null, 0);
+    await callSentinel('tour_start', null, 0);
   };
 
   const handleNextStep = async () => {
     const nextStep = tourStep + 1;
     setTourStep(nextStep);
     setDisplayedText('');
-    await callHermes('tour_step', null, nextStep);
+    await callSentinel('tour_step', null, nextStep);
   };
 
   const handleAskQuestion = async () => {
@@ -148,7 +148,7 @@ export default function HermesTour({ onProjectOpen, onScrollTo, booted }: Hermes
     setInputValue('');
     setState('chatting');
     setDisplayedText('');
-    await callHermes('user_message', msg);
+    await callSentinel('user_message', msg);
   };
 
   const handleClose = () => {
@@ -190,10 +190,10 @@ export default function HermesTour({ onProjectOpen, onScrollTo, booted }: Hermes
               boxShadow: '0 0 20px rgba(0,212,255,0.1)',
               cursor: 'pointer',
             }}
-            aria-label="Open Hermes AI guide"
+            aria-label="Open Sentinel portfolio guide"
           >
             <span aria-hidden="true">◈</span>
-            <span>HERMES</span>
+            <span>SENTINEL</span>
           </motion.button>
         )}
 
@@ -208,7 +208,7 @@ export default function HermesTour({ onProjectOpen, onScrollTo, booted }: Hermes
             style={{ ...panelStyle, width: 'min(520px, calc(100vw - 2rem))' }}
             role="complementary"
             aria-live="polite"
-            aria-label="Hermes AI Guide panel"
+            aria-label="Sentinel portfolio guide panel"
           >
             {/* Terminal title bar */}
             <div
@@ -222,7 +222,7 @@ export default function HermesTour({ onProjectOpen, onScrollTo, booted }: Hermes
                 className="text-xs font-mono font-bold"
                 style={{ color: 'var(--accent-cyan)' }}
               >
-                ◈ HERMES — AI GUIDE
+                ◈ SENTINEL — PORTFOLIO GUIDE
               </span>
               <button
                 onClick={handleClose}
@@ -232,7 +232,7 @@ export default function HermesTour({ onProjectOpen, onScrollTo, booted }: Hermes
                   border: '1px solid var(--border-color)',
                   cursor: 'pointer',
                 }}
-                aria-label="Collapse Hermes panel"
+                aria-label="Collapse Sentinel panel"
               >
                 ✕
               </button>
@@ -243,7 +243,7 @@ export default function HermesTour({ onProjectOpen, onScrollTo, booted }: Hermes
               {/* Intro prompt (no message yet) */}
               {state === 'intro' && !displayedText && !isLoading && (
                 <p className="text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
-                  I can walk you through Marco&apos;s work or answer your questions.
+                  I can walk you through Marco&apos;s strongest engineering work or answer recruiter questions from the project database.
                 </p>
               )}
 
@@ -269,7 +269,7 @@ export default function HermesTour({ onProjectOpen, onScrollTo, booted }: Hermes
               {/* Loading */}
               {isLoading && !displayedText && (
                 <div className="text-xs font-mono" style={{ color: 'var(--text-dim)' }}>
-                  <span className="cursor-blink">▋</span> Hermes is thinking...
+                  <span className="cursor-blink">▋</span> Sentinel is scanning the project record...
                 </div>
               )}
 
@@ -325,14 +325,14 @@ export default function HermesTour({ onProjectOpen, onScrollTo, booted }: Hermes
                     value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}
                     onKeyDown={(e) => e.key === 'Enter' && handleAskQuestion()}
-                    placeholder="Ask Hermes anything..."
+                    placeholder="Ask about projects, demos, stack, or fit..."
                     className="flex-1 text-xs px-3 py-2 rounded font-mono bg-transparent outline-none"
                     style={{
                       border: '1px solid var(--border-color)',
                       color: 'var(--text-primary)',
                       caretColor: 'var(--accent-cyan)',
                     }}
-                    aria-label="Ask Hermes a question"
+                    aria-label="Ask Sentinel a question"
                     disabled={isLoading}
                   />
                   <button

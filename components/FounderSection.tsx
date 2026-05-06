@@ -12,9 +12,9 @@ const roles = [
 
 /** Key statistics shown in the profile card footer. */
 const stats = [
-  { value: '4+', label: 'Systems Built' },
-  { value: '100%', label: 'A11Y Score' },
-  { value: '∞', label: 'Drive' },
+  { value: '83', label: 'Public Repos' },
+  { value: '4', label: 'Featured Systems' },
+  { value: 'A11Y', label: 'Core Strength' },
 ];
 
 /**
@@ -84,9 +84,9 @@ export default function FounderSection() {
         className="text-sm leading-relaxed mb-6"
         style={{ color: '#94a3b8', borderLeft: '2px solid #1e3a5f', paddingLeft: '12px' }}
       >
-        Building accessible, performant software from the ground up. Focused on
-        clean architecture, systems that scale, and engineering solutions that
-        deliver measurable real-world impact.
+        Building accessible, performant software from the ground up. This portfolio
+        highlights the strongest systems from a broader GitHub body of work, with
+        live demos and source links where they strengthen the recruiter signal.
       </p>
 
       {/* Stats */}

@@ -146,6 +146,29 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                   </p>
                 </section>
 
+                {/* Recruiter Signal */}
+                {project.recruiterSignal && (
+                  <section
+                    aria-labelledby="recruiter-signal-heading"
+                    className="rounded p-3"
+                    style={{
+                      border: '1px solid rgba(0,255,136,0.24)',
+                      backgroundColor: 'rgba(0,255,136,0.05)',
+                    }}
+                  >
+                    <div
+                      id="recruiter-signal-heading"
+                      className="text-xs uppercase tracking-widest mb-2"
+                      style={{ color: 'var(--accent-green)' }}
+                    >
+                      Recruiter Signal:
+                    </div>
+                    <p style={{ color: 'var(--text-secondary)' }} className="leading-relaxed">
+                      {project.recruiterSignal}
+                    </p>
+                  </section>
+                )}
+
                 {/* Stack */}
                 <section aria-labelledby="stack-heading">
                   <div
@@ -196,7 +219,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                     >
                       Links:
                     </div>
-                    <div className="flex gap-4">
+                    <div className="flex flex-wrap gap-3">
                       {project.github && (
                         <a
                           href={project.github}
