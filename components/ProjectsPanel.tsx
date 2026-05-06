@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { projects } from '@/lib/data';
+import { featuredProjects } from '@/lib/data';
 import { Project } from '@/types';
 import ProjectCard from './ProjectCard';
 
@@ -29,8 +29,8 @@ export default function ProjectsPanel({ onProjectClick }: ProjectsPanelProps) {
 
   const filtered =
     activeCategory === 'all'
-      ? projects
-      : projects.filter((p) => p.category === activeCategory);
+      ? featuredProjects
+      : featuredProjects.filter((p) => p.category === activeCategory);
 
   return (
     <section aria-labelledby="projects-heading" id="projects">
@@ -42,7 +42,7 @@ export default function ProjectsPanel({ onProjectClick }: ProjectsPanelProps) {
           ◈ Project Systems
         </h2>
         <span className="text-xs" style={{ color: 'var(--text-dim)' }}>
-          {filtered.length} / {projects.length} systems
+          {filtered.length} / {featuredProjects.length} featured
         </span>
       </div>
 

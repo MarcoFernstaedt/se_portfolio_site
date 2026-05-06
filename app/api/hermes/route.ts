@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { projects, skills } from '@/lib/data';
+import { featuredProjects, skills } from '@/lib/data';
 
 export const runtime = 'nodejs';
 
@@ -50,7 +50,7 @@ function buildSystemPrompt(): string {
     engineer: 'Marco Fernstaedt',
     title: 'Full-Stack Software Engineer',
     skills: skills.map((s) => ({ name: s.name, level: s.level })),
-    projects: projects.map((p) => ({
+    projects: featuredProjects.map((p) => ({
       id: p.id,
       name: p.name,
       status: p.status,
@@ -64,7 +64,7 @@ function buildSystemPrompt(): string {
     })),
     githubInventory: {
       publicRepoCount: 83,
-      verifiedFeaturedRepos: projects.map((p) => p.repoPath),
+      verifiedFeaturedRepos: featuredProjects.map((p) => p.repoPath),
       profile: 'https://github.com/MarcoFernstaedt',
     },
     contact: {
@@ -93,6 +93,7 @@ Rules:
 - highlightId: same as scrollToSection in most cases (null otherwise)
 - openProjectId: only set this when you are directly discussing a specific project and the user would benefit from seeing its detail modal
 - Keep message under 70 words; recruiters skim
+- The site intentionally displays only the best four featured systems from 83 public repos; do not imply every repo is listed on the portfolio
 - Prefer the AI Image to Audio project when asked what to review first
 - Mention exact GitHub/demo links only when relevant`;
 }
@@ -118,7 +119,7 @@ function buildUserMessage(
 
 
 function projectSummary(projectId: string): HermesResponse {
-  const p = projects.find((project) => project.id === projectId)!;
+  const p = featuredProjects.find((project) => project.id === projectId)!;
   const links = [p.demo ? `Live demo: ${p.demo}` : null, p.github ? `GitHub: ${p.github}` : null]
     .filter(Boolean)
     .join(' | ');
@@ -127,6 +128,64 @@ function projectSummary(projectId: string): HermesResponse {
     scrollToSection: 'projects',
     highlightId: 'projects',
     openProjectId: p.id,
+  };
+}
+
+function skillAnswer(q: string): HermesResponse {
+  if (q.includes('frontend') || q.includes('react') || q.includes('next') || q.includes('typescript')) {
+    return {
+      message:
+        'Frontend skills: React, Next.js, TypeScript, accessible UI, API-driven interfaces, and recruiter-friendly product polish. Best proof: AI Image to Audio and the code interview platform.',
+      scrollToSection: 'skills',
+      highlightId: 'skills',
+      openProjectId: 'ai-image-audio',
+    };
+  }
+
+  if (q.includes('backend') || q.includes('api') || q.includes('node') || q.includes('express') || q.includes('database')) {
+    return {
+      message:
+        'Backend skills: Node.js, Express, API routing, auth/session handling, MongoDB/PostgreSQL concepts, server-side credential protection, and binary audio responses. Best proof: realtime messaging and AI Image to Audio.',
+      scrollToSection: 'skills',
+      highlightId: 'skills',
+      openProjectId: 'realtime-messaging',
+    };
+  }
+
+  if (q.includes('ai') || q.includes('llm') || q.includes('openai') || q.includes('automation')) {
+    return {
+      message:
+        'AI API integration is one of Marco’s strongest signals: OpenAI Vision plus TTS in a deployed accessibility app, with server-side API routing and a screen-reader-aware workflow.',
+      scrollToSection: 'projects',
+      highlightId: 'projects',
+      openProjectId: 'ai-image-audio',
+    };
+  }
+
+  if (q.includes('deploy') || q.includes('vercel') || q.includes('docker') || q.includes('infrastructure')) {
+    return {
+      message:
+        'Deployment and infrastructure proof includes Vercel production apps, Docker/sandbox thinking, API boundaries, and data-system architecture. Start with AI Image to Audio, then review the code interview platform.',
+      scrollToSection: 'projects',
+      highlightId: 'projects',
+      openProjectId: 'code-interview',
+    };
+  }
+
+  return {
+    message:
+      'Core skills: React, Next.js, TypeScript, Node APIs, Python/data work, accessibility, Socket.IO/WebSockets, Docker/deployment thinking, and AI API integration. The portfolio intentionally shows the best four systems, not all 83 repos.',
+    scrollToSection: 'skills',
+    highlightId: 'skills',
+  };
+}
+
+function experienceSummary(): HermesResponse {
+  return {
+    message:
+      'Experience summary: Marco builds full-stack products from UI through backend APIs and deployment, with a strong accessibility angle from lived low-vision product judgment. The best four systems show AI, realtime apps, tooling, and data workflows.',
+    scrollToSection: 'founder',
+    highlightId: 'founder',
   };
 }
 
@@ -140,6 +199,14 @@ function answerFromPortfolio(message: string | null): HermesResponse {
       scrollToSection: 'projects',
       highlightId: 'projects',
     };
+  }
+
+  if (q.includes('experience') || q.includes('background') || q.includes('worked') || q.includes('career') || q.includes('qualified') || q.includes('fit')) {
+    return experienceSummary();
+  }
+
+  if (q.includes('skill') || q.includes('stack') || q.includes('tech') || q.includes('language') || q.includes('frontend') || q.includes('backend') || q.includes('react') || q.includes('next') || q.includes('typescript') || q.includes('node') || q.includes('api') || q.includes('python') || q.includes('deployment')) {
+    return skillAnswer(q);
   }
 
   if (q.includes('filter') || q.includes('category') || q.includes('categories')) {
@@ -167,21 +234,21 @@ function answerFromPortfolio(message: string | null): HermesResponse {
     return projectSummary('real-estate-tools');
   }
 
+  if (q.includes('all repos') || q.includes('all github') || q.includes('every repo') || q.includes('all 83')) {
+    return {
+      message:
+        'No. The portfolio intentionally shows only the best four recruiter-facing systems from 83 public repos. Visitors still get the full GitHub profile link, but the page stays focused on the work most likely to win interviews.',
+      scrollToSection: 'projects',
+      highlightId: 'projects',
+    };
+  }
+
   if (q.includes('github') || q.includes('repo') || q.includes('source')) {
     return {
       message:
         'Marco has 83 public GitHub repos. The featured projects now link directly to their exact repos, with the AI Image to Audio source at github.com/MarcoFernstaedt/image_accessibility_tool and the full profile at github.com/MarcoFernstaedt.',
       scrollToSection: 'founder',
       highlightId: 'founder',
-    };
-  }
-
-  if (q.includes('skill') || q.includes('stack') || q.includes('tech') || q.includes('language')) {
-    return {
-      message:
-        'Marco’s strongest recruiter stack is React, Next.js, TypeScript, Node APIs, Python, accessibility, Socket.IO/WebSockets, and AI API integration. The projects show those skills in deployed or repo-backed systems.',
-      scrollToSection: 'skills',
-      highlightId: 'skills',
     };
   }
 

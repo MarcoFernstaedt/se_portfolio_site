@@ -31,12 +31,14 @@ for (const marker of [
   "github: 'https://github.com/MarcoFernstaedt/dominion_edge_holdings'",
   "repoPath: 'MarcoFernstaedt/dominion_edge_holdings'",
   'recruiterSignal:',
+  'BEST_PROJECT_LIMIT = 4',
+  'featuredProjects',
 ]) requireIncludes(data, marker)
 
 for (const marker of [
   'SENTINEL',
   'PORTFOLIO GUIDE',
-  'Ask about projects, demos, stack, or fit',
+  'Ask about skills, experience, projects, demos, or fit',
   'Sentinel is scanning the project record',
 ]) requireIncludes(tour, marker)
 
@@ -52,6 +54,15 @@ for (const marker of [
   'github.com/MarcoFernstaedt/image_accessibility_tool',
   'AI Image to Audio',
   'Sentinel, the portfolio guide',
+  'experienceSummary',
+  'skillAnswer',
+  'experience',
+  'frontend',
+  'backend',
+  'deployment',
+  'AI API integration',
+  'all repos',
+  'only the best four recruiter-facing systems',
 ]) requireIncludes(route, marker)
 
 for (const forbidden of ['offline mode', 'Configure HERMES_API_URL', 'Hermes is taking a moment']) {

@@ -3,7 +3,7 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Project } from '@/types';
-import { projects } from '@/lib/data';
+import { featuredProjects } from '@/lib/data';
 
 type TourState = 'idle' | 'intro' | 'touring' | 'chatting';
 
@@ -77,7 +77,7 @@ export default function HermesTour({ onProjectOpen, onScrollTo, booted }: Hermes
         }
       }
       if (response.openProjectId) {
-        const project = projects.find((p) => p.id === response.openProjectId);
+        const project = featuredProjects.find((p) => p.id === response.openProjectId);
         if (project) onProjectOpen(project);
       }
     },
@@ -243,7 +243,7 @@ export default function HermesTour({ onProjectOpen, onScrollTo, booted }: Hermes
               {/* Intro prompt (no message yet) */}
               {state === 'intro' && !displayedText && !isLoading && (
                 <p className="text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
-                  I can walk you through Marco&apos;s strongest engineering work or answer recruiter questions from the project database.
+                  I can walk you through Marco&apos;s four strongest engineering systems or answer recruiter questions about skills, experience, projects, demos, GitHub repos, stack, or fit.
                 </p>
               )}
 
@@ -325,7 +325,7 @@ export default function HermesTour({ onProjectOpen, onScrollTo, booted }: Hermes
                     value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}
                     onKeyDown={(e) => e.key === 'Enter' && handleAskQuestion()}
-                    placeholder="Ask about projects, demos, stack, or fit..."
+                    placeholder="Ask about skills, experience, projects, demos, or fit..."
                     className="flex-1 text-xs px-3 py-2 rounded font-mono bg-transparent outline-none"
                     style={{
                       border: '1px solid var(--border-color)',

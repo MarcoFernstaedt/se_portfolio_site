@@ -7,6 +7,8 @@
 
 import { Project, Skill } from '@/types';
 
+export const BEST_PROJECT_LIMIT = 4;
+
 export const projects: Project[] = [
   {
     id: 'ai-image-audio',
@@ -90,6 +92,8 @@ export const projects: Project[] = [
     repoPath: 'MarcoFernstaedt/dominion_edge_holdings',
   },
 ];
+
+export const featuredProjects: Project[] = projects.slice(0, BEST_PROJECT_LIMIT);
 
 export const skills: Skill[] = [
   { name: 'React / Next.js', level: 9, category: 'frontend' },
