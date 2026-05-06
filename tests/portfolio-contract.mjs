@@ -8,6 +8,7 @@ const data = read('lib/data.ts')
 const route = read('app/api/hermes/route.ts')
 const tour = read('components/HermesTour.tsx')
 const modal = read('components/ProjectModal.tsx')
+const projectsPanel = read('components/ProjectsPanel.tsx')
 const founder = read('components/FounderSection.tsx')
 
 function fail(message) {
@@ -47,6 +48,7 @@ for (const marker of [
   'answerFromPortfolio',
   'projectSummary',
   'Marco has 83 public GitHub repos',
+  'category filters',
   'github.com/MarcoFernstaedt/image_accessibility_tool',
   'AI Image to Audio',
   'Sentinel, the portfolio guide',
@@ -58,6 +60,7 @@ for (const forbidden of ['offline mode', 'Configure HERMES_API_URL', 'Hermes is 
 
 requireIncludes(modal, 'Recruiter Signal:', 'project modal recruiter signal block')
 requireIncludes(modal, 'Live Demo', 'project modal live demo link')
+requireIncludes(projectsPanel, 'Four recruiter-facing systems selected from 83 public GitHub repositories', 'projects panel recruiter framing')
 requireIncludes(founder, '83', 'public GitHub repo count')
 requireIncludes(founder, 'Featured Systems', 'featured systems stat')
 

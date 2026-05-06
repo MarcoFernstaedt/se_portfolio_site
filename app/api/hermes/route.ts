@@ -14,13 +14,13 @@ interface HermesResponse {
 const FALLBACK_TOUR: HermesResponse[] = [
   {
     message:
-      "Welcome to Marco's Command Center. I'm Sentinel, the portfolio guide. I’ll show recruiters the strongest proof first: deployed AI accessibility work, full-stack realtime systems, developer tooling, and business intelligence software.",
+      "Welcome to Marco's Command Center. I'm Sentinel, the portfolio guide. I’ll walk recruiters through four featured systems selected from 83 public GitHub repos, then help them filter by accessibility, platform, tooling, or infrastructure proof.",
     scrollToSection: 'projects',
     highlightId: 'projects',
   },
   {
     message:
-      "The standout project is the AI Image to Audio Accessibility System: deployed on Vercel, backed by a real GitHub repo, and built around a practical accessibility use case. The other projects show realtime, tooling, and data-system range.",
+      "The standout project is the AI Image to Audio Accessibility System: deployed at ita-orpin.vercel.app and backed by image_accessibility_tool on GitHub. Use the category filters to compare it against realtime messaging, code interview tooling, and acquisition-data work.",
     highlightId: 'projects',
   },
   {
@@ -123,7 +123,7 @@ function projectSummary(projectId: string): HermesResponse {
     .filter(Boolean)
     .join(' | ');
   return {
-    message: `${p.name}: ${p.function}. Recruiter signal: ${p.recruiterSignal ?? 'Strong portfolio proof.'} ${links}`.slice(0, 360),
+    message: `${p.name}: ${p.function}. Recruiter signal: ${p.recruiterSignal ?? 'Strong portfolio proof.'} ${links}`,
     scrollToSection: 'projects',
     highlightId: 'projects',
     openProjectId: p.id,
@@ -136,7 +136,16 @@ function answerFromPortfolio(message: string | null): HermesResponse {
   if (!q.trim()) {
     return {
       message:
-        'Ask me what project to review first, where the live demos are, what stack Marco uses, or which repo proves a specific skill. I answer from the portfolio project database.',
+        'Ask me what project to review first, where the live demos are, how to use the category filters, what stack Marco uses, or which repo proves a specific skill. I answer from the portfolio project database.',
+      scrollToSection: 'projects',
+      highlightId: 'projects',
+    };
+  }
+
+  if (q.includes('filter') || q.includes('category') || q.includes('categories')) {
+    return {
+      message:
+        'Use the project filters to scan by hiring signal: Accessibility for AI Image to Audio, Platforms for realtime messaging, Tooling for the code interview environment, and Infrastructure for acquisition/data systems.',
       scrollToSection: 'projects',
       highlightId: 'projects',
     };

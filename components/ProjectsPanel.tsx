@@ -46,6 +46,10 @@ export default function ProjectsPanel({ onProjectClick }: ProjectsPanelProps) {
         </span>
       </div>
 
+      <p className="text-xs mb-4 leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+        Four recruiter-facing systems selected from 83 public GitHub repositories. Use the filters to inspect accessibility, platform, tooling, and infrastructure proof.
+      </p>
+
       {/* Filter tabs */}
       <div
         className="flex gap-2 mb-4 overflow-x-auto pb-1 scrollbar-none"
