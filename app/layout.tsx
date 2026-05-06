@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { JetBrains_Mono } from 'next/font/google';
 import './globals.css';
+import { Analytics } from '@vercel/analytics/next';
 import { AccessibilityProvider } from '@/lib/accessibility-context';
 
 const jetbrainsMono = JetBrains_Mono({
@@ -64,7 +65,7 @@ const personSchema = {
   email: 'contact@marcofernstaedt.com',
   sameAs: [
     'https://github.com/MarcoFernstaedt',
-    'https://linkedin.com/in/marcofernstaedt',
+    'https://www.linkedin.com/in/marco-f-19a372219',
   ],
   knowsAbout: [
     'JavaScript', 'TypeScript', 'React', 'Next.js', 'Node.js',
@@ -100,6 +101,7 @@ export default function RootLayout({
           Skip to main content
         </a>
         <AccessibilityProvider>{children}</AccessibilityProvider>
+        <Analytics />
       </body>
     </html>
   );

@@ -13,6 +13,7 @@
     "blog:unapprove": "node scripts/blog-workflow.mjs unapprove"
   },
   "dependencies": {
+    "@vercel/analytics": "^2.0.1",
     "@xyflow/react": "^12.10.1",
     "framer-motion": "^12.36.0",
     "lucide-react": "^0.577.0",

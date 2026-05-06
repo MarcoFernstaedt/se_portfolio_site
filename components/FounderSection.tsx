@@ -147,7 +147,7 @@ export default function FounderSection() {
         </a>
         {/* Update with your actual LinkedIn profile URL */}
         <a
-          href="https://linkedin.com/in/marcofernstaedt"
+          href="https://www.linkedin.com/in/marco-f-19a372219"
           target="_blank"
           rel="noopener noreferrer"
           className="text-center py-2 rounded text-xs transition-all hover:opacity-80"
