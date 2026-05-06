@@ -14,7 +14,7 @@ const roles = [
 const stats = [
   { value: '83', label: 'Public Repos' },
   { value: '4', label: 'Featured Systems' },
-  { value: 'A11Y', label: 'Core Strength' },
+  { value: 'Audio', label: 'Core Strength' },
 ];
 
 /**
@@ -49,7 +49,7 @@ export default function FounderSection() {
           Marco Fernstaedt
         </div>
         <div className="text-sm" style={{ color: 'var(--text-secondary)' }}>
-          Full-Stack Software Engineer
+          Full Stack Software Engineer
         </div>
       </div>
 
@@ -84,7 +84,7 @@ export default function FounderSection() {
         className="text-sm leading-relaxed mb-6"
         style={{ color: '#94a3b8', borderLeft: '2px solid #1e3a5f', paddingLeft: '12px' }}
       >
-        Building accessible, performant software from the ground up. This portfolio
+        Building performant software from the ground up. This portfolio
         highlights the strongest systems from a broader GitHub body of work, with
         live demos and source links where they strengthen the engineering signal.
       </p>

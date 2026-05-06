@@ -16,7 +16,7 @@ const categoryColors: Record<Skill['category'], string> = {
 const categoryLabels: Record<Skill['category'], string> = {
   frontend: 'Frontend',
   backend: 'Backend',
-  accessibility: 'Accessibility',
+  accessibility: 'UI',
   infrastructure: 'Infrastructure',
 };
 

@@ -1,6 +1,6 @@
 # Portfolio blog post template
 
-Use this format for future posts so recruiters and hiring managers can skim quickly.
+Use this format for future posts so engineering teams can skim quickly.
 
 ## File location
 
@@ -19,9 +19,9 @@ Create a new JSON file in `content/blog/posts/<slug>.json`.
   "featured": false,
   "status": "draft",
   "approvalNotes": "Optional review notes before approval.",
-  "recruiterSignal": [
+  "engineeringSignal": [
     "What this proves about how Marco works",
-    "Another recruiter-friendly proof point"
+    "Another engineering focused proof point"
   ],
   "summary": "1-2 sentence overview",
   "sections": [

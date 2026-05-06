@@ -1,6 +1,6 @@
 {
   "slug": "realtime-messaging-system-design-notes",
-  "title": "What building a real-time messaging platform taught me",
+  "title": "What building a realtime messaging platform taught me",
   "excerpt": "Presence, optimistic updates, image handling, and reconnect logic were the parts that turned a chat app from a tutorial project into real engineering work.",
   "publishAt": "2026-02-19T09:00:00.000Z",
   "readTime": "6 min read",
@@ -8,9 +8,9 @@
   "featured": true,
   "status": "published",
   "approvedAt": "2026-02-17T18:00:00.000Z",
-  "recruiterSignal": [
+  "engineeringSignal": [
     "Works across frontend and backend boundaries",
-    "Understands real-time state synchronization",
+    "Understands realtime state synchronization",
     "Builds practical auth and media flows"
   ],
   "summary": "This post focuses on the parts of chat systems that actually get difficult: keeping state believable, handling reconnects, and making media and auth feel stable.",

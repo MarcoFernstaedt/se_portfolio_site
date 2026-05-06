@@ -1,6 +1,6 @@
 # Recruiter-facing publishing plan
 
-This is the operating plan for getting Marco's writing in front of recruiters without turning the blog into a second full-time job.
+This is the operating plan for getting Marco's writing in front of engineering teams without turning the blog into a second full-time job.
 
 ## Recommended cadence
 
@@ -15,7 +15,7 @@ If energy is high and drafts are ready, a temporary push of **2 posts per week**
 
 ## Best posting windows
 
-Treat these as starting benchmarks for a US-professional / recruiter audience on LinkedIn and portfolio-driven sharing.
+Treat these as starting benchmarks for a US-professional / engineering reader audience on LinkedIn and portfolio-driven sharing.
 
 ### Primary windows
 - **Tuesday at 8:15 AM MST** (`15:15 UTC`)
@@ -26,14 +26,14 @@ Treat these as starting benchmarks for a US-professional / recruiter audience on
 
 Rationale:
 - midweek consistently performs best for professional audiences
-- morning works well for recruiter scans before the day gets chaotic
-- the Wednesday lunch-adjacent slot is worth testing for slightly more reflective posts
+- morning works well for engineering reader scans before the day gets chaotic
+- the Wednesday lunch adjacent slot is worth testing for slightly more reflective posts
 
 ## Suggested first sequence
 
 1. `collaborative-code-interview-platform-sandbox-and-sync`
    - **Tuesday, 2026-04-07 8:15 AM MST**
-   - best first post because it signals real-time systems thinking and engineering depth fast
+   - best first post because it signals realtime systems thinking and engineering depth fast
 2. `real-estate-data-pipeline-for-acquisition-targeting`
    - **Thursday, 2026-04-16 8:15 AM MST**
    - broadens the story beyond frontend and shows business-context thinking
@@ -44,7 +44,7 @@ Rationale:
 ## Approval flow
 
 1. Draft the post in `content/blog/posts/`
-2. Review title, summary, and recruiter-signal bullets
+2. Review title, summary, and engineering-signal bullets
 3. Approve it with:
 
 ```bash

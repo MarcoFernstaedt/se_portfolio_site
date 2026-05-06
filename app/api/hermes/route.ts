@@ -10,41 +10,49 @@ interface SentinelResponse {
   openProjectId?: string;
 }
 
-const PROJECT_OVERVIEW: SentinelResponse[] = [
+const FALLBACK_TOUR: SentinelResponse[] = [
   {
     message:
-      "Marco's strongest project is AI Image to Audio: deployed AI, accessibility, server-side API routing, and audio generation in one focused product.",
+      "Welcome to Marco's site. I am Sentinel. I will guide you through the strongest projects in order and explain what each one proves.",
     scrollToSection: 'projects',
     highlightId: 'projects',
-    openProjectId: 'ai-image-audio',
   },
   {
     message:
-      'Next is Saguaro Blossoms Client Website: a live client site with responsive UI, SEO metadata, Resend contact email, Vercel deployment, and custom-domain production polish.',
+      'First is AI Image to Audio. It uses OpenAI multimodal vision and TTS APIs to turn uploaded images into spoken descriptions, with protected API routing and MP3 playback.',
     scrollToSection: 'projects',
     highlightId: 'projects',
-    openProjectId: 'saguaro-blossoms-client-site',
   },
   {
     message:
-      'Then Real Time Messaging: React, Socket.IO, MongoDB, Node/Express, JWT auth, presence, and event-driven UI/backend behavior.',
+      'Next is Saguaro Blossoms Client Website. It shows a real business site with responsive UI, Tucson focused SEO metadata, Resend email templates, Vercel, and a custom domain.',
     scrollToSection: 'projects',
     highlightId: 'projects',
-    openProjectId: 'realtime-messaging',
   },
   {
     message:
-      'Fourth is Code Interview Platform: TypeScript, Monaco Editor, backend orchestration, collaboration flow, and Docker/sandbox design thinking.',
+      'Then Real Time Messaging. It shows React, Socket.IO, MongoDB, Node, Express, JWT cookies, presence, optimistic UI, and image sharing via Cloudinary.',
     scrollToSection: 'projects',
     highlightId: 'projects',
-    openProjectId: 'code-interview',
+  },
+  {
+    message:
+      'Fourth is Code Interview Platform. It shows Monaco Editor, Stream video and chat, session records, backend orchestration, and code execution through the Piston sandbox API.',
+    scrollToSection: 'projects',
+    highlightId: 'projects',
+  },
+  {
+    message:
+      'That is the project sequence. Ask about skills, experience, demos, source code, client work, AI, backend, frontend, or deployment.',
+    scrollToSection: 'skills',
+    highlightId: 'skills',
   },
 ];
 
 function buildSystemPrompt(): string {
   const portfolio = {
     engineer: 'Marco Fernstaedt',
-    title: 'Full-Stack Software Engineer',
+    title: 'Full Stack Software Engineer',
     skills: skills.map((s) => ({ name: s.name, level: s.level })),
     projects: featuredProjects.map((p) => ({
       id: p.id,
@@ -77,32 +85,32 @@ ${JSON.stringify(portfolio, null, 2)}
 
 IMPORTANT: Respond with valid JSON only. Use this exact schema:
 {
-  "message": "Your response (1-3 sentences, direct)",
+  "message": "Your response. One to three short sentences.",
   "scrollToSection": "projects" | "skills" | "systems" | "founder" | "writing" | null,
   "highlightId": "projects" | "skills" | "systems" | "founder" | "writing" | null,
   "openProjectId": "ai-image-audio" | "saguaro-blossoms-client-site" | "realtime-messaging" | "code-interview" | null
 }
 
 Rules:
-- Keep the answer under 80 words.
-- The site intentionally displays only the best four systems from 83 public repos.
-- Order matters: AI Image to Audio, Saguaro Blossoms Client Website, Real Time Messaging Platform, Code Interview Platform.
-- Prefer AI Image to Audio when asked what to review first.
-- Mention exact GitHub/demo links only when relevant.`;
+Keep the answer under 80 words.
+The site displays only the best four systems from 83 public repos.
+Order matters: AI Image to Audio, Saguaro Blossoms Client Website, Real Time Messaging Platform, Code Interview Platform.
+Prefer AI Image to Audio when asked what to review first.
+Mention exact GitHub or demo links only when relevant.`;
 }
 
 function buildUserMessage(
-  event: 'project_overview' | 'project_step' | 'user_message',
+  event: 'tour_start' | 'tour_step' | 'user_message',
   message: string | null,
   step: number,
   currentSection: string
 ): string {
-  if (event === 'project_overview') {
-    return 'Summarize the best four projects in order, starting with the strongest project.';
+  if (event === 'tour_start') {
+    return 'Start the project guide. Introduce Sentinel and the best projects in order.';
   }
-  if (event === 'project_step') {
-    const project = featuredProjects[Math.min(step, featuredProjects.length - 1)];
-    return `Explain this featured project briefly: ${project.name}. Current section: ${currentSection}.`;
+  if (event === 'tour_step') {
+    const project = featuredProjects[Math.min(Math.max(step - 1, 0), featuredProjects.length - 1)];
+    return `Continue the project guide. Explain ${project.name}. Current section: ${currentSection}.`;
   }
   return message ?? 'Hello';
 }
@@ -124,46 +132,43 @@ function skillAnswer(q: string): SentinelResponse {
   if (q.includes('frontend') || q.includes('react') || q.includes('next') || q.includes('typescript') || q.includes('tailwind')) {
     return {
       message:
-        'Frontend skills: React, Next.js, TypeScript, Tailwind CSS, accessibility-focused UI, SEO metadata, structured content, and polished responsive layout. Best proof: AI Image to Audio and Saguaro Blossoms.',
+        'Frontend skills: React, Next.js, TypeScript, Tailwind CSS, structured content, polished responsive layout, and inclusive UI work. Best proof: AI Image to Audio and Saguaro Blossoms.',
       scrollToSection: 'skills',
       highlightId: 'skills',
-      openProjectId: 'saguaro-blossoms-client-site',
     };
   }
 
   if (q.includes('backend') || q.includes('api') || q.includes('node') || q.includes('express') || q.includes('database') || q.includes('email')) {
     return {
       message:
-        'Backend skills: Node.js, Express, API routes, JWT auth, MongoDB/PostgreSQL concepts, Resend email, server-side credential protection, binary audio responses, and webhook-style integration patterns.',
+        'Backend skills: Node.js, Express, API routes, JWT cookies, MongoDB and PostgreSQL concepts, Resend email, protected credentials, binary MP3 responses, Cloudinary, and webhook style patterns.',
       scrollToSection: 'skills',
       highlightId: 'skills',
-      openProjectId: 'realtime-messaging',
     };
   }
 
   if (q.includes('ai') || q.includes('llm') || q.includes('openai') || q.includes('automation')) {
     return {
       message:
-        'AI API integration is clearest in AI Image to Audio: OpenAI Vision plus TTS, server-side routing, accessible upload flow, generated descriptions, and browser audio playback.',
+        'AI API integration is clearest in AI Image to Audio: OpenAI multimodal vision plus TTS, protected API routing, image upload flow, generated descriptions, and browser audio playback.',
       scrollToSection: 'projects',
       highlightId: 'projects',
       openProjectId: 'ai-image-audio',
     };
   }
 
-  if (q.includes('deploy') || q.includes('vercel') || q.includes('docker') || q.includes('infrastructure')) {
+  if (q.includes('deploy') || q.includes('vercel') || q.includes('infrastructure')) {
     return {
       message:
-        'Deployment and infrastructure skills show up in Vercel production apps, custom-domain client delivery, API boundaries, Docker/sandbox design, and data-flow architecture.',
+        'Deployment and infrastructure skills show up in Vercel production apps, custom domain client delivery, API boundaries, Piston sandbox usage, and system architecture.',
       scrollToSection: 'projects',
       highlightId: 'projects',
-      openProjectId: 'saguaro-blossoms-client-site',
     };
   }
 
   return {
     message:
-      'Core skills: React, Next.js, TypeScript, Tailwind CSS, accessibility, OpenAI Vision/TTS, Node/Express APIs, JWT auth, MongoDB/PostgreSQL concepts, Socket.IO, Resend, SEO metadata, Vercel, Monaco Editor, and Docker/sandbox design.',
+      'Core skills: React, Next.js, TypeScript, Tailwind CSS, inclusive UI, OpenAI Vision and TTS, Node and Express APIs, JWT auth, MongoDB and PostgreSQL concepts, Socket.IO, Cloudinary, Resend, SEO metadata, Vercel, Monaco, Piston, Stream, and systems architecture.',
     scrollToSection: 'skills',
     highlightId: 'skills',
   };
@@ -172,7 +177,7 @@ function skillAnswer(q: string): SentinelResponse {
 function experienceSummary(): SentinelResponse {
   return {
     message:
-      'Experience summary: Marco builds full-stack products from UI through backend APIs and deployment. The strongest proof is deployed AI accessibility work, a live client website, realtime messaging, and developer-tooling architecture.',
+      'Experience summary: Marco builds full stack products from UI through backend APIs and deployment. The strongest proof is deployed AI audio work, a live client website, realtime messaging, and developer tool architecture.',
     scrollToSection: 'projects',
     highlightId: 'projects',
   };
@@ -184,7 +189,7 @@ function answerFromPortfolio(message: string | null): SentinelResponse {
   if (!q.trim()) {
     return {
       message:
-        'Ask about the best project, skills, experience, demos, source code, accessibility, AI, backend, frontend, deployment, or client delivery. I answer from the project database.',
+        'Ask about the best project, skills, experience, demos, source code, AI, backend, frontend, deployment, or client delivery. I answer from the project database.',
       scrollToSection: 'projects',
       highlightId: 'projects',
     };
@@ -201,7 +206,7 @@ function answerFromPortfolio(message: string | null): SentinelResponse {
   if (q.includes('filter') || q.includes('category') || q.includes('categories')) {
     return {
       message:
-        'Use filters to inspect the four systems by strength area: Accessibility for AI Image to Audio, Platform for Saguaro Blossoms and realtime messaging, Tooling for code interview work, and Infrastructure for deployment depth.',
+        'Use filters to inspect the four systems by strength area: AI and audio, client platforms, realtime platforms, tooling, and infrastructure depth.',
       scrollToSection: 'projects',
       highlightId: 'projects',
     };
@@ -211,7 +216,7 @@ function answerFromPortfolio(message: string | null): SentinelResponse {
     return projectSummary('saguaro-blossoms-client-site');
   }
 
-  if (q.includes('image') || q.includes('audio') || q.includes('accessib') || q.includes('vision') || q.includes('tts') || q.includes('demo')) {
+  if (q.includes('image') || q.includes('audio') || q.includes('vision') || q.includes('tts') || q.includes('demo')) {
     return projectSummary('ai-image-audio');
   }
 
@@ -219,7 +224,7 @@ function answerFromPortfolio(message: string | null): SentinelResponse {
     return projectSummary('realtime-messaging');
   }
 
-  if (q.includes('code') || q.includes('interview') || q.includes('monaco') || q.includes('sandbox') || q.includes('tool')) {
+  if (q.includes('code') || q.includes('interview') || q.includes('monaco') || q.includes('sandbox') || q.includes('tool') || q.includes('piston')) {
     return projectSummary('code-interview');
   }
 
@@ -244,7 +249,7 @@ function answerFromPortfolio(message: string | null): SentinelResponse {
   if (q.includes('hire') || q.includes('first') || q.includes('best') || q.includes('strongest')) {
     return {
       message:
-        'Start with AI Image to Audio. It is deployed, accessibility-focused, and proves Marco can turn AI APIs into useful product work. Then review Saguaro Blossoms at https://saguaroblossomslearningservices.com for client delivery and production polish.',
+        'Start with AI Image to Audio. It is deployed and proves Marco can turn AI APIs into useful product work. Then review Saguaro Blossoms at https://saguaroblossomslearningservices.com for client delivery and production polish.',
       scrollToSection: 'projects',
       highlightId: 'projects',
       openProjectId: 'ai-image-audio',
@@ -262,7 +267,7 @@ function answerFromPortfolio(message: string | null): SentinelResponse {
 
   return {
     message:
-      'The clearest story: Marco builds accessible, full-stack systems with deployed product value. The best sequence is AI Image to Audio, Saguaro Blossoms client site, Real Time Messaging, then Code Interview Platform.',
+      'The clearest story: Marco builds full stack systems with deployed product value. The best sequence is AI Image to Audio, Saguaro Blossoms client site, Real Time Messaging, then Code Interview Platform.',
     scrollToSection: 'projects',
     highlightId: 'projects',
   };
@@ -274,7 +279,7 @@ export async function POST(request: NextRequest) {
 
   const { message, event, context } = body as {
     message: string | null;
-    event: 'project_overview' | 'project_step' | 'user_message';
+    event: 'tour_start' | 'tour_step' | 'user_message';
     context: { currentSection: string; step: number };
   };
 
@@ -282,9 +287,9 @@ export async function POST(request: NextRequest) {
   const hermesKey = process.env.HERMES_API_KEY;
 
   if (!hermesUrl) {
-    if (event === 'project_overview' || event === 'project_step') {
+    if (event === 'tour_start' || event === 'tour_step') {
       const step = context?.step ?? 0;
-      return NextResponse.json(PROJECT_OVERVIEW[Math.min(step, PROJECT_OVERVIEW.length - 1)]);
+      return NextResponse.json(FALLBACK_TOUR[Math.min(step, FALLBACK_TOUR.length - 1)]);
     }
     return NextResponse.json(answerFromPortfolio(message));
   }
@@ -312,7 +317,7 @@ export async function POST(request: NextRequest) {
 
     if (!res.ok) {
       const step = context?.step ?? 0;
-      return NextResponse.json(PROJECT_OVERVIEW[Math.min(step, PROJECT_OVERVIEW.length - 1)]);
+      return NextResponse.json(FALLBACK_TOUR[Math.min(step, FALLBACK_TOUR.length - 1)]);
     }
 
     const data = await res.json();

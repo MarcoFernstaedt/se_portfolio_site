@@ -61,7 +61,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
               engineering takeaway
             </div>
             <ul className="space-y-1 text-sm" style={{ color: 'var(--text-secondary)' }}>
-              {post.recruiterSignal.map((signal) => (
+              {post.engineeringSignal.map((signal) => (
                 <li key={signal}>• {signal}</li>
               ))}
             </ul>

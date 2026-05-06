@@ -2,10 +2,9 @@
 
 import { useState, useRef, useCallback, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Project } from '@/types';
 import { featuredProjects } from '@/lib/data';
 
-type GuideState = 'idle' | 'intro' | 'chatting';
+type GuideState = 'idle' | 'intro' | 'touring' | 'chatting';
 
 interface SentinelResponse {
   message: string;
@@ -15,13 +14,13 @@ interface SentinelResponse {
 }
 
 interface SentinelGuideProps {
-  onProjectOpen: (project: Project) => void;
   onScrollTo: (section: string) => void;
   booted: boolean;
 }
 
-export default function SentinelGuide({ onProjectOpen, onScrollTo, booted }: SentinelGuideProps) {
+export default function SentinelGuide({ onScrollTo, booted }: SentinelGuideProps) {
   const [state, setState] = useState<GuideState>('idle');
+  const [tourStep, setTourStep] = useState(0);
   const [currentSection, setCurrentSection] = useState('projects');
   const [displayedText, setDisplayedText] = useState('');
   const [isTyping, setIsTyping] = useState(false);
@@ -76,10 +75,16 @@ export default function SentinelGuide({ onProjectOpen, onScrollTo, booted }: Sen
       }
       if (response.openProjectId) {
         const project = featuredProjects.find((p) => p.id === response.openProjectId);
-        if (project) onProjectOpen(project);
+        if (project) {
+          const el = document.querySelector(`[data-project-id="${project.id}"]`);
+          if (el) {
+            el.classList.add('hermes-highlight');
+            setTimeout(() => el.classList.remove('hermes-highlight'), 3000);
+          }
+        }
       }
     },
-    [typeMessage, onScrollTo, onProjectOpen]
+    [typeMessage, onScrollTo]
   );
 
   const logEvent = useCallback((event: string, data: object) => {
@@ -96,7 +101,11 @@ export default function SentinelGuide({ onProjectOpen, onScrollTo, booted }: Sen
   }, []);
 
   const callSentinel = useCallback(
-    async (event: 'project_overview' | 'user_message', message: string | null = null) => {
+    async (
+      event: 'tour_start' | 'tour_step' | 'user_message',
+      message: string | null = null,
+      step: number = tourStep
+    ) => {
       setIsLoading(true);
       try {
         const res = await fetch('/api/hermes', {
@@ -106,25 +115,33 @@ export default function SentinelGuide({ onProjectOpen, onScrollTo, booted }: Sen
             message,
             event,
             sessionId: sessionId.current,
-            context: { currentSection, step: 0 },
+            context: { currentSection, step },
           }),
         });
         const data: SentinelResponse = await res.json();
         applyResponse(data);
-        logEvent(event, { message });
+        logEvent(event, { step, message });
       } catch {
         typeMessage('Sentinel could not reach the project guide. Open a project card for verified details.');
       } finally {
         setIsLoading(false);
       }
     },
-    [currentSection, applyResponse, typeMessage, logEvent]
+    [tourStep, currentSection, applyResponse, typeMessage, logEvent]
   );
 
-  const handleBestProjects = async () => {
-    setState('chatting');
+  const handleStartTour = async () => {
+    setState('touring');
+    setTourStep(0);
     setDisplayedText('');
-    await callSentinel('project_overview');
+    await callSentinel('tour_start', null, 0);
+  };
+
+  const handleNextStep = async () => {
+    const nextStep = tourStep + 1;
+    setTourStep(nextStep);
+    setDisplayedText('');
+    await callSentinel('tour_step', null, nextStep);
   };
 
   const handleAskQuestion = async () => {
@@ -182,7 +199,7 @@ export default function SentinelGuide({ onProjectOpen, onScrollTo, booted }: Sen
           </motion.button>
         )}
 
-        {(state === 'intro' || state === 'chatting') && (
+        {(state === 'intro' || state === 'touring' || state === 'chatting') && (
           <motion.div
             key="panel"
             initial={{ opacity: 0, y: 20, scale: 0.97 }}
@@ -206,7 +223,7 @@ export default function SentinelGuide({ onProjectOpen, onScrollTo, booted }: Sen
                 className="text-xs font-mono font-bold"
                 style={{ color: 'var(--accent-cyan)' }}
               >
-                ◈ SENTINEL — PROJECT GUIDE
+                ◈ SENTINEL PROJECT GUIDE
               </span>
               <button
                 onClick={handleClose}
@@ -225,7 +242,7 @@ export default function SentinelGuide({ onProjectOpen, onScrollTo, booted }: Sen
             <div className="p-4 space-y-4">
               {state === 'intro' && !displayedText && !isLoading && (
                 <p className="text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
-                  I can open Marco&apos;s best project first or answer questions about skills, experience, demos, source code, client work, accessibility, AI, backend, frontend, and deployment.
+                  Welcome to Marco&apos;s site. I am Sentinel. I will guide you through the strongest projects in order, show what each one proves, and answer questions about skills, demos, source code, client work, AI, backend, frontend, and deployment.
                 </p>
               )}
 
@@ -256,7 +273,7 @@ export default function SentinelGuide({ onProjectOpen, onScrollTo, booted }: Sen
               {state === 'intro' && !isLoading && (
                 <div className="flex gap-2 flex-wrap">
                   <button
-                    onClick={handleBestProjects}
+                    onClick={handleStartTour}
                     className="flex items-center gap-1.5 text-xs px-4 py-2 rounded font-mono font-bold transition-all hover:opacity-90"
                     style={{
                       backgroundColor: 'rgba(0,212,255,0.1)',
@@ -265,7 +282,7 @@ export default function SentinelGuide({ onProjectOpen, onScrollTo, booted }: Sen
                       cursor: 'pointer',
                     }}
                   >
-                    ▶ SHOW BEST PROJECT
+                    ▶ START TOUR
                   </button>
                   <button
                     onClick={() => setState('chatting')}
@@ -281,7 +298,21 @@ export default function SentinelGuide({ onProjectOpen, onScrollTo, booted }: Sen
                 </div>
               )}
 
-              {state === 'chatting' && (
+              {state === 'touring' && !isLoading && !isTyping && displayedText && (
+                <button
+                  onClick={handleNextStep}
+                  className="text-xs px-3 py-1.5 rounded font-mono transition-all hover:opacity-90"
+                  style={{
+                    border: '1px solid rgba(0,255,136,0.3)',
+                    color: 'var(--accent-green)',
+                    cursor: 'pointer',
+                  }}
+                >
+                  Continue
+                </button>
+              )}
+
+              {(state === 'chatting' || state === 'touring') && (
                 <div className="flex gap-2">
                   <input
                     type="text"

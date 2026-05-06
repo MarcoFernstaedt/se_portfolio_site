@@ -12,7 +12,7 @@ interface ProjectsPanelProps {
 /** Available category filters for the project grid. */
 const categories = [
   { id: 'all', label: 'All Systems' },
-  { id: 'accessibility', label: 'Accessibility' },
+  { id: 'accessibility', label: 'AI Audio' },
   { id: 'platform', label: 'Platforms' },
   { id: 'tooling', label: 'Tooling' },
   { id: 'infrastructure', label: 'Infrastructure' },
@@ -47,7 +47,7 @@ export default function ProjectsPanel({ onProjectClick }: ProjectsPanelProps) {
       </div>
 
       <p className="text-xs mb-4 leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
-        Four best systems selected from 83 public GitHub repositories, ordered from strongest proof to next-best work. Use the filters to inspect accessibility, platform, tooling, and infrastructure depth.
+        Featured work selected from 83 public GitHub repositories. Start with the strongest proof, then continue through client delivery, realtime systems, and developer tools.
       </p>
 
       {/* Filter tabs */}

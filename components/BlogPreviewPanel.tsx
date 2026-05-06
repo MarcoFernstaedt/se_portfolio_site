@@ -56,7 +56,7 @@ export default function BlogPreviewPanel() {
                 engineering signal
               </div>
               <ul className="space-y-1 text-xs" style={{ color: 'var(--text-secondary)' }}>
-                {post.recruiterSignal.slice(0, 2).map((signal) => (
+                {post.engineeringSignal.slice(0, 2).map((signal) => (
                   <li key={signal}>• {signal}</li>
                 ))}
               </ul>

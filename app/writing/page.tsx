@@ -57,7 +57,7 @@ export default function WritingPage() {
                   engineering signal
                 </div>
                 <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs" style={{ color: 'var(--text-secondary)' }}>
-                  {post.recruiterSignal.map((signal) => (
+                  {post.engineeringSignal.map((signal) => (
                     <li key={signal}>• {signal}</li>
                   ))}
                 </ul>

@@ -31,7 +31,7 @@ export interface GitHubStats {
 /** A technical skill shown in the Skills panel with a 0-10 proficiency level. */
 export interface Skill {
   name: string;
-  /** Proficiency score on a 0–10 scale (10 = expert). Rendered as a block bar. */
+  /** Proficiency score on a 0 to 10 scale. Rendered as a block bar. */
   level: number;
   category: 'frontend' | 'backend' | 'infrastructure' | 'accessibility';
 }
@@ -60,7 +60,7 @@ export interface BlogPost {
   readTime: string;
   category: string;
   featured: boolean;
-  recruiterSignal: string[];
+  engineeringSignal: string[];
   summary: string;
   sections: BlogSection[];
 }

@@ -3,23 +3,22 @@ import './globals.css';
 import { AccessibilityProvider } from '@/lib/accessibility-context';
 
 export const metadata: Metadata = {
-  title: 'Marco Fernstaedt — Command Center',
+  title: 'Marco Fernstaedt Command Center',
   description:
-    'Full-stack software engineer specializing in accessible, performant web applications. React, Next.js, TypeScript, Node.js, and AI integration.',
+    'Full stack software engineer building performant web applications with React, Next.js, TypeScript, Node.js, and AI integration.',
   keywords: [
-    'full-stack developer',
+    'full stack developer',
     'software engineer',
     'Next.js',
     'TypeScript',
     'AI integration',
-    'WCAG',
     'systems builder',
   ],
   authors: [{ name: 'Marco Fernstaedt' }],
   openGraph: {
-    title: 'Marco Fernstaedt — Command Center',
+    title: 'Marco Fernstaedt Command Center',
     description:
-      'Full-stack software engineer specializing in accessible, performant web applications.',
+      'Full stack software engineer building performant web applications.',
     type: 'website',
   },
 };

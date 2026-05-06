@@ -8,7 +8,7 @@
   "featured": false,
   "status": "draft",
   "approvalNotes": "Waiting for final review. Tighten the intro and confirm the publish date before approval.",
-  "recruiterSignal": [
+  "engineeringSignal": [
     "Operates with clear review gates",
     "Thinks about process, not just code",
     "Keeps public output clean and intentional"

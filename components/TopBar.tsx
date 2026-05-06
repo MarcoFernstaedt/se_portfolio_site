@@ -8,8 +8,7 @@ import TrafficLightDots from './TrafficLightDots';
 /**
  * Sticky top navigation bar.
  *
- * Shows the site identity (name + traffic-light dots), a real-time clock and
- * "ALL SYSTEMS ONLINE" status indicator on desktop, and an accessibility-mode
+ * Shows the site identity, a live clock, status, and a compact audio mode
  * toggle button. Updates the clock every second.
  */
 export default function TopBar() {
@@ -44,7 +43,7 @@ export default function TopBar() {
       className="sticky top-0 z-40 px-4 md:px-6 py-2"
     >
       <div className="max-w-screen-xl mx-auto flex items-center justify-between">
-        {/* Left — identity */}
+        {/* Left identity */}
         <div className="flex items-center gap-3">
           <TrafficLightDots />
           <span
@@ -64,11 +63,11 @@ export default function TopBar() {
             style={{ color: 'var(--text-dim)' }}
             aria-hidden="true"
           >
-            ── COMMAND CENTER
+            COMMAND CENTER
           </span>
         </div>
 
-        {/* Center — status and quick nav */}
+        {/* Center status and quick nav */}
         <div className="hidden md:flex items-center gap-4 text-xs" style={{ color: 'var(--text-dim)' }}>
           <span className="flex items-center gap-1.5" aria-hidden="true">
             <span
@@ -85,7 +84,7 @@ export default function TopBar() {
           <span style={{ color: 'var(--text-secondary)' }}>{time}</span>
         </div>
 
-        {/* Right — accessibility toggle */}
+        {/* Right controls */}
         <nav aria-label="Site controls" className="flex items-center gap-2">
           <Link
             href="/writing"
@@ -103,10 +102,10 @@ export default function TopBar() {
             aria-pressed={accessibilityMode}
             aria-label={
               accessibilityMode
-                ? 'Disable accessibility mode'
-                : 'Enable screen reader optimized mode'
+                ? 'Disable audio friendly mode'
+                : 'Enable audio friendly mode'
             }
-            title={accessibilityMode ? 'A11Y: ON — click to disable' : 'Enable screen reader optimized mode'}
+            title={accessibilityMode ? 'Audio mode on' : 'Audio mode off'}
             className="flex items-center text-xs px-2 py-1.5 rounded transition-all"
             style={{
               border: `1px solid ${accessibilityMode ? 'var(--accent-green)' : 'var(--border-color)'}`,

@@ -7,9 +7,9 @@
   "category": "Tooling + Systems Design",
   "featured": false,
   "status": "draft",
-  "approvalNotes": "Strong recruiter-facing draft. Before approval, decide whether to mention Docker by name in the title or leave it broader.",
-  "recruiterSignal": [
-    "Builds real-time product experiences, not just static CRUD apps",
+  "approvalNotes": "Strong engineering focused draft. Before approval, decide whether to mention Docker by name in the title or leave it broader.",
+  "engineeringSignal": [
+    "Builds realtime product experiences, not just static CRUD apps",
     "Can reason about sandboxing, collaboration, and UX together",
     "Communicates engineering tradeoffs clearly"
   ],

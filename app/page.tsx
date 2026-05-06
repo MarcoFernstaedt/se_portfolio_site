@@ -8,7 +8,6 @@ import ProjectsPanel from '@/components/ProjectsPanel';
 import ProjectModal from '@/components/ProjectModal';
 import SkillsPanel from '@/components/SkillsPanel';
 import SystemsMap from '@/components/SystemsMap';
-import AccessibilityPanel from '@/components/AccessibilityPanel';
 import FounderSection from '@/components/FounderSection';
 import BlogPreviewPanel from '@/components/BlogPreviewPanel';
 import VoiceCommand from '@/components/VoiceCommand';
@@ -68,7 +67,7 @@ export default function Home() {
                 COMMAND CENTER
               </h1>
               <p className="text-xs tracking-widest truncate max-w-[280px] sm:max-w-none" style={{ color: 'var(--text-dim)' }}>
-                MARCO FERNSTAEDT ── MERN · PYTHON · AI APIs
+                MARCO FERNSTAEDT · MERN · PYTHON · AI APIs
               </p>
             </div>
             <div
@@ -87,7 +86,7 @@ export default function Home() {
 
           {/* Main grid layout */}
           <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] xl:grid-cols-3 gap-5 md:gap-6">
-            {/* Left column — projects (2/3 width) */}
+            {/* Left column projects */}
             <div className="xl:col-span-2 space-y-5 md:space-y-6">
               <motion.div
                 ref={projectsRef}
@@ -123,7 +122,7 @@ export default function Home() {
               </motion.div>
             </div>
 
-            {/* Right column — sidebar (1/3 width) */}
+            {/* Right column sidebar */}
             <div className="space-y-5 md:space-y-6">
               {/* Founder / identity */}
               <motion.div
@@ -149,14 +148,6 @@ export default function Home() {
                 <SkillsPanel />
               </motion.div>
 
-              {/* Accessibility panel */}
-              <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                animate={booted ? { opacity: 1, x: 0 } : {}}
-                transition={{ delay: 0.55 }}
-              >
-                <AccessibilityPanel />
-              </motion.div>
             </div>
           </div>
 
@@ -184,7 +175,6 @@ export default function Home() {
 
         {/* Sentinel project guide */}
         <SentinelGuide
-          onProjectOpen={setSelectedProject}
           onScrollTo={handleScrollTo}
           booted={booted}
         />

@@ -1,6 +1,6 @@
 # se_portfolio_site
 
-Marco's recruiter-facing portfolio site built with Next.js.
+Marco's engineering portfolio site built with Next.js.
 
 ## Local development
 

@@ -25,7 +25,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
 
   useEffect(() => {
     if (project) {
-      // Move focus into the dialog for keyboard and screen-reader users
+      // Move focus into the dialog for keyboard users
       dialogRef.current?.focus();
       document.body.style.overflow = 'hidden';
     } else {
@@ -66,13 +66,13 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
             aria-modal="true"
             aria-labelledby="modal-title"
             tabIndex={-1}
-            className="fixed inset-0 z-50 flex items-end sm:items-center justify-center sm:p-4 outline-none"
+            className="fixed inset-0 z-50 flex items-end sm:items-center justify-center sm:p-4 outline-none pt-[env(safe-area-inset-top)]"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
             <motion.div
-              className="w-full sm:max-w-2xl max-h-[92vh] sm:max-h-[90vh] overflow-y-auto rounded-t-lg sm:rounded-lg"
+              className="w-full sm:max-w-2xl max-h-[88vh] sm:max-h-[90vh] overflow-y-auto rounded-t-lg sm:rounded-lg"
               style={{
                 backgroundColor: 'var(--bg-primary)',
                 border: '1px solid var(--border-color)',
@@ -85,7 +85,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
             >
               {/* Terminal title bar */}
               <div
-                className="flex items-center justify-between px-4 py-3"
+                className="sticky top-0 z-20 flex items-center justify-between px-4 py-3"
                 style={{
                   backgroundColor: 'rgba(0,0,0,0.4)',
                   borderBottom: '1px solid #1e3a5f',
@@ -101,9 +101,9 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                   onClick={onClose}
                   className="text-xs px-2 py-1 rounded transition-colors"
                   style={{ color: 'var(--text-secondary)', border: '1px solid var(--border-color)' }}
-                  aria-label="Close"
+                  aria-label="Close project details"
                 >
-                  ESC
+                  Close
                 </button>
               </div>
 
@@ -181,7 +181,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                   <ul className="space-y-1" aria-label="Technologies used">
                     {project.stack.map((tech) => (
                       <li key={tech} className="flex items-center gap-2">
-                        <span style={{ color: 'var(--text-dim)' }}>├─</span>
+                        <span style={{ color: 'var(--text-dim)' }}>•</span>
                         <span style={{ color: 'var(--text-primary)' }}>{tech}</span>
                       </li>
                     ))}

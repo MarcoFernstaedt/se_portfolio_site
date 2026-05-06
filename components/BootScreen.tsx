@@ -25,7 +25,7 @@ export default function BootScreen({ onComplete }: BootScreenProps) {
   const [currentLine, setCurrentLine] = useState(0);
   const [done, setDone] = useState(false);
 
-  // Derive displayed lines and progress directly — no separate state needed
+  // Derive displayed lines and progress directly. No separate state needed
   const displayedLines = bootMessages.slice(0, currentLine + 1);
   const progress = Math.round(((currentLine + 1) / bootMessages.length) * 100);
 
@@ -94,7 +94,7 @@ export default function BootScreen({ onComplete }: BootScreenProps) {
                 style={{ color: 'var(--text-dim)' }}
                 aria-hidden="true"
               >
-                v2.0.26 ── SYSTEMS INITIALIZATION
+                v2.0.26 · SYSTEMS INITIALIZATION
               </div>
             </motion.div>
 
