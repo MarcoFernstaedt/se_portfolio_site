@@ -100,8 +100,12 @@ function buildSystemPrompt(): string {
     },
     contact: {
       github: 'https://github.com/MarcoFernstaedt',
+      linkedin: 'https://www.linkedin.com/in/marco-f-19a372219',
       email: 'contact@marcofernstaedt.com',
+      resume: '/Marco-Fernstaedt-Resume-2025.pdf',
+      resumeDownload: 'Available via the green Download Resume button in the Engineer Profile card on the right side of the page.',
     },
+    availability: 'Open to work. Seeking full-time full-stack software engineering roles. Open to remote and on-site.',
   };
 
   return `You are Sentinel, a project guide embedded in Marco Fernstaedt's software engineering portfolio.
@@ -123,7 +127,12 @@ Keep the answer under 80 words.
 The site displays only the best four systems from 83 public repos.
 Order matters: AI Image to Audio, Saguaro Blossoms Client Website, Real Time Messaging Platform, Code Interview Platform.
 Prefer AI Image to Audio when asked what to review first.
-Mention exact GitHub or demo links only when relevant.`;
+Mention exact GitHub or demo links only when relevant.
+If asked about the resume or CV: it is at /Marco-Fernstaedt-Resume-2025.pdf and downloadable via the green Resume button in the Engineer Profile card. Scroll to the founder section.
+If asked about availability: Marco is open to work, seeking full-time full-stack roles, open to remote and on-site, based in the US.
+If asked about education: Marco is self-taught, demonstrated through 83 public repos and deployed production projects.
+If asked about LinkedIn: linkedin.com/in/marco-f-19a372219.
+If asked about writing or blog: engineering notes are at /writing, covering AI product, realtime systems, accessibility, and developer tools.`;
 }
 
 function buildUserMessage(
@@ -219,6 +228,93 @@ function answerFromPortfolio(message: string | null): SentinelResponse {
         'Ask about the best project, skills, experience, demos, source code, AI, backend, frontend, deployment, or client delivery. I answer from the project database.',
       scrollToSection: 'projects',
       highlightId: 'projects',
+    };
+  }
+
+  if (q.includes('resume') || q.includes(' cv ') || q.startsWith('cv') || q.includes('download') || q.includes('pdf')) {
+    return {
+      message:
+        'The resume PDF is in the Engineer Profile card on the right side of the page. Click the green "↓ Resume" button to download it. Direct path: /Marco-Fernstaedt-Resume-2025.pdf',
+      scrollToSection: 'founder',
+      highlightId: 'founder',
+    };
+  }
+
+  if (q.includes('linkedin')) {
+    return {
+      message:
+        'LinkedIn: linkedin.com/in/marco-f-19a372219. GitHub: github.com/MarcoFernstaedt. Email: contact@marcofernstaedt.com.',
+      scrollToSection: 'founder',
+      highlightId: 'founder',
+    };
+  }
+
+  if (
+    q.includes('available') || q.includes('availability') || q.includes('open to work') ||
+    q.includes('remote') || q.includes('location') || q.includes('relocat') ||
+    q.includes('when can') || q.includes('start date') || q.includes('timezone')
+  ) {
+    return {
+      message:
+        'Marco is open to work and available for full-time roles now. Open to remote and on-site positions. Based in the US. Contact at contact@marcofernstaedt.com.',
+      scrollToSection: 'founder',
+      highlightId: 'founder',
+    };
+  }
+
+  if (q.includes('education') || q.includes('degree') || q.includes('school') || q.includes('university') || q.includes('college') || q.includes('self-taught') || q.includes('bootcamp') || q.includes('self taught')) {
+    return {
+      message:
+        'Marco is a self-taught engineer with 83 public repos demonstrating applied skills across frontend, backend, AI integration, and deployment. The portfolio projects are the strongest signal.',
+      scrollToSection: 'projects',
+      highlightId: 'projects',
+    };
+  }
+
+  if (q.includes('year') || q.includes('how long') || q.includes('experience level') || q.includes('junior') || q.includes('senior') || q.includes('mid') || q.includes('level')) {
+    return {
+      message:
+        'Marco has shipped multiple production projects: a live AI product, a client business site, a realtime messaging platform, and a developer tool. The work speaks best. Start with AI Image to Audio for the strongest technical signal.',
+      scrollToSection: 'projects',
+      highlightId: 'projects',
+      openProjectId: 'ai-image-audio',
+    };
+  }
+
+  if (q.includes('salary') || q.includes('rate') || q.includes('compensation') || q.includes('pay')) {
+    return {
+      message:
+        'Compensation details are best discussed directly. Reach Marco at contact@marcofernstaedt.com or via LinkedIn at linkedin.com/in/marco-f-19a372219.',
+      scrollToSection: 'founder',
+      highlightId: 'founder',
+    };
+  }
+
+  if (q.includes('blog') || q.includes('writing') || q.includes('article') || q.includes('post') || q.includes('note')) {
+    return {
+      message:
+        'Marco writes engineering notes at /writing. Posts cover AI audio product work, realtime system design, accessibility-first engineering, and developer tool decisions. Each post is tied to a real project.',
+      scrollToSection: 'writing',
+      highlightId: 'writing',
+    };
+  }
+
+  if (q.includes('python') || q.includes('data') || q.includes('scraping') || q.includes('pipeline') || q.includes('automation')) {
+    return {
+      message:
+        'Python experience shows in data pipeline and automation work. The portfolio focuses on full-stack JavaScript systems, but Python scripting and data engineering are part of the broader GitHub body of work.',
+      scrollToSection: 'skills',
+      highlightId: 'skills',
+    };
+  }
+
+  if (q.includes('team') || q.includes('collaborat') || q.includes('work with') || q.includes('cowork') || q.includes('pair') || q.includes('async')) {
+    return {
+      message:
+        'The client delivery on Saguaro Blossoms shows external collaboration, production discipline, and delivery ownership. The Code Interview Platform was designed for multi-user live sessions, which requires thinking about shared state and coordination.',
+      scrollToSection: 'projects',
+      highlightId: 'projects',
+      openProjectId: 'saguaro-blossoms-client-site',
     };
   }
 

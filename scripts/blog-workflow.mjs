@@ -34,26 +34,100 @@ function publicStatus(post) {
   return live ? 'LIVE' : 'HIDDEN';
 }
 
+function slugify(str) {
+  return str.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+}
+
+function nextPublishAt() {
+  // Default: next Tuesday or Thursday at 15:15 UTC
+  const now = new Date();
+  const day = now.getUTCDay(); // 0=Sun, 2=Tue, 4=Thu
+  const daysUntilTue = ((2 - day + 7) % 7) || 7;
+  const daysUntilThu = ((4 - day + 7) % 7) || 7;
+  const daysAhead = Math.min(daysUntilTue, daysUntilThu);
+  const target = new Date(now);
+  target.setUTCDate(target.getUTCDate() + daysAhead);
+  target.setUTCHours(15, 15, 0, 0);
+  return target.toISOString();
+}
+
 function usage() {
   console.log(`Blog workflow helper
 
 Commands:
   npm run blog:list
+  npm run blog:create -- <slug> <title> <category> [publishAt]
   npm run blog:approve -- <slug> [publishAt]
   npm run blog:unapprove -- <slug>
 
 Examples:
   npm run blog:list
-  npm run blog:approve -- approval-workflow-example-post 2026-04-15T14:00:00.000Z
-  npm run blog:unapprove -- approval-workflow-example-post
+  npm run blog:create -- "my-post-slug" "My Post Title" "AI Product"
+  npm run blog:approve -- my-post-slug 2026-05-14T15:15:00.000Z
+  npm run blog:unapprove -- my-post-slug
 `);
 }
 
-const [, , command, slug, publishAt] = process.argv;
+const [, , command, ...rest] = process.argv;
 
 if (!command) {
   usage();
   process.exit(1);
+}
+
+if (command === 'create') {
+  const [rawSlug, title, category, publishAt] = rest;
+
+  if (!rawSlug || !title || !category) {
+    console.error('Usage: npm run blog:create -- <slug> <title> <category> [publishAt]');
+    process.exit(1);
+  }
+
+  const slug = slugify(rawSlug);
+  if (!slug || !/^[a-z0-9-]+$/.test(slug)) {
+    console.error(`Invalid slug after normalization: "${slug}". Use lowercase letters, numbers, and hyphens.`);
+    process.exit(1);
+  }
+
+  const outPath = path.join(POSTS_DIRECTORY, `${slug}.json`);
+  if (fs.existsSync(outPath)) {
+    console.error(`Post already exists: ${outPath}`);
+    process.exit(1);
+  }
+
+  const post = {
+    slug,
+    title,
+    excerpt: 'TODO: one sentence for preview cards and meta description. Keep under 160 characters.',
+    publishAt: publishAt || nextPublishAt(),
+    readTime: '5 min read',
+    category,
+    featured: false,
+    status: 'draft',
+    engineeringSignal: [
+      'TODO: engineering signal 1',
+      'TODO: engineering signal 2',
+      'TODO: engineering signal 3',
+    ],
+    summary: 'TODO: 1-2 sentence summary shown at the top of the post. Explain what you built and why it matters.',
+    sections: [
+      { heading: 'Problem', content: ['TODO: what problem prompted this.'] },
+      { heading: 'What I built', content: ['TODO: describe the system or feature.'] },
+      { heading: 'Key decisions', bullets: ['TODO: decision 1', 'TODO: decision 2', 'TODO: decision 3'] },
+      { heading: 'What this shows', content: ['TODO: what this project signals about how you work.'] },
+    ],
+  };
+
+  writePost(outPath, post);
+  console.log(`Created draft: ${outPath}
+
+Next steps:
+  1. Edit the JSON — fill in excerpt, summary, engineeringSignal, and sections
+  2. Run: npm run blog:approve -- ${slug}
+  3. Commit and push
+
+The post will go live at ${post.publishAt} after the next deploy.`);
+  process.exit(0);
 }
 
 const posts = readPosts();
@@ -64,6 +138,8 @@ if (command === 'list') {
   }
   process.exit(0);
 }
+
+const [slug, publishAt] = rest;
 
 if (!slug) {
   console.error('Missing slug.');

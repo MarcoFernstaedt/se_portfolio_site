@@ -6,8 +6,8 @@
   "readTime": "5 min read",
   "category": "Accessibility + Engineering Judgment",
   "featured": false,
-  "status": "draft",
-  "approvalNotes": "Natural and strong. Keep it as a draft unless Marco wants this theme central again.",
+  "status": "published",
+  "approvedAt": "2026-04-20T12:00:00.000Z",
   "engineeringSignal": [
     "Builds with real user constraints in mind",
     "Understands real user constraints as engineering requirements",
