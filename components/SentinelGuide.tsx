@@ -19,9 +19,10 @@ interface SentinelResponse {
 interface SentinelGuideProps {
   onScrollTo: (section: string) => void;
   booted: boolean;
+  onOpenChange?: (open: boolean) => void;
 }
 
-export default function SentinelGuide({ onScrollTo, booted }: SentinelGuideProps) {
+export default function SentinelGuide({ onScrollTo, booted, onOpenChange }: SentinelGuideProps) {
   const [state, setState] = useState<GuideState>('idle');
   const [tourStep, setTourStep] = useState(0);
   const [currentSection, setCurrentSection] = useState('projects');
@@ -39,6 +40,10 @@ export default function SentinelGuide({ onScrollTo, booted }: SentinelGuideProps
       if (typewriterRef.current) clearInterval(typewriterRef.current);
     };
   }, []);
+
+  useEffect(() => {
+    onOpenChange?.(state !== 'idle');
+  }, [state, onOpenChange]);
 
   useEffect(() => {
     if (!booted) return;

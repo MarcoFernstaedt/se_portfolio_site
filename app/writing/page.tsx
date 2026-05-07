@@ -13,11 +13,20 @@ export const metadata = {
     type: 'website',
     url: 'https://marcofernstaedt.com/writing',
     siteName: 'Marco Fernstaedt Command Center',
+    images: [
+      {
+        url: 'https://marcofernstaedt.com/writing/opengraph-image',
+        width: 1200,
+        height: 630,
+        alt: 'Engineering Notes | Marco Fernstaedt',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Engineering Notes | Marco Fernstaedt',
-    description: 'High-signal engineering writeups from Marco Fernstaedt — AI, realtime systems, accessibility.',
+    description: 'High-signal engineering writeups from Marco Fernstaedt: AI, realtime systems, accessibility.',
+    images: ['https://marcofernstaedt.com/writing/opengraph-image'],
   },
 };
 
