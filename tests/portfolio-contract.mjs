@@ -110,8 +110,11 @@ for (const marker of [
   'sticky top-0 z-20',
   'Close',
   'Close project details',
-  'pt-[env(safe-area-inset-top)]',
+  'h-[100dvh]',
+  'items-start justify-center',
 ]) requireIncludes(modal, marker)
+
+requireNotIncludes(modal, 'pt-[env(safe-area-inset-top)]', 'project modal top padding')
 
 requireIncludes(modal, 'Engineering Signal:', 'project modal engineering signal block')
 requireIncludes(modal, 'Live Demo', 'project modal live demo link')

@@ -103,13 +103,13 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
             aria-modal="true"
             aria-labelledby="project-modal-title"
             tabIndex={-1}
-            className="fixed inset-0 z-50 flex items-end sm:items-center justify-center sm:p-4 outline-none pt-[env(safe-area-inset-top)]"
+            className="fixed inset-0 z-50 flex items-start justify-center outline-none"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
             <motion.div
-              className="w-full sm:max-w-2xl max-h-[88vh] sm:max-h-[90vh] overflow-y-auto rounded-t-lg sm:rounded-lg"
+              className="h-[100dvh] w-full overflow-y-auto rounded-none sm:h-auto sm:max-h-[90vh] sm:max-w-2xl sm:rounded-lg"
               style={{
                 backgroundColor: 'var(--bg-primary)',
                 border: '1px solid var(--border-color)',
