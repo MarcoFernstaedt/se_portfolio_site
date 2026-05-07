@@ -56,12 +56,21 @@ export const metadata: Metadata = {
     url: SITE_URL,
     siteName: 'Marco Fernstaedt Command Center',
     locale: 'en_US',
+    images: [
+      {
+        url: `${SITE_URL}/opengraph-image`,
+        width: 1200,
+        height: 630,
+        alt: 'Marco Fernstaedt Full Stack Software Engineer',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Marco Fernstaedt | Full Stack Software Engineer',
     description:
       'Full stack engineer: React, Next.js, TypeScript, Node.js, AI APIs, and deployed production systems. Open to full time roles.',
+    images: [`${SITE_URL}/opengraph-image`],
   },
   robots: {
     index: true,

@@ -17,6 +17,7 @@ import { Project } from '@/types';
 export default function Home() {
   const [booted, setBooted] = useState(false);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [sentinelOpen, setSentinelOpen] = useState(false);
 
   const projectsRef = useRef<HTMLDivElement>(null);
   const skillsRef = useRef<HTMLDivElement>(null);
@@ -180,8 +181,8 @@ export default function Home() {
           </motion.footer>
         </main>
 
-        {/* Voice command interface */}
-        {booted && (
+        {/* Voice command interface — hidden while Sentinel panel is open */}
+        {booted && !sentinelOpen && (
           <VoiceCommand
             onProjectOpen={setSelectedProject}
             onScrollTo={handleScrollTo}
@@ -192,6 +193,7 @@ export default function Home() {
         <SentinelGuide
           onScrollTo={handleScrollTo}
           booted={booted}
+          onOpenChange={setSentinelOpen}
         />
         </div>
       )}

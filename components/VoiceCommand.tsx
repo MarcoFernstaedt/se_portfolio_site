@@ -269,7 +269,7 @@ export default function VoiceCommand({ onProjectOpen, onScrollTo }: VoiceCommand
         <motion.button
           onClick={listening ? stopListening : startListening}
           aria-pressed={listening}
-          aria-label={listening ? 'Stop listening for voice commands' : 'Start voice command — Speak a command'}
+          aria-label={listening ? 'Stop listening for voice commands' : 'Start voice command: speak a command'}
           className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 rounded-lg font-mono text-xs font-bold transition-all"
           style={{
             backgroundColor: listening ? 'rgba(0,255,136,0.15)' : 'rgba(0,212,255,0.1)',
