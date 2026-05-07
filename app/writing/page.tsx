@@ -4,7 +4,21 @@ import { formatPublishDate, getPublicBlogPosts } from '@/lib/blog-data';
 export const metadata = {
   title: 'Engineering Notes | Marco Fernstaedt',
   description:
-    'Practical engineering notes on projects built, lessons learned, system design decisions, and accessible software work.',
+    'Engineering notes by Marco Fernstaedt on AI product work, realtime systems, accessibility-first development, and developer tools. High-signal writeups tied to real shipped projects.',
+  alternates: { canonical: 'https://marcofernstaedt.com/writing' },
+  openGraph: {
+    title: 'Engineering Notes | Marco Fernstaedt',
+    description:
+      'Engineering notes on AI product work, realtime systems, accessibility engineering, and developer tools.',
+    type: 'website',
+    url: 'https://marcofernstaedt.com/writing',
+    siteName: 'Marco Fernstaedt Command Center',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Engineering Notes | Marco Fernstaedt',
+    description: 'High-signal engineering writeups from Marco Fernstaedt — AI, realtime systems, accessibility.',
+  },
 };
 
 export default function WritingPage() {

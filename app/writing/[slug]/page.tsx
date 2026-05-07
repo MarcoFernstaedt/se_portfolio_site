@@ -2,6 +2,8 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { formatPublishDate, getBlogPost, getPublicBlogPosts } from '@/lib/blog-data';
 
+const SITE_URL = 'https://marcofernstaedt.com';
+
 export function generateStaticParams() {
   return getPublicBlogPosts().map((post) => ({ slug: post.slug }));
 }
@@ -13,9 +15,26 @@ export function generateMetadata({ params }: { params: { slug: string } }) {
     return { title: 'Post not found | Marco Fernstaedt' };
   }
 
+  const postUrl = `${SITE_URL}/writing/${post.slug}`;
+
   return {
     title: `${post.title} | Marco Fernstaedt`,
     description: post.excerpt,
+    alternates: { canonical: postUrl },
+    openGraph: {
+      title: post.title,
+      description: post.excerpt,
+      type: 'article',
+      url: postUrl,
+      siteName: 'Marco Fernstaedt Command Center',
+      publishedTime: post.publishAt,
+      authors: ['Marco Fernstaedt'],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: post.title,
+      description: post.excerpt,
+    },
   };
 }
 
@@ -26,8 +45,31 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
     notFound();
   }
 
+  const articleSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: post.title,
+    description: post.excerpt,
+    author: {
+      '@type': 'Person',
+      name: 'Marco Fernstaedt',
+      url: SITE_URL,
+    },
+    datePublished: post.publishAt,
+    url: `${SITE_URL}/writing/${post.slug}`,
+    publisher: {
+      '@type': 'Person',
+      name: 'Marco Fernstaedt',
+      url: SITE_URL,
+    },
+  };
+
   return (
     <main className="min-h-screen grid-bg scanlines px-4 sm:px-6 py-8" style={{ backgroundColor: 'var(--bg-primary)' }}>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+      />
       <article className="max-w-3xl mx-auto">
         <Link href="/writing" className="text-xs" style={{ color: 'var(--accent-cyan)' }}>
           ← Back to engineering notes

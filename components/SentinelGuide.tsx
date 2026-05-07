@@ -4,6 +4,9 @@ import { useState, useRef, useCallback, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { featuredProjects } from '@/lib/data';
 
+// Step 0 = tour_start intro, steps 1–N = one per project, step N+1 = conclusion
+const TOUR_MAX_STEP = featuredProjects.length + 1;
+
 type GuideState = 'idle' | 'intro' | 'touring' | 'chatting';
 
 interface SentinelResponse {
@@ -298,7 +301,7 @@ export default function SentinelGuide({ onScrollTo, booted }: SentinelGuideProps
                 </div>
               )}
 
-              {state === 'touring' && !isLoading && !isTyping && displayedText && (
+              {state === 'touring' && !isLoading && !isTyping && displayedText && tourStep < TOUR_MAX_STEP && (
                 <button
                   onClick={handleNextStep}
                   className="text-xs px-3 py-1.5 rounded font-mono transition-all hover:opacity-90"
@@ -309,6 +312,21 @@ export default function SentinelGuide({ onScrollTo, booted }: SentinelGuideProps
                   }}
                 >
                   Continue
+                </button>
+              )}
+
+              {state === 'touring' && !isLoading && !isTyping && displayedText && tourStep >= TOUR_MAX_STEP && (
+                <button
+                  onClick={() => setState('chatting')}
+                  className="text-xs px-4 py-1.5 rounded font-mono font-bold transition-all hover:opacity-90"
+                  style={{
+                    backgroundColor: 'rgba(0,212,255,0.1)',
+                    border: '1px solid rgba(0,212,255,0.4)',
+                    color: 'var(--accent-cyan)',
+                    cursor: 'pointer',
+                  }}
+                >
+                  ▶ ASK QUESTIONS
                 </button>
               )}
 

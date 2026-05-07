@@ -21,24 +21,36 @@ export const metadata: Metadata = {
     template: '%s | Marco Fernstaedt',
   },
   description:
-    'Full-stack software engineer building performant web applications with React, Next.js, TypeScript, Node.js, and AI integration. Available for full-time roles.',
+    'Full-stack software engineer building production web apps with React, Next.js, TypeScript, Node.js, and AI APIs. Deployed client work, realtime systems, and developer tools. Open to full-time roles.',
   keywords: [
     'Marco Fernstaedt',
     'full stack developer',
-    'software engineer',
-    'MERN stack',
-    'Next.js',
-    'TypeScript',
+    'full stack software engineer',
+    'software engineer portfolio',
     'React developer',
-    'Node.js',
-    'AI integration',
+    'Next.js developer',
+    'TypeScript engineer',
+    'Node.js developer',
+    'JavaScript developer',
+    'MERN stack',
+    'web developer for hire',
+    'AI integration engineer',
+    'OpenAI API developer',
+    'frontend developer',
+    'backend developer',
     'systems builder',
+    'software engineer open to work',
+    'remote software engineer',
+    'hire software engineer',
   ],
   authors: [{ name: 'Marco Fernstaedt' }],
+  alternates: {
+    canonical: SITE_URL,
+  },
   openGraph: {
     title: 'Marco Fernstaedt | Full-Stack Software Engineer',
     description:
-      'Full-stack software engineer building performant web applications with React, Next.js, TypeScript, and AI integration.',
+      'Full-stack software engineer with deployed client work, AI product experience, realtime systems, and developer tools. Open to full-time roles.',
     type: 'website',
     url: SITE_URL,
     siteName: 'Marco Fernstaedt Command Center',
@@ -47,7 +59,8 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Marco Fernstaedt | Full-Stack Software Engineer',
-    description: 'Full-stack engineer specializing in MERN stack, Python, and AI APIs.',
+    description:
+      'Full-stack engineer: React, Next.js, TypeScript, Node.js, AI APIs, and deployed production systems. Open to full-time roles.',
   },
   robots: {
     index: true,
@@ -61,7 +74,8 @@ const personSchema = {
   name: 'Marco Fernstaedt',
   url: SITE_URL,
   jobTitle: 'Full-Stack Software Engineer',
-  description: 'Full-stack engineer specializing in MERN stack, Python, and AI APIs.',
+  description:
+    'Full-stack software engineer building production web applications with React, Next.js, TypeScript, Node.js, and AI integration. Deployed client work, realtime systems, and developer tools. Open to full-time roles.',
   email: 'contact@marcofernstaedt.com',
   sameAs: [
     'https://github.com/MarcoFernstaedt',
@@ -70,7 +84,15 @@ const personSchema = {
   knowsAbout: [
     'JavaScript', 'TypeScript', 'React', 'Next.js', 'Node.js',
     'Python', 'MongoDB', 'PostgreSQL', 'OpenAI API', 'Socket.IO',
+    'Tailwind CSS', 'Vercel', 'REST APIs', 'JWT Authentication',
+    'WebSockets', 'AI Integration', 'SEO', 'Accessibility',
   ],
+  hasOccupation: {
+    '@type': 'Occupation',
+    name: 'Full-Stack Software Engineer',
+    occupationLocation: { '@type': 'Country', name: 'United States' },
+    skills: 'React, Next.js, TypeScript, Node.js, Express, MongoDB, PostgreSQL, OpenAI API, Socket.IO, Tailwind CSS, Vercel',
+  },
 };
 
 const websiteSchema = {
