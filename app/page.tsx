@@ -181,7 +181,7 @@ export default function Home() {
           </motion.footer>
         </main>
 
-        {/* Voice command interface — hidden while Sentinel panel is open */}
+        {/* Voice command interface hidden while Sentinel panel is open */}
         {booted && !sentinelOpen && (
           <VoiceCommand
             onProjectOpen={setSelectedProject}
