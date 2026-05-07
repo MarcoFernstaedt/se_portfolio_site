@@ -93,6 +93,10 @@ const personSchema = {
     occupationLocation: { '@type': 'Country', name: 'United States' },
     skills: 'React, Next.js, TypeScript, Node.js, Express, MongoDB, PostgreSQL, OpenAI API, Socket.IO, Tailwind CSS, Vercel',
   },
+  mainEntityOfPage: {
+    '@type': 'WebPage',
+    '@id': SITE_URL,
+  },
 };
 
 const websiteSchema = {

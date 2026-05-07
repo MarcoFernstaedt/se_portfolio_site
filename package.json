@@ -9,6 +9,7 @@
     "test": "node tests/portfolio-contract.mjs",
     "lint": "eslint",
     "blog:list": "node scripts/blog-workflow.mjs list",
+    "blog:create": "node scripts/blog-workflow.mjs create",
     "blog:approve": "node scripts/blog-workflow.mjs approve",
     "blog:unapprove": "node scripts/blog-workflow.mjs unapprove"
   },
