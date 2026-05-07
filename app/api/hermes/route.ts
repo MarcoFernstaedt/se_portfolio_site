@@ -10,7 +10,7 @@ interface SentinelResponse {
   openProjectId?: string;
 }
 
-const ALLOWED_SECTIONS = new Set(['projects', 'skills', 'systems', 'founder', 'writing']);
+const ALLOWED_SECTIONS = new Set(['projects', 'skills', 'systems', 'founder', 'writing', 'contact', 'resume', 'linkedin']);
 const ALLOWED_PROJECT_IDS = new Set(featuredProjects.map((project) => project.id));
 const MAX_MESSAGE_LENGTH = 500;
 
@@ -49,24 +49,28 @@ const FALLBACK_TOUR: SentinelResponse[] = [
       'First is AI Image to Audio. It uses OpenAI multimodal vision and TTS APIs to turn uploaded images into spoken descriptions, with protected API routing and MP3 playback.',
     scrollToSection: 'projects',
     highlightId: 'projects',
+    openProjectId: 'ai-image-audio',
   },
   {
     message:
       'Next is Saguaro Blossoms Client Website. It shows a real business site with responsive UI, Tucson focused SEO metadata, Resend email templates, Vercel, and a custom domain.',
     scrollToSection: 'projects',
     highlightId: 'projects',
+    openProjectId: 'saguaro-blossoms-client-site',
   },
   {
     message:
       'Then Real Time Messaging. It shows React, Socket.IO, MongoDB, Node, Express, JWT cookies, presence, optimistic UI, and image sharing via Cloudinary.',
     scrollToSection: 'projects',
     highlightId: 'projects',
+    openProjectId: 'realtime-messaging',
   },
   {
     message:
-      'Fourth is Code Interview Platform. It shows Monaco Editor, Stream video and chat, session records, backend orchestration, and code execution through the Piston sandbox API.',
+      'Fourth is Code Interview Platform. It shows Monaco Editor, Stream video and chat, session records, Clerk/MongoDB/Inngest coordination, and client-side code execution through the Piston sandbox API.',
     scrollToSection: 'projects',
     highlightId: 'projects',
+    openProjectId: 'code-interview',
   },
   {
     message:
@@ -117,8 +121,8 @@ ${JSON.stringify(portfolio, null, 2)}
 IMPORTANT: Respond with valid JSON only. Use this exact schema:
 {
   "message": "Your response. One to three short sentences.",
-  "scrollToSection": "projects" | "skills" | "systems" | "founder" | "writing" | null,
-  "highlightId": "projects" | "skills" | "systems" | "founder" | "writing" | null,
+  "scrollToSection": "projects" | "skills" | "systems" | "founder" | "writing" | "contact" | "resume" | "linkedin" | null,
+  "highlightId": "projects" | "skills" | "systems" | "founder" | "writing" | "contact" | "resume" | "linkedin" | null,
   "openProjectId": "ai-image-audio" | "saguaro-blossoms-client-site" | "realtime-messaging" | "code-interview" | null
 }
 
@@ -128,11 +132,11 @@ The site displays only the best four systems from 83 public repos.
 Order matters: AI Image to Audio, Saguaro Blossoms Client Website, Real Time Messaging Platform, Code Interview Platform.
 Prefer AI Image to Audio when asked what to review first.
 Mention exact GitHub or demo links only when relevant.
-If asked about the resume or CV: it is at /Marco-Fernstaedt-Resume-2025.pdf and downloadable via the green Resume button in the Engineer Profile card. Scroll to the founder section.
+If asked about the resume or CV: it is at /Marco-Fernstaedt-Resume-2025.pdf and downloadable via the green Resume button in the Engineer Profile card. Set scrollToSection to resume.
 If asked about availability: Marco is open to work, seeking full time full stack roles, open to remote and on site, based in the US.
 If asked about education: Marco is self-taught, demonstrated through 83 public repos and deployed production projects.
-If asked about LinkedIn: linkedin.com/in/marco-f-19a372219.
-If asked about writing or blog: engineering notes are at /writing, covering AI product, realtime systems, accessibility, and developer tools.`;
+If asked about LinkedIn: linkedin.com/in/marco-f-19a372219. Set scrollToSection to linkedin.
+If asked about writing or blog: engineering notes are at /writing. Current live post covers the maintainable blog system inside this portfolio; future posts should stay tied to real shipped work.`;
 }
 
 function buildUserMessage(
@@ -234,18 +238,18 @@ function answerFromPortfolio(message: string | null): SentinelResponse {
   if (q.includes('resume') || q.includes(' cv ') || q.startsWith('cv') || q.includes('download') || q.includes('pdf')) {
     return {
       message:
-        'The resume PDF is in the Engineer Profile card on the right side of the page. Click the green "↓ Resume" button to download it. Direct path: /Marco-Fernstaedt-Resume-2025.pdf',
-      scrollToSection: 'founder',
-      highlightId: 'founder',
+        'The resume PDF is in the Engineer Profile card. Click the green "↓ Resume" button to download it. Direct path: /Marco-Fernstaedt-Resume-2025.pdf',
+      scrollToSection: 'resume',
+      highlightId: 'resume',
     };
   }
 
   if (q.includes('linkedin')) {
     return {
       message:
-        'LinkedIn: linkedin.com/in/marco-f-19a372219. GitHub: github.com/MarcoFernstaedt. Email: contact@marcofernstaedt.com.',
-      scrollToSection: 'founder',
-      highlightId: 'founder',
+        'LinkedIn: linkedin.com/in/marco-f-19a372219. Use the LinkedIn button in the Engineer Profile card, or GitHub at github.com/MarcoFernstaedt.',
+      scrollToSection: 'linkedin',
+      highlightId: 'linkedin',
     };
   }
 
@@ -256,9 +260,9 @@ function answerFromPortfolio(message: string | null): SentinelResponse {
   ) {
     return {
       message:
-        'Marco is open to work and available for full-time roles now. Open to remote and on-site positions. Based in the US. Contact at contact@marcofernstaedt.com.',
-      scrollToSection: 'founder',
-      highlightId: 'founder',
+        'Marco is open to work and available for full-time roles now. Open to remote and on-site positions. Based in the US. Use the Contact or LinkedIn button in the Engineer Profile card.',
+      scrollToSection: 'contact',
+      highlightId: 'contact',
     };
   }
 
@@ -284,16 +288,16 @@ function answerFromPortfolio(message: string | null): SentinelResponse {
   if (q.includes('salary') || q.includes('rate') || q.includes('compensation') || q.includes('pay')) {
     return {
       message:
-        'Compensation details are best discussed directly. Reach Marco at contact@marcofernstaedt.com or via LinkedIn at linkedin.com/in/marco-f-19a372219.',
-      scrollToSection: 'founder',
-      highlightId: 'founder',
+        'Compensation details are best discussed directly. Use the Contact or LinkedIn button in the Engineer Profile card.',
+      scrollToSection: 'contact',
+      highlightId: 'contact',
     };
   }
 
   if (q.includes('blog') || q.includes('writing') || q.includes('article') || q.includes('post') || q.includes('note')) {
     return {
       message:
-        'Marco writes engineering notes at /writing. Posts cover AI audio product work, realtime system design, accessibility-first engineering, and developer tool decisions. Each post is tied to a real project.',
+        'Marco writes engineering notes at /writing. The live post covers the maintainable blog system inside this portfolio, and future notes should stay tied to real shipped work.',
       scrollToSection: 'writing',
       highlightId: 'writing',
     };
@@ -363,9 +367,9 @@ function answerFromPortfolio(message: string | null): SentinelResponse {
   if (q.includes('github') || q.includes('repo') || q.includes('source')) {
     return {
       message:
-        'Marco has 83 public GitHub repos. Featured source links: https://github.com/MarcoFernstaedt/image_accessibility_tool, https://github.com/MarcoFernstaedt/cynthia-tutoring-platform, https://github.com/MarcoFernstaedt/socketio_chat_app, and https://github.com/MarcoFernstaedt/code_live_platform. Full profile: github.com/MarcoFernstaedt.',
-      scrollToSection: 'founder',
-      highlightId: 'founder',
+        'Marco has 83 public GitHub repos. Featured source links: github.com/MarcoFernstaedt/image_accessibility_tool, github.com/MarcoFernstaedt/cynthia-tutoring-platform, github.com/MarcoFernstaedt/socketio_chat_app, and github.com/MarcoFernstaedt/code_live_platform.',
+      scrollToSection: 'projects',
+      highlightId: 'projects',
     };
   }
 
@@ -382,9 +386,9 @@ function answerFromPortfolio(message: string | null): SentinelResponse {
   if (q.includes('contact') || q.includes('email')) {
     return {
       message:
-        'Use the profile card for contact. Marco’s GitHub is github.com/MarcoFernstaedt and the portfolio contact email is contact@marcofernstaedt.com.',
-      scrollToSection: 'founder',
-      highlightId: 'founder',
+        'Use the Engineer Profile card for contact. It includes GitHub, LinkedIn, Contact, and Resume buttons.',
+      scrollToSection: 'contact',
+      highlightId: 'contact',
     };
   }
 

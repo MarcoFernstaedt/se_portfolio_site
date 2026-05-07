@@ -22,13 +22,26 @@ export default function Home() {
   const skillsRef = useRef<HTMLDivElement>(null);
   const systemsRef = useRef<HTMLDivElement>(null);
   const founderRef = useRef<HTMLDivElement>(null);
+  const writingRef = useRef<HTMLElement>(null);
 
   const handleScrollTo = useCallback((section: string) => {
-    const refs: Record<string, React.RefObject<HTMLDivElement | null>> = {
+    const target = document.querySelector(`[data-scroll-target="${section}"]`);
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      target.classList.add('hermes-highlight');
+      setTimeout(() => target.classList.remove('hermes-highlight'), 3000);
+      return;
+    }
+
+    const refs: Record<string, React.RefObject<HTMLElement | null>> = {
       projects: projectsRef,
       skills: skillsRef,
       systems: systemsRef,
       founder: founderRef,
+      contact: founderRef,
+      resume: founderRef,
+      linkedin: founderRef,
+      writing: writingRef,
     };
     refs[section]?.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }, []);
@@ -143,6 +156,9 @@ export default function Home() {
 
           {/* Footer */}
           <motion.footer
+            ref={writingRef}
+            data-section-id="writing"
+            data-scroll-target="writing"
             initial={{ opacity: 0 }}
             animate={booted ? { opacity: 1 } : {}}
             transition={{ delay: 0.7 }}

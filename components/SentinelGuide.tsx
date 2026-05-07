@@ -81,6 +81,7 @@ export default function SentinelGuide({ onScrollTo, booted }: SentinelGuideProps
         if (project) {
           const el = document.querySelector(`[data-project-id="${project.id}"]`);
           if (el) {
+            el.scrollIntoView({ behavior: 'smooth', block: 'center' });
             el.classList.add('hermes-highlight');
             setTimeout(() => el.classList.remove('hermes-highlight'), 3000);
           }

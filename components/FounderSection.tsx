@@ -128,6 +128,7 @@ export default function FounderSection() {
 
       {/* Contact + social links */}
       <div
+        data-scroll-target="contact"
         className="grid grid-cols-2 gap-2 mt-4 pt-4"
         style={{ borderTop: '1px solid var(--border-color)' }}
         aria-label="Contact and social links"
@@ -145,8 +146,8 @@ export default function FounderSection() {
         >
           ↗ GitHub
         </a>
-        {/* Update with your actual LinkedIn profile URL */}
         <a
+          data-scroll-target="linkedin"
           href="https://www.linkedin.com/in/marco-f-19a372219"
           target="_blank"
           rel="noopener noreferrer"
@@ -156,6 +157,7 @@ export default function FounderSection() {
             color: '#94a3b8',
             backgroundColor: 'rgba(30,58,95,0.2)',
           }}
+          aria-label="Open Marco Fernstaedt LinkedIn profile"
         >
           ↗ LinkedIn
         </a>
@@ -172,6 +174,7 @@ export default function FounderSection() {
         </a>
         {/* Resume: place file at public/Marco-Fernstaedt-Resume-2025.pdf */}
         <a
+          data-scroll-target="resume"
           href="/Marco-Fernstaedt-Resume-2025.pdf"
           download="Marco-Fernstaedt-Resume-2025.pdf"
           className="text-center py-2 rounded text-xs font-bold transition-all hover:opacity-90"
@@ -180,7 +183,7 @@ export default function FounderSection() {
             color: '#00ff88',
             backgroundColor: 'rgba(0,255,136,0.07)',
           }}
-          aria-label="Download resume PDF"
+          aria-label="Download Marco Fernstaedt resume PDF"
         >
           ↓ Resume
         </a>
