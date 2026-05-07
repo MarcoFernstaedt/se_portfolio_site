@@ -1,18 +1,29 @@
-// Server-only module — uses Node.js fs. Never import this in a client component.
+import 'server-only';
 import fs from 'node:fs';
 import path from 'node:path';
 import { BlogPostRecord, BlogWorkflowStatus } from '@/types';
+import { normalizeBlogPostRecord } from '@/lib/blog-schema';
 
 const POSTS_DIR = path.join(process.cwd(), 'content', 'blog', 'posts');
 
+let cachedPosts: BlogPostRecord[] | null = null;
+
 function loadAllPosts(): BlogPostRecord[] {
-  return fs
+  if (cachedPosts) return cachedPosts;
+
+  cachedPosts = fs
     .readdirSync(POSTS_DIR)
     .filter((file) => file.endsWith('.json') && !file.startsWith('_'))
     .map((file) => {
       const raw = fs.readFileSync(path.join(POSTS_DIR, file), 'utf-8');
-      return JSON.parse(raw) as BlogPostRecord;
+      try {
+        return normalizeBlogPostRecord(JSON.parse(raw));
+      } catch (error) {
+        throw new Error(`Invalid blog post ${file}: ${error instanceof Error ? error.message : String(error)}`);
+      }
     });
+
+  return cachedPosts;
 }
 
 function sortNewestFirst(posts: BlogPostRecord[]) {

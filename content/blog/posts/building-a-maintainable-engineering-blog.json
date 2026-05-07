@@ -1,0 +1,50 @@
+{
+  "slug": "building-a-maintainable-engineering-blog",
+  "title": "Building a maintainable engineering blog into my portfolio",
+  "excerpt": "How I added a simple writing system to my portfolio so project notes can be drafted, reviewed, approved, and published without turning the site into a CMS project.",
+  "publishAt": "2026-05-07T01:45:00.000Z",
+  "readTime": "4 min read",
+  "category": "Portfolio Engineering",
+  "featured": true,
+  "status": "approved",
+  "engineeringSignal": [
+    "Added a structured JSON writing workflow instead of hardcoding posts into React components",
+    "Kept publishing reviewable through draft and approval states",
+    "Used build time validation so bad content fails before it reaches the live site"
+  ],
+  "summary": "I added a maintainable writing area to the portfolio so engineering notes can ship regularly while staying structured, reviewable, and safe for a production Next.js site.",
+  "sections": [
+    {
+      "heading": "Problem",
+      "content": [
+        "A portfolio should not be frozen after launch. The projects matter, but the writing area gives hiring teams a way to see how I think through systems, tradeoffs, debugging, and deployment decisions over time.",
+        "The risk was building too much. A full CMS would add another dependency and more moving parts. I wanted a small workflow that fits the existing codebase and can be operated from the repo."
+      ]
+    },
+    {
+      "heading": "What I built",
+      "content": [
+        "The blog uses structured JSON records for each post. The site reads those records on the server, sorts public posts by publish date, and renders the writing index plus individual article pages from the same data shape.",
+        "Each post carries a workflow status, a publish date, a summary, engineering signal bullets, and content sections. That keeps future posts consistent without locking the writing into a heavy external tool."
+      ]
+    },
+    {
+      "heading": "Engineering decisions",
+      "bullets": [
+        "Used server side file loading so public pages are generated from content files during build and request handling",
+        "Added schema normalization so malformed posts fail loudly instead of breaking a page later",
+        "Kept draft and approval states so unfinished notes stay hidden until intentionally published",
+        "Escaped structured data JSON before injecting it into pages",
+        "Kept the public writing area connected to the portfolio instead of splitting attention across another site"
+      ]
+    },
+    {
+      "heading": "Why it matters",
+      "content": [
+        "This is not just a blog feature. It is a small publishing system. It shows the same habits that matter in application work: simple data models, validation, safe defaults, production checks, and a workflow that can be repeated.",
+        "The goal is to make future project notes easy to publish without lowering the quality bar of the portfolio. If a post is not ready, it stays a draft. If the data shape is wrong, the build should tell me before users see it."
+      ]
+    }
+  ],
+  "approvedAt": "2026-05-07T02:46:33.662Z"
+}

@@ -1,7 +1,7 @@
 import { ImageResponse } from 'next/og';
 
 export const runtime = 'edge';
-export const alt = 'Marco Fernstaedt — Full-Stack Software Engineer';
+export const alt = 'Marco Fernstaedt Full Stack Software Engineer';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
@@ -75,7 +75,7 @@ export default function Image() {
               fontWeight: '400',
             }}
           >
-            Full-Stack Software Engineer
+            Full Stack Software Engineer
           </div>
 
           {/* Tech stack row */}

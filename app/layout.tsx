@@ -3,6 +3,7 @@ import { JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 import { Analytics } from '@vercel/analytics/next';
 import { AccessibilityProvider } from '@/lib/accessibility-context';
+import { safeJsonLd } from '@/lib/blog-schema';
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ['latin'],
@@ -17,11 +18,11 @@ const SITE_URL = 'https://marcofernstaedt.com';
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: 'Marco Fernstaedt | Full-Stack Software Engineer',
+    default: 'Marco Fernstaedt | Full Stack Software Engineer',
     template: '%s | Marco Fernstaedt',
   },
   description:
-    'Full-stack software engineer building production web apps with React, Next.js, TypeScript, Node.js, and AI APIs. Deployed client work, realtime systems, and developer tools. Open to full-time roles.',
+    'Full stack software engineer building production web apps with React, Next.js, TypeScript, Node.js, and AI APIs. Deployed client work, realtime systems, and developer tools. Open to full time roles.',
   keywords: [
     'Marco Fernstaedt',
     'full stack developer',
@@ -48,9 +49,9 @@ export const metadata: Metadata = {
     canonical: SITE_URL,
   },
   openGraph: {
-    title: 'Marco Fernstaedt | Full-Stack Software Engineer',
+    title: 'Marco Fernstaedt | Full Stack Software Engineer',
     description:
-      'Full-stack software engineer with deployed client work, AI product experience, realtime systems, and developer tools. Open to full-time roles.',
+      'Full stack software engineer with deployed client work, AI product experience, realtime systems, and developer tools. Open to full time roles.',
     type: 'website',
     url: SITE_URL,
     siteName: 'Marco Fernstaedt Command Center',
@@ -58,9 +59,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Marco Fernstaedt | Full-Stack Software Engineer',
+    title: 'Marco Fernstaedt | Full Stack Software Engineer',
     description:
-      'Full-stack engineer: React, Next.js, TypeScript, Node.js, AI APIs, and deployed production systems. Open to full-time roles.',
+      'Full stack engineer: React, Next.js, TypeScript, Node.js, AI APIs, and deployed production systems. Open to full time roles.',
   },
   robots: {
     index: true,
@@ -73,9 +74,9 @@ const personSchema = {
   '@type': 'Person',
   name: 'Marco Fernstaedt',
   url: SITE_URL,
-  jobTitle: 'Full-Stack Software Engineer',
+  jobTitle: 'Full Stack Software Engineer',
   description:
-    'Full-stack software engineer building production web applications with React, Next.js, TypeScript, Node.js, and AI integration. Deployed client work, realtime systems, and developer tools. Open to full-time roles.',
+    'Full stack software engineer building production web applications with React, Next.js, TypeScript, Node.js, and AI integration. Deployed client work, realtime systems, and developer tools. Open to full time roles.',
   email: 'contact@marcofernstaedt.com',
   sameAs: [
     'https://github.com/MarcoFernstaedt',
@@ -89,7 +90,7 @@ const personSchema = {
   ],
   hasOccupation: {
     '@type': 'Occupation',
-    name: 'Full-Stack Software Engineer',
+    name: 'Full Stack Software Engineer',
     occupationLocation: { '@type': 'Country', name: 'United States' },
     skills: 'React, Next.js, TypeScript, Node.js, Express, MongoDB, PostgreSQL, OpenAI API, Socket.IO, Tailwind CSS, Vercel',
   },
@@ -117,11 +118,11 @@ export default function RootLayout({
       <body>
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
+          dangerouslySetInnerHTML={{ __html: safeJsonLd(personSchema) }}
         />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
+          dangerouslySetInnerHTML={{ __html: safeJsonLd(websiteSchema) }}
         />
         <a href="#main-content" className="skip-link">
           Skip to main content

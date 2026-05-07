@@ -105,7 +105,7 @@ function buildSystemPrompt(): string {
       resume: '/Marco-Fernstaedt-Resume-2025.pdf',
       resumeDownload: 'Available via the green Download Resume button in the Engineer Profile card on the right side of the page.',
     },
-    availability: 'Open to work. Seeking full-time full-stack software engineering roles. Open to remote and on-site.',
+    availability: 'Open to work. Seeking full time full stack software engineering roles. Open to remote and on site.',
   };
 
   return `You are Sentinel, a project guide embedded in Marco Fernstaedt's software engineering portfolio.
@@ -129,7 +129,7 @@ Order matters: AI Image to Audio, Saguaro Blossoms Client Website, Real Time Mes
 Prefer AI Image to Audio when asked what to review first.
 Mention exact GitHub or demo links only when relevant.
 If asked about the resume or CV: it is at /Marco-Fernstaedt-Resume-2025.pdf and downloadable via the green Resume button in the Engineer Profile card. Scroll to the founder section.
-If asked about availability: Marco is open to work, seeking full-time full-stack roles, open to remote and on-site, based in the US.
+If asked about availability: Marco is open to work, seeking full time full stack roles, open to remote and on site, based in the US.
 If asked about education: Marco is self-taught, demonstrated through 83 public repos and deployed production projects.
 If asked about LinkedIn: linkedin.com/in/marco-f-19a372219.
 If asked about writing or blog: engineering notes are at /writing, covering AI product, realtime systems, accessibility, and developer tools.`;
@@ -302,7 +302,7 @@ function answerFromPortfolio(message: string | null): SentinelResponse {
   if (q.includes('python') || q.includes('data') || q.includes('scraping') || q.includes('pipeline') || q.includes('automation')) {
     return {
       message:
-        'Python experience shows in data pipeline and automation work. The portfolio focuses on full-stack JavaScript systems, but Python scripting and data engineering are part of the broader GitHub body of work.',
+        'Python experience shows in data pipeline and automation work. The portfolio focuses on full stack JavaScript systems, but Python scripting and data engineering are part of the broader GitHub body of work.',
       scrollToSection: 'skills',
       highlightId: 'skills',
     };

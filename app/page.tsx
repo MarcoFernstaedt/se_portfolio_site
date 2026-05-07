@@ -36,7 +36,7 @@ export default function Home() {
   return (
     <>
       {/* SEO: always present in server HTML regardless of boot state */}
-      <h1 className="sr-only">Marco Fernstaedt — Full-Stack Software Engineer Portfolio</h1>
+      <h1 className="sr-only">Marco Fernstaedt Full Stack Software Engineer Portfolio</h1>
 
       {/* Boot screen */}
       {!booted && <BootScreen onComplete={() => setBooted(true)} />}

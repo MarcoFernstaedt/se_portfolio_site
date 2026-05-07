@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { formatPublishDate, getBlogPost, getPublicBlogPosts } from '@/lib/blog-data';
+import { safeJsonLd } from '@/lib/blog-schema';
 
 const SITE_URL = 'https://marcofernstaedt.com';
 
@@ -8,8 +9,11 @@ export function generateStaticParams() {
   return getPublicBlogPosts().map((post) => ({ slug: post.slug }));
 }
 
-export function generateMetadata({ params }: { params: { slug: string } }) {
-  const post = getBlogPost(params.slug);
+type BlogPostPageProps = { params: Promise<{ slug: string }> };
+
+export async function generateMetadata({ params }: BlogPostPageProps) {
+  const { slug } = await params;
+  const post = getBlogPost(slug);
 
   if (!post) {
     return { title: 'Post not found | Marco Fernstaedt' };
@@ -38,8 +42,9 @@ export function generateMetadata({ params }: { params: { slug: string } }) {
   };
 }
 
-export default function BlogPostPage({ params }: { params: { slug: string } }) {
-  const post = getBlogPost(params.slug);
+export default async function BlogPostPage({ params }: BlogPostPageProps) {
+  const { slug } = await params;
+  const post = getBlogPost(slug);
 
   if (!post) {
     notFound();
@@ -68,7 +73,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
     <main className="min-h-screen grid-bg scanlines px-4 sm:px-6 py-8" style={{ backgroundColor: 'var(--bg-primary)' }}>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(articleSchema) }}
       />
       <article className="max-w-3xl mx-auto">
         <Link href="/writing" className="text-xs" style={{ color: 'var(--accent-cyan)' }}>

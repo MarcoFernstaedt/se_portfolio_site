@@ -13,10 +13,12 @@ function readPosts() {
     .map((file) => {
       const fullPath = path.join(POSTS_DIRECTORY, file);
       const raw = fs.readFileSync(fullPath, 'utf8');
+      const post = JSON.parse(raw);
+      validatePost(post, file);
       return {
         file,
         fullPath,
-        post: JSON.parse(raw),
+        post,
       };
     });
 }
@@ -32,6 +34,34 @@ function todayIso() {
 function publicStatus(post) {
   const live = (post.status === 'approved' || post.status === 'published') && new Date(post.publishAt) <= new Date();
   return live ? 'LIVE' : 'HIDDEN';
+}
+
+function assertString(value, field) {
+  if (typeof value !== 'string' || !value.trim()) throw new Error(`${field} must be a non-empty string`);
+}
+
+function assertStringArray(value, field) {
+  if (!Array.isArray(value) || value.length === 0 || !value.every((item) => typeof item === 'string' && item.trim())) {
+    throw new Error(`${field} must be a non-empty string array`);
+  }
+}
+
+function validatePost(post, file, { rejectTodos = false } = {}) {
+  for (const field of ['slug', 'title', 'excerpt', 'publishAt', 'readTime', 'category', 'summary']) {
+    assertString(post[field], `${file}:${field}`);
+  }
+  if (!/^[a-z0-9-]+$/.test(post.slug)) throw new Error(`${file}:slug is invalid`);
+  if (Number.isNaN(Date.parse(post.publishAt))) throw new Error(`${file}:publishAt is invalid`);
+  if (!['draft', 'approved', 'published'].includes(post.status)) throw new Error(`${file}:status is invalid`);
+  assertStringArray(post.engineeringSignal, `${file}:engineeringSignal`);
+  if (!Array.isArray(post.sections) || post.sections.length === 0) throw new Error(`${file}:sections is invalid`);
+  for (const [index, section] of post.sections.entries()) {
+    assertString(section.heading, `${file}:sections[${index}].heading`);
+    if (section.content !== undefined) assertStringArray(section.content, `${file}:sections[${index}].content`);
+    if (section.bullets !== undefined) assertStringArray(section.bullets, `${file}:sections[${index}].bullets`);
+    if (section.content === undefined && section.bullets === undefined) throw new Error(`${file}:sections[${index}] needs content or bullets`);
+  }
+  if (rejectTodos && JSON.stringify(post).includes('TODO:')) throw new Error(`${file}:cannot approve TODO placeholders`);
 }
 
 function slugify(str) {
@@ -155,6 +185,7 @@ if (!match) {
 }
 
 if (command === 'approve') {
+  validatePost(match.post, match.file, { rejectTodos: true });
   match.post.status = 'approved';
   match.post.approvedAt = todayIso();
   if (publishAt) {

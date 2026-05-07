@@ -4,7 +4,7 @@ import { useState, useRef, useCallback, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { featuredProjects } from '@/lib/data';
 
-// Step 0 = tour_start intro, steps 1–N = one per project, step N+1 = conclusion
+// Step 0 = tour_start intro, steps 1 through N = one per project, step N plus 1 = conclusion
 const TOUR_MAX_STEP = featuredProjects.length + 1;
 
 type GuideState = 'idle' | 'intro' | 'touring' | 'chatting';
