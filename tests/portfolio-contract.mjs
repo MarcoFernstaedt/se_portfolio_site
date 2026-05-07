@@ -109,7 +109,7 @@ requireIncludes(page, 'resume: founderRef', 'resume scroll mapping')
 requireIncludes(page, 'linkedin: founderRef', 'linkedin scroll mapping')
 requireIncludes(founder, 'data-scroll-target="contact"', 'contact target')
 requireIncludes(founder, 'data-scroll-target="linkedin"', 'LinkedIn target')
-requireIncludes(founder, 'https://www.linkedin.com/in/marco-f-19a372219', 'Marco LinkedIn URL')
+requireIncludes(founder, 'https://www.linkedin.com/in/marcofernstaedt', 'Marco LinkedIn URL')
 requireIncludes(founder, 'Open Marco Fernstaedt LinkedIn profile', 'LinkedIn button aria label')
 requireIncludes(founder, 'data-scroll-target="resume"', 'resume target')
 

@@ -104,7 +104,7 @@ function buildSystemPrompt(): string {
     },
     contact: {
       github: 'https://github.com/MarcoFernstaedt',
-      linkedin: 'https://www.linkedin.com/in/marco-f-19a372219',
+      linkedin: 'https://www.linkedin.com/in/marcofernstaedt',
       email: 'contact@marcofernstaedt.com',
       resume: '/Marco-Fernstaedt-Resume-2025.pdf',
       resumeDownload: 'Available via the green Download Resume button in the Engineer Profile card on the right side of the page.',
@@ -135,7 +135,7 @@ Mention exact GitHub or demo links only when relevant.
 If asked about the resume or CV: it is at /Marco-Fernstaedt-Resume-2025.pdf and downloadable via the green Resume button in the Engineer Profile card. Set scrollToSection to resume.
 If asked about availability: Marco is open to work, seeking full time full stack roles, open to remote and on site, based in the US.
 If asked about education: Marco is self-taught, demonstrated through 83 public repos and deployed production projects.
-If asked about LinkedIn: linkedin.com/in/marco-f-19a372219. Set scrollToSection to linkedin.
+If asked about LinkedIn: linkedin.com/in/marcofernstaedt. Set scrollToSection to linkedin.
 If asked about writing or blog: engineering notes are at /writing. Current live posts cover the maintainable blog system and each featured project. Do not mention private agent operations or secrets.`;
 }
 
@@ -247,7 +247,7 @@ function answerFromPortfolio(message: string | null): SentinelResponse {
   if (q.includes('linkedin')) {
     return {
       message:
-        'LinkedIn: linkedin.com/in/marco-f-19a372219. Use the LinkedIn button in the Engineer Profile card, or GitHub at github.com/MarcoFernstaedt.',
+        'LinkedIn: linkedin.com/in/marcofernstaedt. Use the LinkedIn button in the Engineer Profile card, or GitHub at github.com/MarcoFernstaedt.',
       scrollToSection: 'linkedin',
       highlightId: 'linkedin',
     };

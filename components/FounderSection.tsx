@@ -148,7 +148,7 @@ export default function FounderSection() {
         </a>
         <a
           data-scroll-target="linkedin"
-          href="https://www.linkedin.com/in/marco-f-19a372219"
+          href="https://www.linkedin.com/in/marcofernstaedt"
           target="_blank"
           rel="noopener noreferrer"
           className="text-center py-2 rounded text-xs transition-all hover:opacity-80"

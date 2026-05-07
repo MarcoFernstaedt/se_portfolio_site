@@ -89,7 +89,7 @@ const personSchema = {
   email: 'contact@marcofernstaedt.com',
   sameAs: [
     'https://github.com/MarcoFernstaedt',
-    'https://www.linkedin.com/in/marco-f-19a372219',
+    'https://www.linkedin.com/in/marcofernstaedt',
   ],
   knowsAbout: [
     'JavaScript', 'TypeScript', 'React', 'Next.js', 'Node.js',
