@@ -3,7 +3,7 @@
   "title": "Building a maintainable engineering blog into my portfolio",
   "excerpt": "How I added a simple writing system to my portfolio so project notes can be drafted, reviewed, approved, and published without turning the site into a CMS project.",
   "publishAt": "2026-05-06T16:45:00.000Z",
-  "readTime": "4 min read",
+  "readTime": "5 min read",
   "category": "Portfolio Engineering",
   "featured": true,
   "status": "approved",
@@ -12,7 +12,7 @@
     "Kept publishing reviewable through draft and approval states",
     "Used build time validation so bad content fails before it reaches the live site"
   ],
-  "summary": "I added a maintainable writing area to the portfolio so engineering notes can ship regularly while staying structured, reviewable, and safe for a production Next.js site.",
+  "summary": "I added a maintainable writing area to the portfolio so engineering notes can ship regularly while staying structured, reviewable, safe for a production Next.js site, and honest about agent assisted workflow without exposing private operations.",
   "sections": [
     {
       "heading": "Problem",
@@ -36,6 +36,13 @@
         "Kept draft and approval states so unfinished notes stay hidden until intentionally published",
         "Escaped structured data JSON before injecting it into pages",
         "Kept the public writing area connected to the portfolio instead of splitting attention across another site"
+      ]
+    },
+    {
+      "heading": "How AI assistance fits",
+      "content": [
+        "I do use AI assistance as part of the engineering workflow, but the public signal should be the shipped system, the verification process, and the decisions that survived review. The assistant is not the product. The product is the working portfolio, the tested blog workflow, and the repeatable way changes move from idea to live deployment.",
+        "That distinction matters. Public writing can mention agent assisted drafting, review, testing, and deployment discipline without exposing private operations, credentials, client details, or internal automation paths."
       ]
     },
     {

@@ -1,0 +1,50 @@
+{
+  "slug": "ai-image-audio-product-decisions",
+  "title": "Turning image understanding into an audio product",
+  "excerpt": "A closer look at the AI Image to Audio project: protected AI API routing, MP3 response handling, and why the product flow matters as much as the model call.",
+  "publishAt": "2026-05-06T17:05:00.000Z",
+  "readTime": "5 min read",
+  "category": "AI Product Engineering",
+  "featured": true,
+  "status": "approved",
+  "engineeringSignal": [
+    "Connected multimodal image analysis and speech generation into one usable flow",
+    "Kept provider credentials behind server API routes instead of exposing them to the browser",
+    "Handled generated MP3 audio as a real product response, not just text output"
+  ],
+  "summary": "AI Image to Audio is the strongest technical proof on the portfolio because it turns an AI API chain into a focused user workflow: upload an image, generate a useful description, and return spoken audio that can be played or downloaded.",
+  "sections": [
+    {
+      "heading": "Problem",
+      "content": [
+        "The project started from a simple product question: can an uploaded image become useful spoken output without making the user understand the AI pipeline behind it?",
+        "A thin demo would stop at sending an image to a model and printing text. The useful version needs upload handling, protected credentials, generated text, audio conversion, playback, download, and clear state changes in the interface."
+      ]
+    },
+    {
+      "heading": "What I built",
+      "content": [
+        "The app accepts an image upload, routes the request through a server API, asks an OpenAI vision model to describe the image, passes that description into text to speech, and returns an MP3 response to the browser.",
+        "The browser then exposes both the generated description and an audio player. That keeps the feature understandable: users do not need to care about the model calls, only that the image produced useful spoken output."
+      ]
+    },
+    {
+      "heading": "Engineering decisions",
+      "bullets": [
+        "Kept OpenAI credentials server side through protected API routing",
+        "Returned generated audio as an MP3 binary response instead of treating everything as JSON",
+        "Separated client upload state from server generation work so failures can be handled cleanly",
+        "Made the final output usable immediately through browser playback and download",
+        "Kept the app focused on one workflow instead of adding unrelated AI features"
+      ]
+    },
+    {
+      "heading": "What this shows",
+      "content": [
+        "The important signal is not just that the app uses AI. The signal is that it connects AI capabilities to product behavior: files go in, useful audio comes out, credentials stay protected, and the interface gives the user a clear path through the work.",
+        "That is the kind of engineering I want the portfolio to show. Not model hype. A shipped workflow with real constraints."
+      ]
+    }
+  ],
+  "approvedAt": "2026-05-07T03:43:44.000Z"
+}

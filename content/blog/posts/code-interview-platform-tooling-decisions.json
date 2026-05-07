@@ -1,0 +1,50 @@
+{
+  "slug": "code-interview-platform-tooling-decisions",
+  "title": "Building a code interview platform around real session behavior",
+  "excerpt": "What the Code Interview Platform proves: Monaco Editor, Stream video and chat, Clerk auth, MongoDB sessions, Inngest user events, and Piston API execution.",
+  "publishAt": "2026-05-06T17:20:00.000Z",
+  "readTime": "6 min read",
+  "category": "Developer Tools",
+  "featured": false,
+  "status": "approved",
+  "engineeringSignal": [
+    "Combined editor, video, chat, auth, sessions, and code execution into one workflow",
+    "Used Stream, Clerk, MongoDB, Inngest, and Piston without hiding the coordination cost",
+    "Built around interview session behavior instead of only embedding an editor"
+  ],
+  "summary": "The Code Interview Platform is developer tool proof. It combines Monaco Editor, Stream video and chat, Clerk auth, MongoDB session records, Inngest lifecycle handling, and Piston code execution into a workflow that resembles an actual interview session.",
+  "sections": [
+    {
+      "heading": "Problem",
+      "content": [
+        "A code interview tool is not just an editor in a browser. The session needs identity, participant roles, video, chat, code editing, output, session records, and a clean way to end or join the workflow.",
+        "That makes the project useful because it forces product and system decisions at the same time. The UI has to stay understandable while the backend manages session state and external services."
+      ]
+    },
+    {
+      "heading": "What I built",
+      "content": [
+        "The app uses React and TypeScript on the client, Monaco Editor for the coding surface, Stream for video and chat, Clerk for auth, MongoDB and Mongoose for session records, Inngest for user lifecycle handling, and Piston for code execution.",
+        "The session flow supports creating, joining, loading, and ending sessions. The backend coordinates users, sessions, Stream calls, Stream chat channels, and protected routes. Code execution is handled client side through the Piston API."
+      ]
+    },
+    {
+      "heading": "Engineering decisions",
+      "bullets": [
+        "Embedded Monaco as part of a session workflow, not as a standalone novelty",
+        "Used Clerk for identity and protected route behavior",
+        "Stored session records in MongoDB so active and recent sessions can be retrieved",
+        "Coordinated Stream video and chat resources around session lifecycle actions",
+        "Used Piston for sandboxed code execution while keeping the execution path clear to the user"
+      ]
+    },
+    {
+      "heading": "What this shows",
+      "content": [
+        "This project shows comfort with developer tools and multi service coordination. It is the kind of project where most of the value is in the seams between features.",
+        "The hard part is not rendering an editor. The hard part is making auth, session state, video, chat, code, and execution output feel like one coherent workspace."
+      ]
+    }
+  ],
+  "approvedAt": "2026-05-07T03:43:44.000Z"
+}

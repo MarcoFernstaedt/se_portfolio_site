@@ -1,0 +1,50 @@
+{
+  "slug": "saguaro-blossoms-client-site-delivery",
+  "title": "Shipping a real client website for Saguaro Blossoms",
+  "excerpt": "How the Saguaro Blossoms site shows production client delivery: responsive UI, SEO structure, contact intake, Resend email flow, custom domain, and deployment QA.",
+  "publishAt": "2026-05-06T17:10:00.000Z",
+  "readTime": "5 min read",
+  "category": "Client Delivery",
+  "featured": true,
+  "status": "approved",
+  "engineeringSignal": [
+    "Delivered a production site for a real tutoring business",
+    "Connected SEO structure, contact intake, email delivery, and custom domain deployment",
+    "Handled launch QA across content, layout, forms, metadata, and public URLs"
+  ],
+  "summary": "Saguaro Blossoms matters because it is not a toy app. It is a production business site where polish, copy structure, contact reliability, SEO metadata, and deployment discipline all matter together.",
+  "sections": [
+    {
+      "heading": "Problem",
+      "content": [
+        "A client website is judged differently than a practice project. It has to represent a real business, explain services clearly, work on mobile, provide a reliable contact path, and appear correctly when shared or indexed.",
+        "For Saguaro Blossoms, the work was not only building pages. The work was making a tutoring business feel credible online and making the operational pieces hold together after launch."
+      ]
+    },
+    {
+      "heading": "What I built",
+      "content": [
+        "The site uses Next.js, TypeScript, Tailwind configuration, structured service content, Tucson focused metadata, sitemap and robots support, social preview assets, and a contact flow backed by Resend email delivery.",
+        "The production deployment runs on Vercel with a custom domain. That means the final proof is not a screenshot or local preview. It is a live site with public URLs, metadata, forms, and deployment behavior that can be checked."
+      ]
+    },
+    {
+      "heading": "Engineering decisions",
+      "bullets": [
+        "Kept service pages and metadata aligned around the actual tutoring offer",
+        "Used a server contact route so form behavior can be validated and improved over time",
+        "Built owner and sender email behavior around Resend rather than relying only on a static form",
+        "Checked responsive layout details across hero, footer, images, and contact sections",
+        "Verified domain, public assets, and production pages instead of stopping after a build passed"
+      ]
+    },
+    {
+      "heading": "What this shows",
+      "content": [
+        "This project shows delivery discipline. It proves I can take a real business requirement and move it through UI, content structure, email flow, deployment, and QA without treating any one piece as optional.",
+        "For engineering teams, that matters because production work is usually a chain. If one link is weak, the user feels it."
+      ]
+    }
+  ],
+  "approvedAt": "2026-05-07T03:43:44.000Z"
+}

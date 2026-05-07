@@ -1,0 +1,50 @@
+{
+  "slug": "realtime-messaging-platform-system-design",
+  "title": "Designing a realtime messaging platform beyond static CRUD",
+  "excerpt": "A breakdown of the Real Time Messaging Platform: Socket.IO events, JWT cookie auth, MongoDB persistence, presence cleanup, optimistic UI, and Cloudinary image messages.",
+  "publishAt": "2026-05-06T17:15:00.000Z",
+  "readTime": "5 min read",
+  "category": "Realtime Systems",
+  "featured": false,
+  "status": "approved",
+  "engineeringSignal": [
+    "Built product behavior across React, Express, Socket.IO, MongoDB, and Cloudinary",
+    "Handled live presence, message persistence, authentication, and image sharing together",
+    "Used optimistic UI while still reconciling with server responses and error states"
+  ],
+  "summary": "The messaging platform is useful portfolio proof because it moves beyond static pages. It has live events, authenticated sessions, persisted conversations, image messages, presence state, and UI behavior that has to stay coherent while the system changes.",
+  "sections": [
+    {
+      "heading": "Problem",
+      "content": [
+        "Messaging apps look simple until the state starts moving. A user signs in, connects to a socket, sends a message, uploads an image, sees presence change, and expects the UI to stay calm even when the network is not perfect.",
+        "That makes the project a good test of full stack coordination. The frontend, API, database, socket layer, auth, and media upload path all have to agree about what happened."
+      ]
+    },
+    {
+      "heading": "What I built",
+      "content": [
+        "The platform uses a React frontend with a Node and Express backend, MongoDB persistence through Mongoose, Socket.IO for live communication, JWT cookie authentication, and Cloudinary for image messages.",
+        "Messages are stored with sender and receiver context. The socket layer tracks online users and broadcasts presence updates. The client uses optimistic message behavior so the interface feels responsive while the server confirms the actual saved message."
+      ]
+    },
+    {
+      "heading": "Engineering decisions",
+      "bullets": [
+        "Used HTTP only JWT cookies for auth instead of leaving session handling loose in the browser",
+        "Kept message persistence in MongoDB so conversations survive reloads and reconnects",
+        "Tracked socket connections and presence cleanup on disconnect",
+        "Used optimistic UI for better perceived responsiveness, with replacement or rollback on server result",
+        "Handled image messages through Cloudinary rather than forcing the database to carry media payloads"
+      ]
+    },
+    {
+      "heading": "What this shows",
+      "content": [
+        "This project shows that I can think about product behavior across multiple moving layers. Realtime work punishes vague event models, weak auth boundaries, and sloppy state handling.",
+        "The value is not just that messages appear on the screen. The value is that the message, user, image, presence, and persistence path work together as one product experience."
+      ]
+    }
+  ],
+  "approvedAt": "2026-05-07T03:43:44.000Z"
+}
