@@ -2,6 +2,24 @@
 
 This file tells Claude Code how to work with this codebase, especially for blog post management.
 
+## Hermes Agent Blog API
+
+The portfolio exposes a protected HTTP endpoint for the Hermes LLM agent to create blog drafts remotely without git access.
+
+**Endpoint:** `POST https://marcofernstaedt.com/api/blog/draft`
+
+**Route file:** `app/api/blog/draft/route.ts`
+
+**Required env vars (add to Vercel):**
+- `BLOG_AUTHOR_KEY` — random secret shared only with Hermes
+- `GITHUB_TOKEN` — needs `contents:write` scope on this repo
+
+**How it works:** Hermes POSTs post JSON + key → endpoint validates schema → commits file to GitHub via Contents API → Vercel redeploys → post is hidden (draft) until approved.
+
+**Hermes context document:** `hermes-blog-context.md` — the copy-paste file that gives Hermes the API format, schema, and writing guidelines.
+
+---
+
 ## Blog System
 
 Posts live at `content/blog/posts/<slug>.json`. The site auto-discovers all `.json` files in that directory — **no other file needs to be edited** when you add a post.
