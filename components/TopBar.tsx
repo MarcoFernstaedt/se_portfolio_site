@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { useAccessibility } from '@/lib/accessibility-context';
 import TrafficLightDots from './TrafficLightDots';
 
@@ -81,6 +82,16 @@ export default function TopBar() {
 
         {/* Right controls */}
         <nav aria-label="Site controls" className="flex items-center gap-2">
+          <Link
+            href="/writing"
+            className="flex items-center text-xs px-2 py-1.5 rounded transition-all hover:opacity-80"
+            style={{
+              border: '1px solid var(--border-color)',
+              color: 'var(--text-secondary)',
+            }}
+          >
+            Notes
+          </Link>
           <button
             onClick={toggleAccessibilityMode}
             aria-pressed={accessibilityMode}

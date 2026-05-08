@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
 /** Professional role tags displayed in the engineer profile card. */
@@ -8,13 +9,6 @@ const roles = [
   { label: 'Python Engineer', icon: '🐍', color: '#0080ff' },
   { label: 'AI API Integrator', icon: '◆', color: '#ffaa00' },
   { label: 'Systems Builder', icon: '◈', color: '#00ff88' },
-];
-
-/** Key statistics shown in the profile card footer. */
-const stats = [
-  { value: '83', label: 'Public Repos' },
-  { value: '4', label: 'Featured Systems' },
-  { value: 'Audio', label: 'Core Strength' },
 ];
 
 /**
@@ -27,6 +21,27 @@ const stats = [
  * The download button below links to that path automatically.
  */
 export default function FounderSection() {
+  const [activity, setActivity] = useState<{ commitsLast30Days: number; publicRepos: number } | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch('/api/github/activity')
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data) => {
+        if (!cancelled && data && typeof data.commitsLast30Days === 'number') {
+          setActivity(data);
+        }
+      })
+      .catch(() => {});
+    return () => { cancelled = true; };
+  }, []);
+
+  const stats = [
+    { value: activity ? String(activity.publicRepos) : '—', label: 'Public Repos' },
+    { value: '4', label: 'Featured Systems' },
+    { value: activity ? String(activity.commitsLast30Days) : '—', label: 'Commits / 30d' },
+  ];
+
   return (
     <section
       aria-labelledby="founder-heading"
