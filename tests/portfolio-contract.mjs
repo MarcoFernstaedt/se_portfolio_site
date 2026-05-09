@@ -6,6 +6,7 @@ const read = (file) => fs.readFileSync(path.join(root, file), 'utf8')
 
 const data = read('lib/data.ts')
 const route = read('app/api/hermes/route.ts')
+const githubActivityRoute = read('app/api/github/activity/route.ts')
 const guide = read('components/SentinelGuide.tsx')
 const modal = read('components/ProjectModal.tsx')
 const projectsPanel = read('components/ProjectsPanel.tsx')
@@ -112,6 +113,14 @@ requireIncludes(founder, 'data-scroll-target="linkedin"', 'LinkedIn target')
 requireIncludes(founder, 'https://www.linkedin.com/in/marcofernstaedt', 'Marco LinkedIn URL')
 requireIncludes(founder, 'Open Marco Fernstaedt LinkedIn profile', 'LinkedIn button aria label')
 requireIncludes(founder, 'data-scroll-target="resume"', 'resume target')
+
+for (const marker of [
+  'compare/${before}...${head}',
+  'commitShas = new Set<string>()',
+  'commitsLast30Days: commitShas.size',
+  'eventFallbackCommitShas',
+]) requireIncludes(githubActivityRoute, marker, `GitHub activity actual commit counting: ${marker}`)
+requireNotIncludes(githubActivityRoute, 'distinct_size', 'GitHub activity must not rely on missing PushEvent distinct_size')
 
 for (const forbidden of ['offline mode', 'Configure HERMES_API_URL', 'Hermes is taking a moment', 'recruiter', 'Recruiter', 'visitor', 'Visitor']) {
   for (const [label, text] of [['route', route], ['guide', guide], ['modal', modal], ['projectsPanel', projectsPanel], ['founder', founder]]) {
