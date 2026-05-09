@@ -37,9 +37,9 @@ export default function FounderSection() {
   }, []);
 
   const stats = [
-    { value: activity ? String(activity.publicRepos) : '—', label: 'Public Repos' },
+    { value: activity ? String(activity.publicRepos) : '83', label: 'Public Repos' },
     { value: '4', label: 'Featured Systems' },
-    { value: activity ? String(activity.commitsLast30Days) : '—', label: 'Commits / 30d' },
+    { value: activity ? String(activity.commitsLast30Days) : '0', label: 'Commits / 30d' },
   ];
 
   return (
