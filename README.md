@@ -1,40 +1,80 @@
-# se_portfolio_site
+# Marco Fernstaedt — Software Engineering Portfolio
 
-Marco's engineering portfolio site built with Next.js.
+[Live site](https://se-portfolio-site.vercel.app) | [CI](https://github.com/MarcoFernstaedt/se_portfolio_site/actions)
 
-## Local development
+An accessible Next.js portfolio presenting software, systems, automation, and technical writing through an interactive but screen-reader-operable interface. The project also contains an approval-gated publishing workflow so drafts cannot become public by accident.
+
+## Engineering highlights
+
+- Responsive Next.js 16 application with typed project data
+- Accessible interaction modes, navigation, dialogs, and motion controls
+- Interactive systems map with semantic alternatives
+- Project case studies and technical writeups
+- Server-rendered social metadata, sitemap, and robots configuration
+- Approval-first, file-based blog publishing workflow
+- Deterministic portfolio contract tests, linting, and production-build verification
+
+## Architecture
+
+```text
+app/                         routes, metadata, APIs, and writeup pages
+components/                  accessible portfolio interface components
+content/blog/posts/          reviewed JSON writeups
+tests/portfolio-contract.mjs deterministic release contract
+scripts/blog-workflow.mjs    draft, approval, and publishing commands
+lib/                         typed data, schemas, GitHub activity, and utilities
+```
+
+The portfolio keeps public content in version-controlled files. Draft creation and approval are separate operations, and a post is visible only when it is approved and its publication time has arrived.
+
+## Run locally
+
+Requirements:
+
+- Node.js 20 or newer
+- npm
 
 ```bash
-npm install
+git clone https://github.com/MarcoFernstaedt/se_portfolio_site.git
+cd se_portfolio_site
+npm ci
 npm run dev
 ```
 
-## Blog workflow
+## Verification
 
-The blog is file-based and approval-first.
+```bash
+npm test
+npm run lint
+npm run build
+```
 
-- Posts live in `content/blog/posts/*.json`
-- Drafts stay private by default
-- A post becomes public only when it is approved and its `publishAt` time has passed
+The production build validates application routes, TypeScript, static writeups, metadata, and server-rendered endpoints. GitHub Actions runs the same gates for pushes and pull requests.
 
-Useful commands:
+## Publishing workflow
 
 ```bash
 npm run blog:list
+npm run blog:create -- <slug>
 npm run blog:approve -- <slug> [publishAt]
 npm run blog:unapprove -- <slug>
 ```
 
-Full workflow notes:
+Supporting references:
 
 - `content/blog/WORKFLOW.md`
 - `content/blog-post-template.md`
 
-## Deploy
+Drafts remain private by default. Scheduled visibility still requires the deployment host to rebuild after the publication time.
 
-```bash
-npm run build
-npm run start
-```
+## Accessibility and privacy
 
-To make scheduled posts appear on time, configure your host to rebuild/redeploy on a schedule. The repo already handles approval gating and time-based visibility; the host just needs to refresh the site after the publish time passes.
+- Screen-reader and keyboard workflows are part of the application contract.
+- Motion-heavy presentation has accessible controls and semantic equivalents.
+- Public APIs expose portfolio content and aggregated activity, not private operational state.
+- Repository secrets and deployment hooks are supplied through GitHub or Vercel configuration, never committed.
+- Automated tests support—but do not replace—manual assistive-technology acceptance.
+
+## Deployment
+
+The public deployment runs on Vercel. A scheduled redeploy workflow may invoke a protected deployment hook; when that secret is not configured, the workflow exits safely without creating a false failure.

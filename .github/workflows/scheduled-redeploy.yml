@@ -15,8 +15,8 @@ jobs:
           DEPLOY_HOOK_URL: ${{ secrets.DEPLOY_HOOK_URL }}
         run: |
           if [ -z "$DEPLOY_HOOK_URL" ]; then
-            echo "DEPLOY_HOOK_URL is not set. Add it as a GitHub Actions secret before enabling this workflow."
-            exit 1
+            echo "DEPLOY_HOOK_URL is not configured; skipping scheduled redeploy."
+            exit 0
           fi
 
-          curl -fsS -X POST "$DEPLOY_HOOK_URL"
+          curl --fail --show-error --silent --retry 2 --request POST "$DEPLOY_HOOK_URL"
