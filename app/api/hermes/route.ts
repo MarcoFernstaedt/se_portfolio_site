@@ -46,28 +46,35 @@ const FALLBACK_TOUR: SentinelResponse[] = [
   },
   {
     message:
-      'First is AI Image to Audio. It uses OpenAI multimodal vision and TTS APIs to turn uploaded images into spoken descriptions, with protected API routing and MP3 playback.',
+      'First is the Cabinet Fleet Support Platform. Marco proposed and developed this internal Mashura system to modernize diagnostics and support workflows for an approximately 8,000 cabinet Windows fleet.',
+    scrollToSection: 'projects',
+    highlightId: 'projects',
+    openProjectId: 'cabinet-fleet-platform',
+  },
+  {
+    message:
+      'Next is AI Image to Audio. It uses OpenAI multimodal vision and TTS APIs to turn uploaded images into spoken descriptions, with protected API routing and MP3 playback.',
     scrollToSection: 'projects',
     highlightId: 'projects',
     openProjectId: 'ai-image-audio',
   },
   {
     message:
-      'Next is Saguaro Blossoms Client Website. It shows a real business site with responsive UI, Tucson focused SEO metadata, Resend email templates, Vercel, and a custom domain.',
+      'Third is Saguaro Blossoms Client Website. It shows a real business site with responsive UI, Tucson focused SEO metadata, Resend email templates, Vercel, and a custom domain.',
     scrollToSection: 'projects',
     highlightId: 'projects',
     openProjectId: 'saguaro-blossoms-client-site',
   },
   {
     message:
-      'Then Real Time Messaging. It shows React, Socket.IO, MongoDB, Node, Express, JWT cookies, presence, optimistic UI, and image sharing via Cloudinary.',
+      'Fourth is Real Time Messaging. It shows React, Socket.IO, MongoDB, Node, Express, JWT cookies, presence, optimistic UI, and image sharing via Cloudinary.',
     scrollToSection: 'projects',
     highlightId: 'projects',
     openProjectId: 'realtime-messaging',
   },
   {
     message:
-      'Fourth is Code Interview Platform. It shows Monaco Editor, Stream video and chat, session records, Clerk/MongoDB/Inngest coordination, and client-side code execution through the Piston sandbox API.',
+      'Fifth is Code Interview Platform. It shows Monaco Editor, Stream video and chat, session records, Clerk/MongoDB/Inngest coordination, and client-side code execution through the Piston sandbox API.',
     scrollToSection: 'projects',
     highlightId: 'projects',
     openProjectId: 'code-interview',
@@ -106,7 +113,7 @@ function buildSystemPrompt(): string {
       github: 'https://github.com/MarcoFernstaedt',
       linkedin: 'https://www.linkedin.com/in/marcofernstaedt',
       email: 'contact@marcofernstaedt.com',
-      resume: '/Marco-Fernstaedt-Resume-2025.pdf',
+      resume: '/Marco-Fernstaedt-Resume.pdf',
       resumeDownload: 'Available via the green Download Resume button in the Engineer Profile card on the right side of the page.',
     },
     availability: 'Open to work. Seeking full time full stack software engineering roles. Open to remote and on site.',
@@ -123,16 +130,17 @@ IMPORTANT: Respond with valid JSON only. Use this exact schema:
   "message": "Your response. One to three short sentences.",
   "scrollToSection": "projects" | "skills" | "systems" | "founder" | "writing" | "contact" | "resume" | "linkedin" | null,
   "highlightId": "projects" | "skills" | "systems" | "founder" | "writing" | "contact" | "resume" | "linkedin" | null,
-  "openProjectId": "ai-image-audio" | "saguaro-blossoms-client-site" | "realtime-messaging" | "code-interview" | null
+  "openProjectId": "cabinet-fleet-platform" | "ai-image-audio" | "saguaro-blossoms-client-site" | "realtime-messaging" | "code-interview" | null
 }
 
 Rules:
 Keep the answer under 80 words.
-The site displays only the best four systems from 83 public repos.
-Order matters: AI Image to Audio, Saguaro Blossoms Client Website, Real Time Messaging Platform, Code Interview Platform.
-Prefer AI Image to Audio when asked what to review first.
+The site displays five selected systems. The Cabinet Fleet Support Platform is private internal Mashura work, so it has no public repository link.
+Order matters: Cabinet Fleet Support Platform, AI Image to Audio, Saguaro Blossoms Client Website, Real Time Messaging Platform, Code Interview Platform.
+Prefer the Cabinet Fleet Support Platform for modernization roles and AI Image to Audio for AI product roles.
 Mention exact GitHub or demo links only when relevant.
-If asked about the resume or CV: it is at /Marco-Fernstaedt-Resume-2025.pdf and downloadable via the green Resume button in the Engineer Profile card. Set scrollToSection to resume.
+If asked about the resume or CV: it is at /Marco-Fernstaedt-Resume.pdf and downloadable via the green Resume button in the Engineer Profile card. Set scrollToSection to resume.
+If asked about Mashura, current work, modernization, C#, .NET, cabinets, fleet operations, or professional experience: Marco has worked as an Integrated Systems Engineer at Mashura since July 2025. He proposed and developed the Cabinet Fleet Support Platform. Describe only the completed private lab release and do not claim a production fleet rollout.
 If asked about availability: Marco is open to work, seeking full time full stack roles, open to remote and on site, based in the US.
 If asked about education: Marco is self-taught, demonstrated through 83 public repos and deployed production projects.
 If asked about LinkedIn: linkedin.com/in/marcofernstaedt. Set scrollToSection to linkedin.
@@ -217,7 +225,7 @@ function skillAnswer(q: string): SentinelResponse {
 function experienceSummary(): SentinelResponse {
   return {
     message:
-      'Experience summary: Marco builds full stack products from UI through backend APIs and deployment. The strongest proof is deployed AI audio work, a live client website, realtime messaging, and developer tool architecture.',
+      'Marco has worked as an Integrated Systems Engineer at Mashura since July 2025. He proposed and developed the Cabinet Fleet Support Platform, then delivered a secure private lab release spanning a Windows agent, ASP.NET Core API, WPF console, data, authentication, monitoring, incidents, and tests.',
     scrollToSection: 'projects',
     highlightId: 'projects',
   };
@@ -238,7 +246,7 @@ function answerFromPortfolio(message: string | null): SentinelResponse {
   if (q.includes('resume') || q.includes(' cv ') || q.startsWith('cv') || q.includes('download') || q.includes('pdf')) {
     return {
       message:
-        'The resume PDF is in the Engineer Profile card. Click the green "↓ Resume" button to download it. Direct path: /Marco-Fernstaedt-Resume-2025.pdf',
+        'The resume PDF is in the Engineer Profile card. Click the green "↓ Resume" button to download it. Direct path: /Marco-Fernstaedt-Resume.pdf',
       scrollToSection: 'resume',
       highlightId: 'resume',
     };
@@ -326,6 +334,10 @@ function answerFromPortfolio(message: string | null): SentinelResponse {
     return experienceSummary();
   }
 
+  if (q.includes('mashura') || q.includes('cabinet') || q.includes('fleet') || q.includes('moderniz') || q.includes('c#') || q.includes('.net')) {
+    return projectSummary('cabinet-fleet-platform');
+  }
+
   if (q.includes('skill') || q.includes('stack') || q.includes('tech') || q.includes('language') || q.includes('frontend') || q.includes('backend') || q.includes('react') || q.includes('next') || q.includes('typescript') || q.includes('node') || q.includes('api') || q.includes('python') || q.includes('deployment') || q.includes('tailwind') || q.includes('seo') || q.includes('resend')) {
     return skillAnswer(q);
   }
@@ -333,7 +345,7 @@ function answerFromPortfolio(message: string | null): SentinelResponse {
   if (q.includes('filter') || q.includes('category') || q.includes('categories')) {
     return {
       message:
-        'Use filters to inspect the four systems by strength area: AI and audio, client platforms, realtime platforms, tooling, and infrastructure depth.',
+        'Use filters to inspect the five systems by strength area: fleet infrastructure, AI and audio, client platforms, realtime platforms, and developer tooling.',
       scrollToSection: 'projects',
       highlightId: 'projects',
     };
@@ -358,7 +370,7 @@ function answerFromPortfolio(message: string | null): SentinelResponse {
   if (q.includes('all repos') || q.includes('all github') || q.includes('every repo') || q.includes('all 83')) {
     return {
       message:
-        'No. The portfolio shows only the best four systems from 83 public repos. The full GitHub profile is linked for deeper review, but the page stays focused on the strongest work.',
+        'No. The portfolio shows five selected systems, including one private internal Mashura platform. The full GitHub profile is linked for deeper review, but the page stays focused on the strongest work.',
       scrollToSection: 'projects',
       highlightId: 'projects',
     };

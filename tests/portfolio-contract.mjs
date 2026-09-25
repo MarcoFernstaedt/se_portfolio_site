@@ -37,8 +37,12 @@ for (const marker of [
   "repoPath: 'MarcoFernstaedt/socketio_chat_app'",
   "github: 'https://github.com/MarcoFernstaedt/code_live_platform'",
   "repoPath: 'MarcoFernstaedt/code_live_platform'",
+  "id: 'cabinet-fleet-platform'",
+  "name: 'Cabinet Fleet Support Platform'",
+  "'C#'",
+  "'ASP.NET Core'",
   'engineeringSignal:',
-  'BEST_PROJECT_LIMIT = 4',
+  'BEST_PROJECT_LIMIT = 5',
   'featuredProjects',
   "id: 'saguaro-blossoms-client-site'",
   "name: 'Saguaro Blossoms Client Website'",
@@ -49,6 +53,7 @@ for (const marker of [
 ]) requireIncludes(data, marker)
 
 const projectOrder = [
+  "id: 'cabinet-fleet-platform'",
   "id: 'ai-image-audio'",
   "id: 'saguaro-blossoms-client-site'",
   "id: 'realtime-messaging'",
@@ -84,6 +89,7 @@ for (const marker of [
   'tour_start',
   'tour_step',
   'Welcome to Marco',
+  'Cabinet Fleet Support Platform',
   'AI Image to Audio',
   'Saguaro Blossoms Client Website',
   'Real Time Messaging',
@@ -99,7 +105,7 @@ for (const marker of [
 ]) requireIncludes(route, marker)
 
 const tourBlock = route.slice(route.indexOf('const FALLBACK_TOUR'), route.indexOf('function buildSystemPrompt'))
-for (const projectId of ['ai-image-audio', 'saguaro-blossoms-client-site', 'realtime-messaging', 'code-interview']) {
+for (const projectId of ['cabinet-fleet-platform', 'ai-image-audio', 'saguaro-blossoms-client-site', 'realtime-messaging', 'code-interview']) {
   requireIncludes(tourBlock, `openProjectId: '${projectId}'`, `tour scroll target: ${projectId}`)
 }
 requireIncludes(guide, 'el.scrollIntoView({ behavior: \'smooth\', block: \'center\' })', 'tour scrolls to project card')
@@ -140,12 +146,12 @@ requireNotIncludes(modal, 'pt-[env(safe-area-inset-top)]', 'project modal top pa
 
 requireIncludes(modal, 'Engineering Signal:', 'project modal engineering signal block')
 requireIncludes(modal, 'Live Demo', 'project modal live demo link')
-requireIncludes(projectsPanel, 'Featured work selected from 83 public GitHub repositories', 'projects panel intro framing')
+requireIncludes(projectsPanel, 'Selected professional and public work', 'projects panel intro framing')
 requireIncludes(founder, '83', 'public GitHub repo count')
 requireIncludes(founder, 'Featured Systems', 'featured systems stat')
 requireNotIncludes(page, 'AccessibilityPanel', 'accessibility panel should not render')
 
-for (const skill of ['Tailwind CSS', 'Resend Email', 'SEO / Structured Data', 'Vercel Deployment', 'JWT Auth', 'Monaco Editor', 'Piston API']) {
+for (const skill of ['Tailwind CSS', 'Resend Email', 'SEO / Structured Data', 'Vercel Deployment', 'JWT Auth', 'Monaco Editor', 'Piston API', 'C# / .NET / ASP.NET Core', 'Windows Services / WPF']) {
   requireIncludes(data, `name: '${skill}'`, `skill coverage: ${skill}`)
 }
 

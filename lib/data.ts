@@ -7,9 +7,27 @@
 
 import { Project, Skill } from '@/types';
 
-export const BEST_PROJECT_LIMIT = 4;
+export const BEST_PROJECT_LIMIT = 5;
 
 export const projects: Project[] = [
+  {
+    id: 'cabinet-fleet-platform',
+    name: 'Cabinet Fleet Support Platform',
+    status: 'Active',
+    stack: ['C#', '.NET', 'ASP.NET Core', 'WPF', 'Windows Service', 'SQLite'],
+    description:
+      'An internal Mashura platform I proposed and developed to modernize support for a fleet of approximately 8,000 Windows cabinets. The completed private lab release connects a Windows agent, secure API, and support console for enrollment, monitoring, diagnostics, incident handling, and audited access.',
+    function: 'Connects cabinet agents to a secure control plane and support console through outbound HTTPS',
+    challenges: [
+      'Extending an existing console, API, agent, and database without replacing working architecture',
+      'Using unique device enrollment, Supervisor approval, role based access, replay protection, and bounded payloads',
+      'Correlating heartbeat and connectivity evidence into actionable incidents instead of generic offline alerts',
+      'Testing authentication, authorization, lost responses, stale results, restart identity, and audit behavior',
+    ],
+    engineeringSignal:
+      'Modernization proof from operational problem discovery through architecture, implementation, security hardening, automated testing, packaging, and a deployed private lab release.',
+    category: 'infrastructure',
+  },
   {
     id: 'ai-image-audio',
     name: 'AI Image to Audio',
@@ -115,6 +133,8 @@ export const skills: Skill[] = [
   { name: 'Piston API', level: 7, category: 'backend' },
   { name: 'Stream Video / Chat', level: 7, category: 'backend' },
   { name: 'Systems Architecture', level: 7, category: 'infrastructure' },
+  { name: 'C# / .NET / ASP.NET Core', level: 8, category: 'backend' },
+  { name: 'Windows Services / WPF', level: 8, category: 'infrastructure' },
 ];
 
 export const bootMessages = [

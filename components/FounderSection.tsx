@@ -5,10 +5,10 @@ import { motion } from 'framer-motion';
 
 /** Professional role tags displayed in the engineer profile card. */
 const roles = [
+  { label: 'Integrated Systems Engineer', icon: '◈', color: '#00ff88' },
   { label: 'MERN Stack Developer', icon: '⌨', color: '#00d4ff' },
-  { label: 'Python Engineer', icon: '🐍', color: '#0080ff' },
   { label: 'AI API Integrator', icon: '◆', color: '#ffaa00' },
-  { label: 'Systems Builder', icon: '◈', color: '#00ff88' },
+  { label: 'C# / .NET Engineer', icon: '⚙', color: '#0080ff' },
 ];
 
 /**
@@ -17,7 +17,7 @@ const roles = [
  * Displays name, title, animated role tags, mission statement, key stats,
  * and contact/social links including a resume download button.
  *
- * RESUME: Place your PDF at public/Marco-Fernstaedt-Resume-2025.pdf
+ * RESUME: Place your PDF at public/Marco-Fernstaedt-Resume.pdf
  * The download button below links to that path automatically.
  */
 export default function FounderSection() {
@@ -38,7 +38,7 @@ export default function FounderSection() {
 
   const stats = [
     { value: activity ? String(activity.publicRepos) : '83', label: 'Public Repos' },
-    { value: '4', label: 'Featured Systems' },
+    { value: '5', label: 'Featured Systems' },
     { value: activity ? String(activity.commitsLast30Days) : '0', label: 'Commits / 30d' },
   ];
 
@@ -113,9 +113,9 @@ export default function FounderSection() {
         className="text-sm leading-relaxed mb-6"
         style={{ color: '#94a3b8', borderLeft: '2px solid #1e3a5f', paddingLeft: '12px' }}
       >
-        Building performant software from the ground up. This portfolio
-        highlights the strongest systems from a broader GitHub body of work, with
-        live demos and source links where they strengthen the engineering signal.
+        Integrated Systems Engineer at Mashura since July 2025. I modernize existing
+        systems and build full stack products across JavaScript, TypeScript, C#,
+        APIs, data, Windows services, testing, and deployment.
       </p>
 
       {/* Stats */}
@@ -187,11 +187,11 @@ export default function FounderSection() {
         >
           ✉ Contact
         </a>
-        {/* Resume: place file at public/Marco-Fernstaedt-Resume-2025.pdf */}
+        {/* Resume: place file at public/Marco-Fernstaedt-Resume.pdf */}
         <a
           data-scroll-target="resume"
-          href="/Marco-Fernstaedt-Resume-2025.pdf"
-          download="Marco-Fernstaedt-Resume-2025.pdf"
+          href="/Marco-Fernstaedt-Resume.pdf"
+          download="Marco-Fernstaedt-Resume.pdf"
           className="text-center py-2 rounded text-xs font-bold transition-all hover:opacity-90"
           style={{
             border: '1px solid rgba(0,255,136,0.4)',
