@@ -113,7 +113,7 @@ export default function FounderSection() {
         className="text-sm leading-relaxed mb-6"
         style={{ color: '#94a3b8', borderLeft: '2px solid #1e3a5f', paddingLeft: '12px' }}
       >
-        Integrated Systems Engineer at Mashura since July 2025. I modernize existing
+        I develop software for managing multiple machines and modernize existing
         systems and build full stack products across JavaScript, TypeScript, C#,
         APIs, data, Windows services, testing, and deployment.
       </p>

@@ -13,10 +13,10 @@ export const projects: Project[] = [
   {
     id: 'cabinet-fleet-platform',
     name: 'Cabinet Fleet Support Platform',
-    status: 'Active',
+    status: 'In Development',
     stack: ['C#', '.NET', 'ASP.NET Core', 'WPF', 'Windows Service', 'SQLite'],
     description:
-      'An internal Mashura platform I proposed and developed to modernize support for a fleet of approximately 8,000 Windows cabinets. The completed private lab release connects a Windows agent, secure API, and support console for enrollment, monitoring, diagnostics, incident handling, and audited access.',
+      'A general support tool in development for monitoring and managing multiple Windows machines. I am working on a Windows agent, secure API, and desktop console for enrollment, monitoring, diagnostics, and incident handling. Planned configuration management includes firewall drift detection, approved remediation, and rollback. It is not a production deployment.',
     function: 'Connects cabinet agents to a secure control plane and support console through outbound HTTPS',
     challenges: [
       'Extending an existing console, API, agent, and database without replacing working architecture',
@@ -25,7 +25,7 @@ export const projects: Project[] = [
       'Testing authentication, authorization, lost responses, stale results, restart identity, and audit behavior',
     ],
     engineeringSignal:
-      'Modernization proof from operational problem discovery through architecture, implementation, security hardening, automated testing, packaging, and a deployed private lab release.',
+      'Ongoing systems engineering work across agent communication, API design, desktop workflows, authorization, and regression testing.',
     category: 'infrastructure',
   },
   {

@@ -47,7 +47,7 @@ export default function ProjectsPanel({ onProjectClick }: ProjectsPanelProps) {
       </div>
 
       <p className="text-xs mb-4 leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
-        Selected professional and public work. Start with the internal fleet modernization platform, then continue through AI, client delivery, realtime systems, and developer tools.
+        Selected professional and public work. Start with the multi-machine support tool in development, then continue through AI, client delivery, realtime systems, and developer tools.
       </p>
 
       {/* Filter tabs */}

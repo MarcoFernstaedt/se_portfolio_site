@@ -46,7 +46,7 @@ const FALLBACK_TOUR: SentinelResponse[] = [
   },
   {
     message:
-      'First is the Cabinet Fleet Support Platform. Marco proposed and developed this internal Mashura system to modernize diagnostics and support workflows for an approximately 8,000 cabinet Windows fleet.',
+      'First is the Cabinet Fleet Support Platform, a general multi-machine support tool Marco is developing. It combines a Windows agent, API, and desktop console; production deployment remains pending.',
     scrollToSection: 'projects',
     highlightId: 'projects',
     openProjectId: 'cabinet-fleet-platform',
@@ -135,12 +135,12 @@ IMPORTANT: Respond with valid JSON only. Use this exact schema:
 
 Rules:
 Keep the answer under 80 words.
-The site displays five selected systems. The Cabinet Fleet Support Platform is private internal Mashura work, so it has no public repository link.
+The site displays five selected systems. The Cabinet Fleet Support Platform is an in-development general support tool, not a company deployment. Its source is not linked publicly.
 Order matters: Cabinet Fleet Support Platform, AI Image to Audio, Saguaro Blossoms Client Website, Real Time Messaging Platform, Code Interview Platform.
 Prefer the Cabinet Fleet Support Platform for modernization roles and AI Image to Audio for AI product roles.
 Mention exact GitHub or demo links only when relevant.
 If asked about the resume or CV: it is at /Marco-Fernstaedt-Resume.pdf and downloadable via the green Resume button in the Engineer Profile card. Set scrollToSection to resume.
-If asked about Mashura, current work, modernization, C#, .NET, cabinets, fleet operations, or professional experience: Marco has worked as an Integrated Systems Engineer at Mashura since July 2025. He proposed and developed the Cabinet Fleet Support Platform. Describe only the completed private lab release and do not claim a production fleet rollout.
+If asked about Mashura, current work, modernization, C#, .NET, cabinets, fleet operations, or professional experience: Describe Cabinet as a general multi-machine support tool in development, not employment or internal company use. Do not claim production rollout or completed remediation.
 If asked about availability: Marco is open to work, seeking full time full stack roles, open to remote and on site, based in the US.
 If asked about education: Marco is self-taught, demonstrated through 83 public repos and deployed production projects.
 If asked about LinkedIn: linkedin.com/in/marcofernstaedt. Set scrollToSection to linkedin.
@@ -225,7 +225,7 @@ function skillAnswer(q: string): SentinelResponse {
 function experienceSummary(): SentinelResponse {
   return {
     message:
-      'Marco has worked as an Integrated Systems Engineer at Mashura since July 2025. He proposed and developed the Cabinet Fleet Support Platform, then delivered a secure private lab release spanning a Windows agent, ASP.NET Core API, WPF console, data, authentication, monitoring, incidents, and tests.',
+      'Marco develops full stack web applications and is working on a general multi-machine support tool using C#, ASP.NET Core, a Windows agent, and WPF. His public projects demonstrate React, TypeScript, Node.js, secure APIs, accessibility, and testing.',
     scrollToSection: 'projects',
     highlightId: 'projects',
   };
@@ -370,7 +370,7 @@ function answerFromPortfolio(message: string | null): SentinelResponse {
   if (q.includes('all repos') || q.includes('all github') || q.includes('every repo') || q.includes('all 83')) {
     return {
       message:
-        'No. The portfolio shows five selected systems, including one private internal Mashura platform. The full GitHub profile is linked for deeper review, but the page stays focused on the strongest work.',
+        'No. The portfolio shows five selected systems, including a general multi-machine support tool in development. The full GitHub profile is linked for deeper review, but the page stays focused on the strongest work.',
       scrollToSection: 'projects',
       highlightId: 'projects',
     };
