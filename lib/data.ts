@@ -26,6 +26,7 @@ export const projects: Project[] = [
     ],
     engineeringSignal:
       'Ongoing systems engineering work across agent communication, API design, desktop workflows, authorization, and regression testing.',
+    demo: '/console',
     category: 'infrastructure',
   },
   {
