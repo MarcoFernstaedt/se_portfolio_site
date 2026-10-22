@@ -11,6 +11,13 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [{ source: "/console", destination: CONSOLE_URL, permanent: false }];
   },
+  async rewrites() {
+    // TEMPORARY PROBE: can Vercel's proxy reach the console's Funnel origin at all?
+    return [
+      { source: "/console-probe", destination: `${CONSOLE_URL}/` },
+      { source: "/console-probe/:path*", destination: `${CONSOLE_URL}/:path*` },
+    ];
+  },
 };
 
 export default nextConfig;
